@@ -27,7 +27,7 @@ public class Post {
 
     @ManyToOne
     @JoinColumn(name = "author_id", nullable = false)
-    private User author;
+    private User user;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "update_date")
