@@ -1,4 +1,4 @@
-package model;
+package com.example.springteamwork.model;
 import lombok.*;
 import jakarta.persistence.*;
 import org.apache.catalina.User;
