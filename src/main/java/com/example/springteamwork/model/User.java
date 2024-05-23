@@ -42,7 +42,6 @@ public class User {
     private String password;
 
     @NotNull(message = "Retype password is required")
-    @Transient
     private String retypePassword;
 
 

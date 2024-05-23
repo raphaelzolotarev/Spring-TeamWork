@@ -13,7 +13,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "comments")
-public class Comment {
+public class Comment extends AuditModel{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
