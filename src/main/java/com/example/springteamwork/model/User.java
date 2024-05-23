@@ -6,9 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
-
 @Entity
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
@@ -18,31 +16,48 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull(message = "First name is required")
+    @NotNull
     private String firstName;
 
-    @NotNull(message = "Last name is required")
+    @NotNull
     private String lastName;
 
-    @NotNull(message = "Username is required")
+    @NotNull
     @Column(unique = true)
     private String username;
 
-    @NotNull(message = "Email is required")
-    @Email(message = "Invalid email format")
+    @NotNull
     private String email;
-
     private String street;
     private String houseNr;
     private String city;
     private String zip;
 
-    @NotNull(message = "Password is required")
-    @Size(min = 6, message = "Password must be at least 6 characters long")
+    @NotNull
     private String password;
 
-    @NotNull(message = "Retype password is required")
+    @NotNull
     private String retypePassword;
 
+    public User(String firstName, String lastName, String username, String email, String password, String retypePassword) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.retypePassword = retypePassword;
+    }
 
+    public User(String firstName, String lastName, String username, String email, String street, String houseNr, String city, String zip, String password, String retypePassword) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.email = email;
+        this.street = street;
+        this.houseNr = houseNr;
+        this.city = city;
+        this.zip = zip;
+        this.password = password;
+        this.retypePassword = retypePassword;
+    }
 }
