@@ -1,44 +1,53 @@
 package com.example.springteamwork.model;
-import lombok.*;
 import jakarta.persistence.*;
-import org.apache.catalina.User;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-
-import java.util.Date;
-import java.util.List;
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Entity
 @Getter
 @Setter
-@Entity
-@Table(name = "post")
-public class Post {
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "posts")
+
+public class Post extends AuditModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @NotNull
+    @Size(max = 100)
+    @Column(unique = true)
     private String title;
 
-    @Column(nullable = false, length = 250)
+    @NotNull
+    @Size(max = 250)
+    private String description;
+
+    @NotNull
+    @Lob
+    @Column(name = "content", columnDefinition = "LONGTEXT")
     private String content;
 
-    @ManyToOne
-    @JoinColumn(name = "author_id", nullable = false)
-    private User user;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "update_date")
-    private Date updateDate;
-
-    @ElementCollection
-    @CollectionTable(name = "post_tags", joinColumns = @JoinColumn(name = "post_id"))
-    @Column(name = "tag")
-    private List<String> tags;
-
-
-
+    public Post(String title, String description) {
+        this.title = title;
+        this.description = description;
+    }
+    public Post(Long id, String title, String description) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+    }
+    public Post(String title, String description, String content) {
+        this.title = title;
+        this.description = description;
+        this.content = content;
+    }
 
 }
