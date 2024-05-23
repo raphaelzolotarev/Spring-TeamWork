@@ -1,4 +1,5 @@
 package com.example.springteamwork.repository;
+
 import com.example.springteamwork.model.Comment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
