@@ -1,21 +1,17 @@
 package com.example.springteamwork.service;
-
-import com.example.springteamwork.model.Post;
 import com.example.springteamwork.repository.UserRepository;
-import jakarta.jws.soap.SOAPBinding;
-import org.apache.catalina.User;
+import com.example.springteamwork.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
-    public final UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    private UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -25,8 +21,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getUserByName(String name) {
-        return userRepository.findByName(name);
+    public List<User> getUserByUserName(String username) {
+        return userRepository.findByUsername(username);
     }
 
 
