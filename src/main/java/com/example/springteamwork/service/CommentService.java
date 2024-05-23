@@ -1,8 +1,7 @@
 package com.example.springteamwork.service;
 
-import com.example.jpa.model.Comment;
-
 import java.util.List;
+import com.example.springteamwork.model.Comment;
 
 public interface CommentService {
     List<Comment> getAllComments();
