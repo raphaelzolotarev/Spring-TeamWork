@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidebar Example</title>
+    <link href="https://unpkg.com/flowbite@1.5.1/dist/flowbite.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/flowbite@1.5.1/dist/flowbite.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .sidebar-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        .sidebar-content {
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+        .sidebar-footer {
+            margin-top: auto;
+            padding: 1rem;
+        }
+    </style>
+</head>
+<body class="flex">
+<!-- Sidebar -->
+<aside class="w-64 border sidebar-container" aria-label="Sidebar">
+    <div class="sidebar-content py-4 px-3 bg-gray-50 rounded dark:bg-gray-800">
+        <ul class="space-y-2">
+            <li>
+                <a href="#" class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <span class="ml-3">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <span class="ml-3">Users</span>
+                </a>
+            </li>
+            <!-- Add more sidebar items here -->
+        </ul>
+        <div class="mt-6">
+            <h3 class="text-lg font-medium text-gray-900 dark:text-white">Connected Users</h3>
+            <ul id="connected-users-list" class="mt-4 space-y-2">
+                <!-- User avatars and names will be appended here -->
+                <li class="flex items-center space-x-3">
+                    <div class="relative">
+                        <img class="w-10 h-10 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Charlotte">
+                        <span class="absolute top-0 left-7 w-3.5 h-3.5 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-base font-medium text-gray-900 dark:text-white">Charlotte</p>
+                    </div>
+                </li>
+                <li class="flex items-center space-x-3">
+                    <div class="relative">
+                        <img class="w-10 h-10 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Dylan">
+                        <span class="absolute top-0 left-7 w-3.5 h-3.5 bg-red-400 border-2 border-white dark:border-gray-800 rounded-full"></span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-base font-medium text-gray-900 dark:text-white">Dylan</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="sidebar-footer bg-gray-50 dark:bg-gray-800">
+        <p class="text-sm text-gray-500 dark:text-gray-400">Connected: <span id="connected-count">1</span></p>
+        <p class="text-sm text-gray-500 dark:text-gray-400">Disconnected: <span id="disconnected-count">1</span></p>
+        <p class="text-sm text-gray-500 dark:text-gray-400">Number of visits: <span id="visitors-count">22</span></p>
+    </div>
+</aside>
+
+<!-- Main content -->
+<div class="flex-1 p-10">
+    <h1 class="text-2xl font-bold">Main Content</h1>
+    <!-- Your main content goes here -->
+</div>
+
+</body>
+</html>
