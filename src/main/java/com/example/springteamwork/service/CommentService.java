@@ -1,4 +1,5 @@
 package com.example.springteamwork.service;
+import com.example.springteamwork.model.Comment;
 
 import java.util.List;
 import com.example.springteamwork.model.Comment;
