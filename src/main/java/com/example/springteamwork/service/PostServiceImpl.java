@@ -1,10 +1,8 @@
 package com.example.springteamwork.service;
-
 import com.example.springteamwork.model.Post;
 import com.example.springteamwork.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
