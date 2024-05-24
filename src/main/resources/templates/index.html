@@ -7,20 +7,55 @@
     <script src="https://unpkg.com/flowbite@1.5.1/dist/flowbite.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Spring-TeamWork</title>
+    <style>
+
+        /*LOGO*/
+        .logo-dark {
+            display: none;
+        }
+        @media (prefers-color-scheme: dark) {
+            .logo-light {
+                display: none;
+            }
+
+            .logo-dark {
+                display: block;
+            }
+        }
+
+        /*SIDEBAR*/
+        .sidebar-container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .sidebar-content {
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+        .sidebar-footer {
+            margin-top: auto;
+            padding: 1rem;
+        }
+    </style>
 </head>
 
 <body>
+
+    <!--HEADER-->
     <header>
-        <nav class="bg-white border-gray-200 dark:bg-gray-900 border border-gray-300 p-4">
+        <nav class="bg-white border-gray-200 dark:bg-gray-900 border-b border-gray-300 p-4">
             <div class="flex flex-wrap items-center justify-between max-w-screen-xl mx-auto">
 
                 <!--LOGO-->
                 <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
-                    <img th:src="@{/img/logo.png}" class="h-8" style="height:5rem" alt="Beauty Logo" />
+                    <img th:src="@{/img/logo.png}" class="h-8 logo-light" style="height:5rem" alt="Beauty Logo" />
+                    <img th:src="@{/img/logo-dark.png}" class="h-8 logo-dark" style="height:5rem" alt="Beauty Logo (Dark Mode)" />
+
                 </a>
 
                 <!--SEARCH BAR-->
-                <form class="max-w-md mx-auto" style="width: 20rem;">
+                <form class="max-w-lg mx-auto" style="width: 34rem;">
                     <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                     <div class="relative">
                         <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -28,7 +63,7 @@
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                             </svg>
                         </div>
-                        <input type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Title, Tags, Author..." required />
+                        <input type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search by Title, Tags, Author..." required />
                         <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
                     </div>
                 </form>
@@ -63,7 +98,6 @@
                     </div>
                     -->
 
-
                     <!-- AUTHORS -->
                     <button id="dropdownUserAvatarButton" data-dropdown-toggle="dropdownAvatar" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" type="button">
                         <div class="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
@@ -96,220 +130,173 @@
                             <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
                         </div>
                     </div>
-
-
-
                 </div>
+                <!--END OF MENU-->
+
             </div>
         </nav>
     </header>
+    <!--END OF HEADER-->
 
 
+    <!--MAIN SECTION-->
+    <div class="grid grid-cols-10">
+        <div class="col-span-8">
+            <section class="bg-white dark:bg-gray-900">
+                <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
 
+                    <!--TITLE-->
+                    <div class="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
+                        <h2 class="mb-4 text-3xl lg:text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Our Blog</h2>
+                    </div>
 
-    <section class="bg-white dark:bg-gray-900">
-        <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
-            <div class="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
-                <h2 class="mb-4 text-3xl lg:text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Our Blog</h2>
-            </div>
+                    <!--FILTER BY-->
+                    <div class="max-w-screen-sm mx-auto lg:mb-16 mb-8">
+                        <form class="max-w-sm mx-auto">
+                            <div class="flex items-center mb-6">
+                                <label for="small" class="mr-2 text-sm font-medium text-gray-900 dark:text-white">Filter by</label>
+                                <select id="small" class="flex-1 p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    <option value="new">Newest</option>
+                                    <option value="old">Oldest</option>
+                                    <option value="most popular">Most popular</option>
+                                    <option value="least popular">Least popular</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
 
-            <div class="max-w-screen-sm mx-auto lg:mb-16 mb-8">
-                <form class="max-w-sm mx-auto">
-                    <div class="flex items-center mb-6">
-                        <label for="small" class="mr-2 text-sm font-medium text-gray-900 dark:text-white">Filter by</label>
-                        <select id="small" class="flex-1 p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            <option value="new">Newest</option>
-                            <option value="old">Oldest</option>
-                            <option value="most popular">Most popular</option>
-                            <option value="least popular">Least popular</option>
-                        </select>
+                    <!--POSTS-->
+                    <div class="mt-10 grid gap-8 lg:grid-cols-2">
+                        <article class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+                            <div class="flex justify-between items-center mb-5 text-gray-500">
+                          <span class="bg-primary-100 text-primary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-primary-200 dark:text-primary-800">
+                              <svg class="mr-1 w-3 h-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"></path></svg>
+                              Tutorial
+                          </span>
+                                <span class="text-sm">14 days ago</span>
+                            </div>
+                            <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><a href="#">How to quickly deploy a static website</a></h2>
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400">Static websites are now used to bootstrap lots of websites and are becoming the basis for a variety of tools that even influence both web designers and developers influence both web designers and developers.</p>
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center space-x-4">
+                                    <img class="w-7 h-7 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png" alt="Jese Leos avatar" />
+                                    <span class="font-medium dark:text-white">
+                                  Jese Leos
+                              </span>
+                                </div>
+                                <a href="#" class="inline-flex items-center font-medium text-primary-600 dark:text-white hover:underline">
+                                    Read more
+                                    <svg class="ml-2 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                                </a>
+                            </div>
+                        </article>
+                        <article class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+                            <div class="flex justify-between items-center mb-5 text-gray-500">
+                          <span class="bg-primary-100 text-primary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-primary-200 dark:text-primary-800">
+                              <svg class="mr-1 w-3 h-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M2 5a2 2 0 012-2h8a2 2 0 012 2v10a2 2 0 002 2H4a2 2 0 01-2-2V5zm3 1h6v4H5V6zm6 6H5v2h6v-2z" clip-rule="evenodd"></path><path d="M15 7h1a2 2 0 012 2v5.5a1.5 1.5 0 01-3 0V7z"></path></svg>
+                              Article
+                          </span>
+                                <span class="text-sm">14 days ago</span>
+                            </div>
+                            <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><a href="#">Our first project with React</a></h2>
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400">Static websites are now used to bootstrap lots of websites and are becoming the basis for a variety of tools that even influence both web designers and developers influence both web designers and developers.</p>
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center space-x-4">
+                                    <img class="w-7 h-7 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png" alt="Bonnie Green avatar" />
+                                    <span class="font-medium dark:text-white">
+                                  Bonnie Green
+                              </span>
+                                </div>
+                                <a href="#" class="inline-flex items-center font-medium text-primary-600 dark:text-white hover:underline">
+                                    Read more
+                                    <svg class="ml-2 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                                </a>
+                            </div>
+                        </article>
                     </div>
-                </form>
-            </div>
+                    <!--END OF POSTS-->
 
-
-            <div class="mt-10 grid gap-8 lg:grid-cols-2">
-                <article class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
-                    <div class="flex justify-between items-center mb-5 text-gray-500">
-                  <span class="bg-primary-100 text-primary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-primary-200 dark:text-primary-800">
-                      <svg class="mr-1 w-3 h-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"></path></svg>
-                      Tutorial
-                  </span>
-                        <span class="text-sm">14 days ago</span>
+                    <!--PAGINATION-->
+                    <div class="mt-10 grid place-items-center">
+                        <nav aria-label="Page navigation example">
+                            <ul class="flex items-center -space-x-px h-10 text-base">
+                                <li>
+                                    <a href="#" class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                        <span class="sr-only">Previous</span>
+                                        <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" aria-current="page" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                        <span class="sr-only">Next</span>
+                                        <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                                        </svg>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
-                    <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><a href="#">How to quickly deploy a static website</a></h2>
-                    <p class="mb-5 font-light text-gray-500 dark:text-gray-400">Static websites are now used to bootstrap lots of websites and are becoming the basis for a variety of tools that even influence both web designers and developers influence both web designers and developers.</p>
-                    <div class="flex justify-between items-center">
-                        <div class="flex items-center space-x-4">
-                            <img class="w-7 h-7 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png" alt="Jese Leos avatar" />
-                            <span class="font-medium dark:text-white">
-                          Jese Leos
-                      </span>
-                        </div>
-                        <a href="#" class="inline-flex items-center font-medium text-primary-600 dark:text-primary-500 hover:underline">
-                            Read more
-                            <svg class="ml-2 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                        </a>
-                    </div>
-                </article>
-                <article class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
-                    <div class="flex justify-between items-center mb-5 text-gray-500">
-                  <span class="bg-primary-100 text-primary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-primary-200 dark:text-primary-800">
-                      <svg class="mr-1 w-3 h-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M2 5a2 2 0 012-2h8a2 2 0 012 2v10a2 2 0 002 2H4a2 2 0 01-2-2V5zm3 1h6v4H5V6zm6 6H5v2h6v-2z" clip-rule="evenodd"></path><path d="M15 7h1a2 2 0 012 2v5.5a1.5 1.5 0 01-3 0V7z"></path></svg>
-                      Article
-                  </span>
-                        <span class="text-sm">14 days ago</span>
-                    </div>
-                    <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><a href="#">Our first project with React</a></h2>
-                    <p class="mb-5 font-light text-gray-500 dark:text-gray-400">Static websites are now used to bootstrap lots of websites and are becoming the basis for a variety of tools that even influence both web designers and developers influence both web designers and developers.</p>
-                    <div class="flex justify-between items-center">
-                        <div class="flex items-center space-x-4">
-                            <img class="w-7 h-7 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png" alt="Bonnie Green avatar" />
-                            <span class="font-medium dark:text-white">
-                          Bonnie Green
-                      </span>
-                        </div>
-                        <a href="#" class="inline-flex items-center font-medium text-primary-600 dark:text-primary-500 hover:underline">
-                            Read more
-                            <svg class="ml-2 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                        </a>
-                    </div>
-                </article>
-            </div>
-
-            <div class="mt-10 grid gap-8 lg:grid-cols-2">
-                <article class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
-                    <div class="flex justify-between items-center mb-5 text-gray-500">
-                  <span class="bg-primary-100 text-primary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-primary-200 dark:text-primary-800">
-                      <svg class="mr-1 w-3 h-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"></path></svg>
-                      Tutorial
-                  </span>
-                        <span class="text-sm">14 days ago</span>
-                    </div>
-                    <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><a href="#">How to quickly deploy a static website</a></h2>
-                    <p class="mb-5 font-light text-gray-500 dark:text-gray-400">Static websites are now used to bootstrap lots of websites and are becoming the basis for a variety of tools that even influence both web designers and developers influence both web designers and developers.</p>
-                    <div class="flex justify-between items-center">
-                        <div class="flex items-center space-x-4">
-                            <img class="w-7 h-7 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png" alt="Jese Leos avatar" />
-                            <span class="font-medium dark:text-white">
-                          Jese Leos
-                      </span>
-                        </div>
-                        <a href="#" class="inline-flex items-center font-medium text-primary-600 dark:text-primary-500 hover:underline">
-                            Read more
-                            <svg class="ml-2 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                        </a>
-                    </div>
-                </article>
-                <article class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
-                    <div class="flex justify-between items-center mb-5 text-gray-500">
-                  <span class="bg-primary-100 text-primary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-primary-200 dark:text-primary-800">
-                      <svg class="mr-1 w-3 h-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M2 5a2 2 0 012-2h8a2 2 0 012 2v10a2 2 0 002 2H4a2 2 0 01-2-2V5zm3 1h6v4H5V6zm6 6H5v2h6v-2z" clip-rule="evenodd"></path><path d="M15 7h1a2 2 0 012 2v5.5a1.5 1.5 0 01-3 0V7z"></path></svg>
-                      Article
-                  </span>
-                        <span class="text-sm">14 days ago</span>
-                    </div>
-                    <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><a href="#">Our first project with React</a></h2>
-                    <p class="mb-5 font-light text-gray-500 dark:text-gray-400">Static websites are now used to bootstrap lots of websites and are becoming the basis for a variety of tools that even influence both web designers and developers influence both web designers and developers.</p>
-                    <div class="flex justify-between items-center">
-                        <div class="flex items-center space-x-4">
-                            <img class="w-7 h-7 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png" alt="Bonnie Green avatar" />
-                            <span class="font-medium dark:text-white">
-                          Bonnie Green
-                      </span>
-                        </div>
-                        <a href="#" class="inline-flex items-center font-medium text-primary-600 dark:text-primary-500 hover:underline">
-                            Read more
-                            <svg class="ml-2 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                        </a>
-                    </div>
-                </article>
-            </div>
-
-            <div class="mt-10 grid gap-8 lg:grid-cols-2">
-                <article class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
-                    <div class="flex justify-between items-center mb-5 text-gray-500">
-                  <span class="bg-primary-100 text-primary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-primary-200 dark:text-primary-800">
-                      <svg class="mr-1 w-3 h-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"></path></svg>
-                      Tutorial
-                  </span>
-                        <span class="text-sm">14 days ago</span>
-                    </div>
-                    <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><a href="#">How to quickly deploy a static website</a></h2>
-                    <p class="mb-5 font-light text-gray-500 dark:text-gray-400">Static websites are now used to bootstrap lots of websites and are becoming the basis for a variety of tools that even influence both web designers and developers influence both web designers and developers.</p>
-                    <div class="flex justify-between items-center">
-                        <div class="flex items-center space-x-4">
-                            <img class="w-7 h-7 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png" alt="Jese Leos avatar" />
-                            <span class="font-medium dark:text-white">
-                          Jese Leos
-                      </span>
-                        </div>
-                        <a href="#" class="inline-flex items-center font-medium text-primary-600 dark:text-primary-500 hover:underline">
-                            Read more
-                            <svg class="ml-2 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                        </a>
-                    </div>
-                </article>
-                <article class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
-                    <div class="flex justify-between items-center mb-5 text-gray-500">
-                  <span class="bg-primary-100 text-primary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-primary-200 dark:text-primary-800">
-                      <svg class="mr-1 w-3 h-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M2 5a2 2 0 012-2h8a2 2 0 012 2v10a2 2 0 002 2H4a2 2 0 01-2-2V5zm3 1h6v4H5V6zm6 6H5v2h6v-2z" clip-rule="evenodd"></path><path d="M15 7h1a2 2 0 012 2v5.5a1.5 1.5 0 01-3 0V7z"></path></svg>
-                      Article
-                  </span>
-                        <span class="text-sm">14 days ago</span>
-                    </div>
-                    <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><a href="#">Our first project with React</a></h2>
-                    <p class="mb-5 font-light text-gray-500 dark:text-gray-400">Static websites are now used to bootstrap lots of websites and are becoming the basis for a variety of tools that even influence both web designers and developers influence both web designers and developers.</p>
-                    <div class="flex justify-between items-center">
-                        <div class="flex items-center space-x-4">
-                            <img class="w-7 h-7 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png" alt="Bonnie Green avatar" />
-                            <span class="font-medium dark:text-white">
-                          Bonnie Green
-                      </span>
-                        </div>
-                        <a href="#" class="inline-flex items-center font-medium text-primary-600 dark:text-primary-500 hover:underline">
-                            Read more
-                            <svg class="ml-2 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                        </a>
-                    </div>
-                </article>
-            </div>
-
-
-            <div class="mt-10 grid place-items-center">
-                <nav aria-label="Page navigation example">
-                    <ul class="flex items-center -space-x-px h-10 text-base">
-                        <li>
-                            <a href="#" class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                <span class="sr-only">Previous</span>
-                                <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
-                                </svg>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" aria-current="page" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
-                        </li>
-                        <li>
-                            <a href="#" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
-                        </li>
-                        <li>
-                            <a href="#" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                <span class="sr-only">Next</span>
-                                <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-                                </svg>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-
+                    <!--END OF PAGINATION-->
+                </div>
+            </section>
         </div>
-    </section>
+        <!--END MAIN SECTION-->
 
+        <!-- Sidebar -->
+        <div class="col-span-2">
+            <aside class="w-full border-b sidebar-container" aria-label="Sidebar">
+                <div class="sidebar-content py-4 px-3 bg-gray-50  dark:bg-gray-800">
+                    <div class="mt-6">
+                        <h3 class="text-lg font-medium text-gray-900 dark:text-white">Connected Users</h3>
+                        <ul id="connected-users-list" class="mt-4 space-y-2">
+                            <!-- User avatars and names will be appended here -->
+                            <li class="flex items-center space-x-3">
+                                <div class="relative">
+                                    <img class="w-10 h-10 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Charlotte">
+                                    <span class="absolute top-0 left-7 w-3.5 h-3.5 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></span>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-base font-medium text-gray-900 dark:text-white">Charlotte</p>
+                                </div>
+                            </li>
+                            <li class="flex items-center space-x-3">
+                                <div class="relative">
+                                    <img class="w-10 h-10 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Dylan">
+                                    <span class="absolute top-0 left-7 w-3.5 h-3.5 bg-red-400 border-2 border-white dark:border-gray-800 rounded-full"></span>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-base font-medium text-gray-900 dark:text-white">Dylan</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="sidebar-footer bg-gray-50 dark:bg-gray-800">
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Connected: <span id="connected-count">1</span></p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Disconnected: <span id="disconnected-count">1</span></p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Number of visits: <span id="visitors-count">22</span></p>
+                </div>
+            </aside>
+        </div>
+        <!-- END OF Sidebar -->
+    </div>
 
-
+    <!--COPYRIGHT-->
+    <footer class="bg-white shadow dark:bg-gray-800">
+        <div class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
+            <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">Copyright © 2024 <a href="/" class="hover:underline">Beauty & Cosmetics</a>. All Rights Reserved.
+            </span>
+        </div>
+    </footer>
 
 
 </body>
