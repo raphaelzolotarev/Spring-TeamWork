@@ -3,13 +3,15 @@ package com.example.springteamwork.service;
 import com.example.springteamwork.model.Comment;
 import com.example.springteamwork.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CommentServiceImpl implements CommentService{
+public class CommentServiceImpl implements CommentService {
     private final CommentRepository commentRepository;
 
     @Autowired
@@ -22,8 +24,29 @@ public class CommentServiceImpl implements CommentService{
         return commentRepository.findAll();
     }
 
-    public List<Comment> getAllCommentsByPostID(Long id) {
-        return commentRepository.findAll().stream().filter(c->c.getPost().getId()==id).toList();
+    @Override
+    public Page<Comment> getAllCommentsByPostId(Long postId, Pageable pageable) {
+        return commentRepository.findByPostId(postId, pageable);
+    }
+
+    @Override
+    public List<Comment> getAllCommentsByPostID(Long postId) {
+        return commentRepository.findByPostId(postId);
+    }
+
+    @Override
+    public List<Comment> getAllCommentsByUserID(Long userId) {
+        return commentRepository.findByUserId(userId);
+    }
+
+    @Override
+    public Optional<Comment> getCommentByIdAndPostId(Long id, Long postId) {
+        return commentRepository.findByIdAndPostId(id, postId);
+    }
+
+    @Override
+    public Optional<Comment> getCommentByIdAndUserId(Long id, Long userId) {
+        return commentRepository.findByIdAndUserId(id, userId);
     }
 
     @Override
@@ -32,10 +55,10 @@ public class CommentServiceImpl implements CommentService{
     }
 
     @Override
-    public Comment getCommentId(Long id) {
+    public Comment getCommentById(Long id) {
         Optional<Comment> commentOptional = commentRepository.findById(id);
-        if(!commentOptional.isPresent()){
-            throw new IllegalStateException("comment doesn't exist");
+        if (!commentOptional.isPresent()) {
+            throw new IllegalStateException("Comment doesn't exist");
         }
         return commentOptional.get();
     }
@@ -43,10 +66,9 @@ public class CommentServiceImpl implements CommentService{
     @Override
     public void deleteCommentById(Long id) {
         boolean exists = commentRepository.existsById(id);
-        if(!exists){
-            throw new IllegalStateException("comment id "+id+" does not exists");
+        if (!exists) {
+            throw new IllegalStateException("Comment id " + id + " does not exist");
         }
         commentRepository.deleteById(id);
     }
-
 }
