@@ -1,53 +1,69 @@
 package com.example.springteamwork.model;
+
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import java.sql.Blob;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "posts")
-
-public class Post extends AuditModel {
+public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    @Size(max = 100)
-    @Column(unique = true)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @Column(nullable = false)
     private String title;
 
-    @NotNull
-    @Size(max = 250)
+    @Lob
+    @Column(nullable = false)
     private String description;
 
-    @NotNull
-    @Lob
-    @Column(name = "content", columnDefinition = "LONGTEXT")
-    private String content;
-
-
-    public Post(String title, String description) {
-        this.title = title;
-        this.description = description;
+    public Post() {
     }
-    public Post(Long id, String title, String description) {
+
+    public Post(Long id, User user, String title, String description) {
         this.id = id;
+        this.user = user;
         this.title = title;
         this.description = description;
     }
-    public Post(String title, String description, String content) {
-        this.title = title;
-        this.description = description;
-        this.content = content;
+
+    // Getters and Setters
+
+    public Long getId() {
+        return id;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
 
 }
