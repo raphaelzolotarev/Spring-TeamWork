@@ -91,6 +91,8 @@ public class CommentController {
         return "update_comment";
     }
 
+
+
     @PostMapping("/comments/update/{id}")
     public String updateComment(@PathVariable Long id, @ModelAttribute("comment") Comment comment) {
         Comment existingComment = commentService.getCommentById(id);
