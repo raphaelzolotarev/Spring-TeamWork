@@ -48,6 +48,7 @@ public class PostController {
         postService.savePost(post);
         return "redirect:/";
     }
+
     @GetMapping("/updatePost/{id}")
     public String showUpdatePostForm(@PathVariable(value="id") Long id, Model model){
         Post post = postService.getPostId(id);
