@@ -39,11 +39,6 @@ public class Comment extends AuditModel {
     @JsonIgnore
     private User user;
 
-    public Comment(Post post, User user) {
-        this.post = post;
-        this.user = user;
-    }
-
     public Comment(String text, Post post, User user) {
         this.text = text;
         this.post = post;
