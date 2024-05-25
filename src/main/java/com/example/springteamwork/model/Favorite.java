@@ -1,46 +1,29 @@
 package com.example.springteamwork.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-    @Entity
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
     public class Favorite {
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
 
-        @ManyToOne(fetch = FetchType.LAZY)
-        @JoinColumn(name = "user_id", nullable = false)
-        private User user;
+        @NotNull
+        private long user_id;
 
-        @ManyToOne(fetch = FetchType.LAZY)
-        @JoinColumn(name = "author_id", nullable = false)
-        private User author;
+        @NotNull
+        private long author_id;
 
-        // Getters and Setters
-        public Long getId() {
-            return id;
+        public Favorite(long user_id, long author_id) {
+            this.user_id = user_id;
+            this.author_id = author_id;
         }
-
-        public void setId(Long id) {
-            this.id = id;
-        }
-
-        public User getUser() {
-            return user;
-        }
-
-        public void setUser(User user) {
-            this.user = user;
-        }
-
-        public User getAuthor() {
-            return author;
-        }
-
-        public void setAuthor(User author) {
-            this.author = author;
-        }
-    }
-
-
+}

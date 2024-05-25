@@ -1,9 +1,15 @@
 package com.example.springteamwork.model;
 
 import jakarta.persistence.*;
-import java.sql.Blob;
+import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
 public class Post {
 
     @Id
@@ -11,59 +17,20 @@ public class Post {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @JoinColumn(name = "author_id", nullable = false)
+    private User author;
 
-    @Column(nullable = false)
+    @NotNull
     private String title;
 
+    @NotNull
     @Lob
-    @Column(nullable = false)
+    @Column(name = "description", columnDefinition = "LONGTEXT")
     private String description;
 
-    public Post() {
-    }
-
-    public Post(Long id, User user, String title, String description) {
-        this.id = id;
-        this.user = user;
+    public Post(User author, String title, String description) {
+        this.author = author;
         this.title = title;
         this.description = description;
     }
-
-    // Getters and Setters
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-
 }

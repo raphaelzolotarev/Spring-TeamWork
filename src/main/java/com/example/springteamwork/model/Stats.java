@@ -1,32 +1,29 @@
 package com.example.springteamwork.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.io.Serializable;
 
 @Entity
-public class Stats {
+@Getter
+@Setter
+@NoArgsConstructor
+public class Stats implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id = 1L;
 
-    @Column(nullable = false)
-    private int numberOfVisitors;
+    @Column(name = "number_of_visitor", nullable = false)
+    private int numberOfVisitor = 0;
 
-    // Getters and Setters
-    public Long getId() {
-        return id;
+    public Stats(int numberOfVisitor) {
+        this.numberOfVisitor = numberOfVisitor;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public int getNumberOfVisitors() {
-        return numberOfVisitors;
-    }
-
-    public void setNumberOfVisitors(int numberOfVisitors) {
-        this.numberOfVisitors = numberOfVisitors;
-    }
 }
 
