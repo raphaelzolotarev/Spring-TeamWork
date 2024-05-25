@@ -52,8 +52,8 @@ public class LikeController {
     @PostMapping("/likes/{id}")
     public String updateLike(@PathVariable Long id, @ModelAttribute("like") Like likeDetails) {
         Like like = likeService.getLikeById(id);
-        like.setUser(likeDetails.getUser());
-        like.setPost(likeDetails.getPost());
+        like.setUser_id(likeDetails.getUser_id());
+        like.setPost_id(likeDetails.getPost_id());
         likeService.saveLike(like);
         return "redirect:/likes";
     }
