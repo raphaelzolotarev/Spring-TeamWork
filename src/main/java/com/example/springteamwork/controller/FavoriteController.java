@@ -52,8 +52,8 @@ public class FavoriteController {
     @PostMapping("/favorites/{id}")
     public String updateFavorite(@PathVariable Long id, @ModelAttribute("favorite") Favorite favoriteDetails) {
         Favorite favorite = favoriteService.getFavoriteById(id);
-        favorite.setUser(favoriteDetails.getUser());
-        favorite.setAuthor(favoriteDetails.getAuthor());
+        favorite.setUser_id(favoriteDetails.getUser_id());
+        favorite.setAuthor_id(favoriteDetails.getAuthor_id());
         favoriteService.saveFavorite(favorite);
         return "redirect:/favorites";
     }
@@ -64,5 +64,3 @@ public class FavoriteController {
         return "redirect:/favorites";
     }
 }
-
-
