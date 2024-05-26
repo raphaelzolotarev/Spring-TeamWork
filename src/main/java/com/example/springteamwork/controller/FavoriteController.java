@@ -22,12 +22,7 @@ public class FavoriteController {
         return "favorites";
     }
 
-    @GetMapping("/favorites/{id}")
-    public String viewFavoriteById(@PathVariable Long id, Model model) {
-        Favorite favorite = favoriteService.getFavoriteById(id);
-        model.addAttribute("favorite", favorite);
-        return "favorite_detail";
-    }
+
 
     @GetMapping("/favorites/new")
     public String showNewFavoriteForm(Model model) {
@@ -42,25 +37,6 @@ public class FavoriteController {
         return "redirect:/favorites";
     }
 
-    @GetMapping("/favorites/edit/{id}")
-    public String showEditFavoriteForm(@PathVariable Long id, Model model) {
-        Favorite favorite = favoriteService.getFavoriteById(id);
-        model.addAttribute("favorite", favorite);
-        return "edit_favorite";
-    }
 
-    @PostMapping("/favorites/{id}")
-    public String updateFavorite(@PathVariable Long id, @ModelAttribute("favorite") Favorite favoriteDetails) {
-        Favorite favorite = favoriteService.getFavoriteById(id);
-        favorite.setUser_id(favoriteDetails.getUser_id());
-        favorite.setAuthor_id(favoriteDetails.getAuthor_id());
-        favoriteService.saveFavorite(favorite);
-        return "redirect:/favorites";
-    }
 
-    @GetMapping("/favorites/delete/{id}")
-    public String deleteFavorite(@PathVariable Long id) {
-        favoriteService.deleteFavoriteById(id);
-        return "redirect:/favorites";
-    }
 }

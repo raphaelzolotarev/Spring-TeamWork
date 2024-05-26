@@ -42,6 +42,40 @@
 
 <body>
 
+<<<<<<< HEAD
+<!--HEADER-->
+<header th:insert="fragments :: menu"></header>
+
+
+<!--MAIN SECTION-->
+<div class="grid grid-cols-10">
+    <div class="col-span-8">
+
+        <!--  New Post Form -->
+        <div class="w-full max-w-2xl mx-auto bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <div class="p-6">
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">New Post</h2>
+                <form>
+                    <div class="mb-4">
+                        <label for="title" class="block text-sm font-medium text-gray-900 dark:text-white">Post Title</label>
+                        <input type="text" id="title" name="title" class="block w-full p-2 mt-1 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter your post title" required />
+                    </div>
+                    <div class="mb-4">
+                        <label for="content" class="block text-sm font-medium text-gray-900 dark:text-white">Content</label>
+                        <textarea id="content" name="content" rows="10" class="block w-full p-2 mt-1 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter your post content" required></textarea>
+                    </div>
+                    <div class="mb-4">
+                        <label for="tags" class="block text-sm font-medium text-gray-900 dark:text-white">Tags</label>
+                        <input type="text" id="tags" name="tags" class="block w-full p-2 mt-1 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter tags, separated by commas" required />
+                    </div>
+                    <div class="mb-4">
+                        <label for="image" class="block text-sm font-medium text-gray-900 dark:text-white">Image URL</label>
+                        <input type="text" id="image" name="image" class="block w-full p-2 mt-1 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter image URL" />
+                    </div>
+                    <div class="flex items-center justify-end space-x-4">
+                        <button type="button" class="py-2 px-4 bg-gray-600 text-white rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 dark:focus:ring-offset-gray-800">Cancel</button>
+                        <button type="submit" class="py-2 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-800">Publish </button>
+=======
     <!--HEADER-->
     <header>
         <nav class="bg-white border-gray-200 dark:bg-gray-900 border-b border-gray-300 p-4">
@@ -65,6 +99,7 @@
                         </div>
                         <input type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search by Title, Tags, Author..." required />
                         <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+>>>>>>> origin/master
                     </div>
                 </form>
 
@@ -76,6 +111,15 @@
                     <a href="#" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Sign up</a>
                     -->
 
+<<<<<<< HEAD
+    <!-- Sidebar -->
+    <div th:insert="fragments :: sidebar" class="col-span-2"></div>
+
+</div>
+
+<!--COPYRIGHT-->
+<footer th:insert="fragments :: footer" class="bg-white shadow dark:bg-gray-800"></footer>
+=======
                     <!-- SUBSCRIBERS
                     <button id="dropdownUserAvatarButton" data-dropdown-toggle="dropdownAvatar" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" type="button">
                         <div class="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
@@ -219,6 +263,7 @@
             </span>
         </div>
     </footer>
+>>>>>>> origin/master
 
 
 </body>

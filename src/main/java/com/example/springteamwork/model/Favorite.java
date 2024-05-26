@@ -10,20 +10,20 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-    public class Favorite {
+public class Favorite {
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-        @NotNull
-        private long user_id;
+    @NotNull
+    private Long user_id;
 
-        @NotNull
-        private long author_id;
+    @NotNull
+    private Long author_id;
 
-        public Favorite(long user_id, long author_id) {
-            this.user_id = user_id;
-            this.author_id = author_id;
-        }
+    public Favorite(Long user_id, Long author_id) {
+        this.user_id = user_id;
+        this.author_id = author_id;
+    }
 }
