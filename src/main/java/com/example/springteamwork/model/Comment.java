@@ -3,7 +3,6 @@ package com.example.springteamwork.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,7 +13,6 @@ import org.hibernate.annotations.OnDeleteAction;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "comments")
 public class Comment extends AuditModel {
 
@@ -38,11 +36,6 @@ public class Comment extends AuditModel {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private User user;
-
-    public Comment(Post post, User user) {
-        this.post = post;
-        this.user = user;
-    }
 
     public Comment(String text, Post post, User user) {
         this.text = text;

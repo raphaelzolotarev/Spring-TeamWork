@@ -27,4 +27,5 @@ public class Like {
         this.user_id = user_id;
         this.post_id = post_id;
     }
+  
 }
