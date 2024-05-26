@@ -17,12 +17,12 @@ public class Favorite {
     private Long id;
 
     @NotNull
-    private long user_id;
+    private Long user_id;
 
     @NotNull
-    private long author_id;
+    private Long author_id;
 
-    public Favorite(long user_id, long author_id) {
+    public Favorite(Long user_id, Long author_id) {
         this.user_id = user_id;
         this.author_id = author_id;
     }

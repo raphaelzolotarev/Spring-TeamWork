@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
+@Table(name = "likes")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,12 +18,12 @@ public class Like {
     private Long id;
 
     @NotNull
-    private long user_id;
+    private Long user_id;
 
     @NotNull
-    private long post_id;
+    private Long post_id;
 
-    public Like(long user_id, long post_id) {
+    public Like(Long user_id, Long post_id) {
         this.user_id = user_id;
         this.post_id = post_id;
     }
