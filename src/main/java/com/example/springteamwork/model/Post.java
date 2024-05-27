@@ -1,43 +1,37 @@
+
 package com.example.springteamwork.model;
-import lombok.*;
+
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-
-import java.util.Date;
-import java.util.List;
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Entity
 @Getter
 @Setter
-@Entity
-@Table(name = "post")
+@NoArgsConstructor
 public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "author_id", nullable = false)
+    private User author;
+
+    @NotNull
     private String title;
 
-    @Column(nullable = false, length = 250)
-    private String content;
+    @NotNull
+    @Lob
+    @Column(name = "description", columnDefinition = "LONGTEXT")
+    private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "author_id", nullable = false)
-    private User user;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "update_date")
-    private Date updateDate;
-
-    @ElementCollection
-    @CollectionTable(name = "post_tags", joinColumns = @JoinColumn(name = "post_id"))
-    @Column(name = "tag")
-    private List<String> tags;
-
-
-
-
+    public Post(User author, String title, String description) {
+        this.author = author;
+        this.title = title;
+        this.description = description;
+    }
 }

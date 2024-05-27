@@ -1,4 +1,5 @@
 package com.example.springteamwork.repository;
+
 import com.example.springteamwork.model.Comment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -7,9 +8,12 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
     Page<Comment> findByPostId(Long postId, Pageable pageable);
     List<Comment> findByPostId(Long postId);
+    List<Comment> findByUserId(Long userId);
     Optional<Comment> findByIdAndPostId(Long id, Long postId);
+    Optional<Comment> findByIdAndUserId(Long id, Long userId);
 }

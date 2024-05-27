@@ -1,49 +1,66 @@
 package com.example.springteamwork.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 
-
 @Entity
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
 @Getter
 public class User {
+
+    public enum Role {
+        USER,
+        AUTHOR
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull(message = "First name is required")
+    @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "varchar(255) default 'USER'")
+    private Role role;
+
+    private boolean isOnline = true;
+
+    @NotNull
     private String firstName;
 
-    @NotNull(message = "Last name is required")
+    @NotNull
     private String lastName;
 
-    @NotNull(message = "Username is required")
+    @NotNull
     @Column(unique = true)
     private String username;
 
-    @NotNull(message = "Email is required")
-    @Email(message = "Invalid email format")
+    @NotNull
     private String email;
+
+    @NotNull
+    private String password;
+
+    @NotNull
+    private String retypePassword;
 
     private String street;
     private String houseNr;
     private String city;
     private String zip;
 
-    @NotNull(message = "Password is required")
-    @Size(min = 6, message = "Password must be at least 6 characters long")
-    private String password;
-
-    @NotNull(message = "Retype password is required")
-    @Transient
-    private String retypePassword;
-
+    public User(String firstName, String lastName, String username, String email, String password, String retypePassword, String street, String houseNr, String city, String zip) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.retypePassword = retypePassword;
+        this.street = street;
+        this.houseNr = houseNr;
+        this.city = city;
+        this.zip = zip;
+    }
 
 }
