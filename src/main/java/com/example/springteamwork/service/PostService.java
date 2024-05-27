@@ -1,6 +1,6 @@
 package com.example.springteamwork.service;
 
-import com.example.jpa.model.Post;
+import com.example.springteamwork.model.Post;
 
 import java.util.List;
 

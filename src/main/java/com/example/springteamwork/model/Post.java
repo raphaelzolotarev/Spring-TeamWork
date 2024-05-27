@@ -1,7 +1,6 @@
 package com.example.springteamwork.model;
 import lombok.*;
 import jakarta.persistence.*;
-import org.apache.catalina.User;
 
 
 import java.util.Date;
