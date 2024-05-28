@@ -1,12 +1,13 @@
 package com.example.springteamwork.service;
-
 import com.example.springteamwork.model.Post;
+import jakarta.servlet.http.HttpServletResponse;
 
 import java.util.List;
 
 public interface PostService {
     List<Post> getAllPosts();
+    Post getPostById(Long id);
     void savePost(Post post);
-    Post getPostId(Long id);
-    void deletePostById(Long id);
+    void updatePost(Post post, String title, String description);
+    void deletePost(Long id);
 }
