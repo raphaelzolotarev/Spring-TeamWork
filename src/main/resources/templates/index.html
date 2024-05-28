@@ -37,6 +37,17 @@
             padding: 1rem;
         }
     </style>
+    <script>
+        // JavaScript function to toggle the visibility of extra content
+        function toggleExtraContent(id) {
+            var element = document.getElementById(id);
+            if (element.style.display === "none") {
+                element.style.display = "block";
+            } else {
+                element.style.display = "none";
+            }
+        }
+    </script>
 </head>
 
 <body>
@@ -52,7 +63,7 @@
 
                 <!--TITLE-->
                 <div class="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
-                    <h2 class="mb-4 text-3xl lg:text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Our Blog</h2>
+                    <h2 class="mb-4 text-3xl lg:text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Beauty & Cosmetics Blog</h2>
                 </div>
 
                 <!--FILTER BY-->
@@ -72,39 +83,69 @@
 
                 <!--POSTS-->
                 <div class="mt-10 grid gap-8 lg:grid-cols-2">
+                    <!-- Post 1 -->
                     <article class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
                         <div class="flex justify-between items-center mb-5 text-gray-500">
                           <span class="bg-primary-100 text-primary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-primary-200 dark:text-primary-800">
                               <svg class="mr-1 w-3 h-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"></path></svg>
-                              Tutorial
+                              Article
                           </span>
                             <span class="text-sm">14 days ago</span>
                         </div>
-                        <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><a href="#">How to quickly deploy a static website</a></h2>
-                        <p class="mb-5 font-light text-gray-500 dark:text-gray-400">Static websites are now used to bootstrap lots of websites and are becoming the basis for a variety of tools that even influence both web designers and developers influence both web designers and developers.</p>
+                        <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><a href="#">The Ultimate Guide to Skincare </a></h2>
+
+                        <img th:src="@{/img/fotopost1.png}" class="mb-4 rounded-lg" style="height:15rem; width:auto;" alt="Skincare Guide Image" />
+                        <p class="mb-5 font-light text-gray-500 dark:text-gray-400">In today's fast-paced world, taking care of your skin is more important than ever. Skincare is not just about looking good; it's about feeling good and maintaining the health of your skin. In this ultimate guide, we'll walk you through the essentials of a good skincare routine, the benefits of different skincare products, and tips to achieve that glowing, healthy complexion. </p>
+
+                        <div id="extra-content-1" style="display: none;">
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400"><strong>Content:</strong><br><br>Taking care of your skin starts with understanding its needs. Here are the key steps to a comprehensive skincare routine:</p>
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400"><strong>Cleansing:</strong> The foundation of any skincare routine is cleansing. Use a gentle cleanser to remove dirt, makeup, and impurities from your skin. This helps prevent clogged pores and breakouts.</p>
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400"><strong>Exfoliating:</strong> Exfoliation helps to remove dead skin cells, revealing a fresher, brighter complexion. Use a gentle exfoliant once or twice a week to keep your skin smooth and radiant.</p>
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400"><strong>Moisturizing:</strong> Hydration is crucial for healthy skin. Choose a moisturizer that suits your skin type to keep your skin hydrated, soft, and supple.</p>
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400"><strong>Sun Protection:</strong> Sunscreen is a must-have in your daily routine. Protect your skin from harmful UV rays by applying a broad-spectrum SPF 30 or higher every day, even on cloudy days.</p>
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400"><strong>Targeted Treatments:</strong> Depending on your skin concerns, incorporate targeted treatments like serums, masks, and eye creams into your routine. Look for ingredients like vitamin C, hyaluronic acid, and retinol to address specific issues.</p>
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400">Remember, consistency is key. Stick to your skincare routine, and over time, you'll see noticeable improvements in your skin's texture and appearance.</p>
+                        </div>
+
                         <div class="flex justify-between items-center">
                             <div class="flex items-center space-x-4">
                                 <img class="w-7 h-7 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png" alt="Jese Leos avatar" />
                                 <span class="font-medium dark:text-white">
                                   Jese Leos
                               </span>
+
                             </div>
-                            <a href="#" class="inline-flex items-center font-medium text-primary-600 dark:text-white hover:underline">
+                            <button onclick="toggleExtraContent('extra-content-1')" class="inline-flex items-center font-medium text-primary-600 dark:text-white hover:underline">
                                 Read more
                                 <svg class="ml-2 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                            </a>
+                            </button>
+
                         </div>
                     </article>
+                    <!-- Post 2 -->
                     <article class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
                         <div class="flex justify-between items-center mb-5 text-gray-500">
                           <span class="bg-primary-100 text-primary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-primary-200 dark:text-primary-800">
                               <svg class="mr-1 w-3 h-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M2 5a2 2 0 012-2h8a2 2 0 012 2v10a2 2 0 002 2H4a2 2 0 01-2-2V5zm3 1h6v4H5V6zm6 6H5v2h6v-2z" clip-rule="evenodd"></path><path d="M15 7h1a2 2 0 012 2v5.5a1.5 1.5 0 01-3 0V7z"></path></svg>
                               Article
                           </span>
-                            <span class="text-sm">14 days ago</span>
+                            <span class="text-sm">20 days ago</span>
                         </div>
-                        <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><a href="#">Our first project with React</a></h2>
-                        <p class="mb-5 font-light text-gray-500 dark:text-gray-400">Static websites are now used to bootstrap lots of websites and are becoming the basis for a variety of tools that even influence both web designers and developers influence both web designers and developers.</p>
+                        <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><a href="#">Top 5 Makeup Products You Need in Your Bag</a></h2>
+
+                        <img th:src="@{/img/postfoto2.png}" class="mb-4 rounded-lg" style="height:15rem; width:auto;" alt="Skincare Guide Image" />
+                        <p class="mb-5 font-light text-gray-500 dark:text-gray-400">Whether you're a makeup enthusiast or just starting, having the right products in your makeup bag can make all the difference. In this post, we'll share our top 5 must-have makeup products that will help you create a flawless look effortlessly.  </p>
+
+                        <div id="extra-content-2" style="display: none;">
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400"><strong>Content:</strong></p>
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400"><strong>Foundation:</strong> A good foundation is the base of any makeup look. Choose one that matches your skin tone and type. Whether you prefer a matte or dewy finish, a quality foundation will provide even coverage and a natural look.</p>
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400"><strong>Concealer:</strong> Concealer is a lifesaver for hiding blemishes, dark circles, and any imperfections. Opt for a creamy formula that blends easily and provides full coverage.</p>
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400"><strong>Mascara:</strong> Enhance your lashes with a volumizing and lengthening mascara. A good mascara will open up your eyes and make them appear bigger and brighter.</p>
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400"><strong>Blush:</strong> Add a pop of color to your cheeks with a blush that complements your skin tone. Whether you prefer powder, cream, or liquid blush, it will give you a healthy, radiant glow.</p>
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400"><strong>Lipstick:</strong> No makeup look is complete without a swipe of lipstick. Choose a versatile shade that can transition from day to night. A classic red, nude, or pink lipstick is a great addition to any makeup bag.</p>
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400">With these essentials, you'll be ready to create a variety of looks, from natural to glamorous. Invest in high-quality products, and your makeup will look flawless and last longer.</p>
+                        </div>
+
                         <div class="flex justify-between items-center">
                             <div class="flex items-center space-x-4">
                                 <img class="w-7 h-7 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png" alt="Bonnie Green avatar" />
@@ -112,12 +153,220 @@
                                   Bonnie Green
                               </span>
                             </div>
-                            <a href="#" class="inline-flex items-center font-medium text-primary-600 dark:text-white hover:underline">
+                            <button onclick="toggleExtraContent('extra-content-2')" class="inline-flex items-center font-medium text-primary-600 dark:text-white hover:underline">
                                 Read more
                                 <svg class="ml-2 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                            </a>
+                            </button>
                         </div>
                     </article>
+                    <!-- Post 3 -->
+                    <article class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+                        <div class="flex justify-between items-center mb-5 text-gray-500">
+                          <span class="bg-primary-100 text-primary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-primary-200 dark:text-primary-800">
+                              <svg class="mr-1 w-3 h-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 5a2 2 0 012-2h8a2 2 0 012 2v10a2 2 0 002 2H4a2 2 0 01-2-2V5zm3 1h6v4H5V6zm6 6H5v2h6v-2z" clip-rule="evenodd"></path><path d="M15 7h1a2 2 0 012 2v5.5a1.5 1.5 0 01-3 0V7z"></path></svg>
+                              Article
+                          </span>
+                            <span class="text-sm">30 days ago</span>
+                        </div>
+                        <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><a href="#">Natural Beauty: DIY Face Masks for Glowing Skin</a></h2>
+
+                        <img th:src="@{/img/fotopost3.png}" class="mb-4 rounded-lg" style="height:15rem; width:auto;" alt="DIY Face Masks Image" />
+                        <p class="mb-5 font-light text-gray-500 dark:text-gray-400">Why spend a fortune on skincare products when you can create effective face masks at home using natural ingredients? In this post, we share three simple DIY face mask recipes that will leave your skin glowing and rejuvenated.</p>
+
+                        <div id="extra-content-3" style="display: none;">
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400"><strong>Content:</strong></p>
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400"><strong>Honey and Oatmeal Mask:</strong></p>
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400">Ingredients: 1 tablespoon honey, 1 tablespoon finely ground oatmeal, a few drops of water.</p>
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400">Instructions: Mix the honey and oatmeal in a bowl. Add a few drops of water to achieve a smooth paste. Apply the mask to your face and leave it on for 15-20 minutes. Rinse off with warm water. Honey has antibacterial properties, while oatmeal soothes and exfoliates the skin.</p>
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400"><strong>Avocado and Yogurt Mask:</strong></p>
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400">Ingredients: 1/2 ripe avocado, 1 tablespoon plain yogurt.</p>
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400">Instructions: Mash the avocado until smooth. Mix in the yogurt to create a creamy consistency. Apply the mask to your face and let it sit for 15 minutes. Rinse off with lukewarm water. Avocado is rich in healthy fats and vitamins, and yogurt contains lactic acid that gently exfoliates and hydrates the skin.</p>
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400"><strong>Turmeric and Milk Mask:</strong></p>
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400">Ingredients: 1 teaspoon turmeric powder, 2 tablespoons milk.</p>
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400">Instructions: Mix the turmeric and milk in a bowl to form a paste. Apply the mask evenly on your face and leave it on for 10-15 minutes. Rinse off with warm water. Turmeric has anti-inflammatory properties, and milk soothes and brightens the skin.</p>
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400">These DIY face masks are easy to make and use ingredients that are likely already in your kitchen. Treat your skin to these natural remedies and enjoy a glowing complexion.</p>
+                        </div>
+
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center space-x-4">
+                                <img class="w-7 h-7 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png" alt="Jese Leos avatar" />
+                                <span class="font-medium dark:text-white">
+                                  Jese Leos
+                              </span>
+                            </div>
+                            <button onclick="toggleExtraContent('extra-content-3')" class="inline-flex items-center font-medium text-primary-600 dark:text-white hover:underline">
+                                Read more
+                                <svg class="ml-2 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                            </button>
+                        </div>
+                    </article>
+                    <!-- Post 4 -->
+                    <article class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+                        <div class="flex justify-between items-center mb-5 text-gray-500">
+        <span class="bg-primary-100 text-primary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-primary-200 dark:text-primary-800">
+            <svg class="mr-1 w-3 h-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zm12.553 1.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"></path>
+            </svg>
+            Article
+        </span>
+                            <span class="text-sm">5 days ago</span>
+                        </div>
+                        <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                            <a href="#">The Best Hair Care Tips for Healthy, Shiny Hair</a>
+                        </h2>
+                        <img th:src="@{/img/postfoto4.png}" class="mb-4 rounded-lg" style="height:15rem; width:auto;" alt="Hair Care Tips Image" />
+                        <p class="mb-5 font-light text-gray-500 dark:text-gray-400">
+                            Beautiful hair starts with proper care. Whether your hair is straight, curly, or wavy, following the right hair care routine can make all the difference. In this post, we'll share essential hair care tips to help you achieve healthy, shiny hair.
+                        </p>
+                        <div id="extra-content-4" style="display: none;">
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400">
+                                <strong>Content:</strong><br><br>
+                                <strong>Regular Trims:</strong> Trim your hair every 6-8 weeks to get rid of split ends and maintain healthy hair.
+                            </p>
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400">
+                                <strong>Proper Washing:</strong> Use a sulfate-free shampoo and conditioner suitable for your hair type. Avoid washing your hair every day to prevent stripping it of natural oils.
+                            </p>
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400">
+                                <strong>Heat Protection:</strong> Apply a heat protectant spray before using heat styling tools like blow dryers, curling irons, and straighteners to prevent damage.
+                            </p>
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400">
+                                <strong>Hydration:</strong> Keep your hair hydrated with regular deep conditioning treatments or hair masks. Look for products containing natural oils like argan oil or coconut oil.
+                            </p>
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400">
+                                <strong>Gentle Handling:</strong> Avoid brushing wet hair, as it's more prone to breakage. Use a wide-tooth comb to detangle gently.
+                            </p>
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400">
+                                <strong>Healthy Diet:</strong> A balanced diet rich in vitamins and minerals supports healthy hair growth. Include foods high in biotin, vitamin E, and omega-3 fatty acids.
+                            </p>
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400">
+                                By incorporating these tips into your hair care routine, you'll achieve healthier, shinier hair that looks and feels great.
+                            </p>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center space-x-4">
+                                <img class="w-7 h-7 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png" alt="Jese Leos avatar" />
+                                <span class="font-medium dark:text-white">Jese Leos</span>
+                            </div>
+                            <button onclick="toggleExtraContent('extra-content-4')" class="inline-flex items-center font-medium text-primary-600 dark:text-white hover:underline">
+                                Read more
+                                <svg class="ml-2 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </article>
+                    <!-- Post 5 -->
+                    <article class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+                        <div class="flex justify-between items-center mb-5 text-gray-500">
+        <span class="bg-primary-100 text-primary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-primary-200 dark:text-primary-800">
+            <svg class="mr-1 w-3 h-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zm12.553 1.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"></path>
+            </svg>
+            Article
+        </span>
+                            <span class="text-sm">10 days ago</span>
+                        </div>
+                        <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                            <a href="#">Essential Oils for Beauty: Benefits and Uses</a>
+                        </h2>
+                        <img th:src="@{/img/postfoto5.png}" class="mb-4 rounded-lg" style="height:15rem; width:auto;" alt="Essential Oils Image" />
+                        <p class="mb-5 font-light text-gray-500 dark:text-gray-400">
+                            Essential oils have been used for centuries for their therapeutic properties. In recent years, they have gained popularity in the beauty industry for their various skin and hair benefits. In this post, we'll explore the benefits and uses of essential oils in your beauty routine.
+                        </p>
+                        <div id="extra-content-5" style="display: none;">
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400">
+                                <strong>Content:</strong><br><br>
+                                <strong>Lavender Oil:</strong> Known for its calming properties, lavender oil helps reduce acne, soothe skin irritation, and promote hair growth. Add a few drops to your moisturizer or shampoo for best results.
+                            </p>
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400">
+                                <strong>Tea Tree Oil:</strong> With its antibacterial and anti-inflammatory properties, tea tree oil is effective in treating acne and dandruff. Apply it directly to blemishes or mix it with your shampoo.
+                            </p>
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400">
+                                <strong>Rosehip Oil:</strong> Rich in vitamins A and C, rosehip oil helps reduce the appearance of scars, fine lines, and pigmentation. Use it as a facial serum for a youthful glow.
+                            </p>
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400">
+                                <strong>Argan Oil:</strong> Often referred to as "liquid gold," argan oil is excellent for moisturizing and nourishing skin and hair. Use it as a hair treatment or add it to your daily skincare routine.
+                            </p>
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400">
+                                <strong>Peppermint Oil:</strong> Known for its invigorating scent, peppermint oil stimulates hair growth and soothes an itchy scalp. Mix it with a carrier oil and massage it into your scalp.
+                            </p>
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400">
+                                <strong>Jojoba Oil:</strong> Similar to the skin's natural sebum, jojoba oil is perfect for balancing oil production and moisturizing the skin. Use it as a makeup remover or facial moisturizer.
+                            </p>
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400">
+                                Incorporate these essential oils into your beauty routine to experience their amazing benefits for your skin and hair.
+                            </p>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center space-x-4">
+                                <img class="w-7 h-7 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png" alt="Jese Leos avatar" />
+                                <span class="font-medium dark:text-white">Jese Leos</span>
+                            </div>
+                            <button onclick="toggleExtraContent('extra-content-5')" class="inline-flex items-center font-medium text-primary-600 dark:text-white hover:underline">
+                                Read more
+                                <svg class="ml-2 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </article>
+                    <!-- Post 6 -->
+                    <article class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+                        <div class="flex justify-between items-center mb-5 text-gray-500">
+        <span class="bg-primary-100 text-primary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-primary-200 dark:text-primary-800">
+            <svg class="mr-1 w-3 h-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zm12.553 1.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"></path>
+            </svg>
+            Article
+        </span>
+                            <span class="text-sm">25 days ago</span>
+                        </div>
+                        <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                            <a href="#">How to Achieve the Perfect Red Lip</a>
+                        </h2>
+                        <img th:src="@{/img/postfoto6.png}" class="mb-4 rounded-lg" style="height:15rem; width:auto;" alt="Red Lip Image" />
+                        <p class="mb-5 font-light text-gray-500 dark:text-gray-400">
+                            A classic red lip is timeless and adds a touch of glamour to any look. Achieving the perfect red lip can be tricky, but with the right technique and products, you can master it. In this post, we'll guide you through the steps to achieve the perfect red lip.
+                        </p>
+                        <div id="extra-content-6" style="display: none;">
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400">
+                                <strong>Content:</strong><br><br>
+                                <strong>Exfoliate:</strong> Start by exfoliating your lips to remove any dead skin. Use a lip scrub or a damp toothbrush for gentle exfoliation.
+                            </p>
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400">
+                                <strong>Hydrate:</strong> Apply a lip balm to hydrate your lips and prepare them for the lipstick.
+                            </p>
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400">
+                                <strong>Line:</strong> Use a lip liner that matches your lipstick shade to outline your lips. This will prevent the lipstick from feathering and help define your lips.
+                            </p>
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400">
+                                <strong>Apply:</strong> Apply your red lipstick using a lip brush for precise application. Start from the center of your lips and work your way outwards.
+                            </p>
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400">
+                                <strong>Blot:</strong> Blot your lips with a tissue to remove any excess lipstick and set the color.
+                            </p>
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400">
+                                <strong>Touch Up:</strong> Use a concealer brush to clean up any mistakes and sharpen the edges of your lips. Apply a second layer of lipstick if needed.
+                            </p>
+                            <p class="mb-5 font-light text-gray-500 dark:text-gray-400">
+                                With these steps, you can achieve a perfect red lip that lasts all day. Experiment with different shades of red to find the one that best suits your skin tone and style.
+                            </p>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center space-x-4">
+                                <img class="w-7 h-7 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png" alt="Jese Leos avatar" />
+                                <span class="font-medium dark:text-white">Jese Leos</span>
+                            </div>
+                            <button onclick="toggleExtraContent('extra-content-6')" class="inline-flex items-center font-medium text-primary-600 dark:text-white hover:underline">
+                                Read more
+                                <svg class="ml-2 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </article>
+
+
                 </div>
                 <!--END OF POSTS-->
 
