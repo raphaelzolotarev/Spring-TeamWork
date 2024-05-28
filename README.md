@@ -55,7 +55,7 @@ Spring-TeamWork is a collaborative project built using the Spring framework. Thi
     mvn spring-boot:run
     ```
 
-## Project Structure
+## 🗂️ Project Structure
 Spring-TeamWork/
 ├── src/
 │ ├── main/
@@ -88,7 +88,7 @@ Houses the REST controllers that handle HTTP requests and responses.
 ### DTO
 Includes Data Transfer Objects used to transfer data between processes.
 
-### Model
+## 📦 Modules
 Defines the entity classes that map to the database tables.
 
 ### Repository
@@ -97,10 +97,10 @@ Interfaces for database operations, extending Spring Data JPA repositories.
 ### Service
 Contains the service layer with business logic.
 
-## Database
+## 🗃️ Database
 The project uses a relational database (e.g., MySQL). Make sure to update the `application.properties` file with your database credentials.
 
-## API Endpoints
+## 🔌 API Endpoints
 - **User Controller**
   - `GET /users` - Retrieve all users
   - `POST /users` - Create a new user
