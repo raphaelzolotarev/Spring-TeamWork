@@ -30,6 +30,14 @@ public class CookieFilter implements Filter {
         String cookieValue="";
         Cookie[] cookies = httpRequest.getCookies();
         boolean hasCookie = true;
+
+        httpRequest.setAttribute("numberOfConnectedUsers", userService.getAllUsers().stream().filter(User::isOnline).count());
+        httpRequest.setAttribute("numberOfDisconnectedUsers", userService.getAllUsers().stream().filter(user -> !user.isOnline()).count());
+        httpRequest.setAttribute("numberOfVisits", userService.getAllUsers().stream().mapToLong(User::getNumber_of_visits).sum());
+
+        httpRequest.setAttribute("listOfConnectedUsers", userService.getAllUsers().stream().filter(User::isOnline));
+        httpRequest.setAttribute("listOfDisconnectedUsers", userService.getAllUsers().stream().filter(user -> !user.isOnline()));
+
         if (cookies != null) {
             for (Cookie cookie : cookies) {
                 if ("userId".equals(cookie.getName())) {
