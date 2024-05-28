@@ -6,7 +6,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/flowbite@1.5.1/dist/flowbite.min.css" rel="stylesheet">
     <script src="https://unpkg.com/flowbite@1.5.1/dist/flowbite.js"></script>
-    <title>Spring-TeamWork</title>
+    <title>Beauty & Cosmetics Blog</title>
     <style>
 
         /*LOGO*/
@@ -42,173 +42,36 @@
 
 <body>
 
-<<<<<<< HEAD
 <!--HEADER-->
-<header th:insert="fragments :: menu"></header>
-=======
-    <!--HEADER-->
-    <header>
-        <nav class="bg-white border-gray-200 dark:bg-gray-900 border-b border-gray-300 p-4">
-            <div class="flex flex-wrap items-center justify-between max-w-screen-xl mx-auto">
+<div th:insert="fragments :: menu"></div>
 
-                <!--LOGO-->
-                <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
-                    <img th:src="@{/img/logo.png}" class="h-8 logo-light" style="height:5rem" alt="Beauty Logo" />
-                    <img th:src="@{/img/logo-dark.png}" class="h-8 logo-dark" style="height:5rem" alt="Beauty Logo (Dark Mode)" />
+<!--MAIN SECTION-->
+<div class="grid grid-cols-10">
+    <div class="col-span-8">
 
-                </a>
+        <!--LOGIN FORM-->
+        <section class="bg-white dark:bg-gray-900 py-8 lg:py-16 antialiased">
+            <div class="max-w-2xl mx-auto px-4 flex items-center justify-center">
 
-                <!--SEARCH BAR-->
-                <form class="max-w-lg mx-auto" style="width: 34rem;">
-                    <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-                    <div class="relative">
-                        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                            </svg>
-                        </div>
-                        <input type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search by Title, Tags, Author..." required />
-                        <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
-                    </div>
-                </form>
-
-                <!--CHANGING MENU DEPENDS ON USER PRIVILEGES-->
-                <div class="flex items-center md:order-2 space-x-1 md:space-x-2 rtl:space-x-reverse">
-
-                    <!-- VISITORS
-                    <a href="#" class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">Login</a>
-                    <a href="#" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Sign up</a>
-                    -->
-
-                    <!-- SUBSCRIBERS
-                    <button id="dropdownUserAvatarButton" data-dropdown-toggle="dropdownAvatar" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" type="button">
-                        <div class="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
-                            <svg class="absolute w-12 h-12 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
-                        </div>
-                    </button>
-                    <div id="dropdownAvatar" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
-                        <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
-                            <div>Firstname Lastname</div>
-                            <div class="font-medium truncate">email@gmail.com</div>
-                        </div>
-                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownUserAvatarButton">
-                            <li>
-                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">My informations</a>
-                            </li>
-                        </ul>
-                        <div class="py-2">
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
-                        </div>
-                    </div>
-                    -->
-
-                    <!-- AUTHORS -->
-                    <button id="dropdownUserAvatarButton" data-dropdown-toggle="dropdownAvatar" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" type="button">
-                        <div class="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
-                            <svg class="absolute w-12 h-12 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
-                        </div>
-                    </button>
-                    <div id="dropdownAvatar" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
-                        <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
-                            <div>Firstname Lastname</div>
-                            <div class="font-medium truncate">email@gmail.com</div>
-                        </div>
-                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownUserAvatarButton">
-                            <li>
-                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                    <button type="button" class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">
-                                        <div class="flex items-center">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                            </svg>
-                                            <span>New post</span>
-                                        </div>
-                                    </button>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">My informations</a>
-                            </li>
-                        </ul>
-                        <div class="py-2">
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
-                        </div>
+                <div class="w-full max-w-2xl mx-auto bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                    <div class="p-6">
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Edit Post</h2>
+                        <form>
+                            <div class="mb-4">
+                                <label for="title" class="block text-sm font-medium text-gray-900 dark:text-white">Post Title</label>
+                                <input type="text" id="title" name="title" class="block w-full p-2 mt-1 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="Hair serum" required />
+                            </div>
+                            <div class="mb-4">
+                                <label for="content" class="block text-sm font-medium text-gray-900 dark:text-white">Content</label>
+                                <textarea id="content" name="content" rows="10" class="block w-full p-2 mt-1 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>Hair serum description</textarea>
+                            </div>
+                            <div class="flex items-center justify-end space-x-4">
+                                <button type="submit" class="py-2 px-4 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 dark:focus:ring-offset-gray-800">DELETE</button>
+                                <button type="submit" class="py-2 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-800">UPDATE</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
-                <!--END OF MENU-->
-
-            </div>
-        </nav>
-    </header>
-    <!--END OF HEADER-->
-
-
-    <!--MAIN SECTION-->
-    <div class="grid grid-cols-10">
-        <div class="col-span-8">
-
-            <!--LOGIN FORM-->
-            <section class="bg-white dark:bg-gray-900 py-8 lg:py-16 antialiased">
-                <div class="max-w-2xl mx-auto px-4 flex items-center justify-center">
-
-                    <div class="w-full max-w-2xl mx-auto bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                        <div class="p-6">
-                            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Edit Post</h2>
-                            <form>
-                                <div class="mb-4">
-                                    <label for="title" class="block text-sm font-medium text-gray-900 dark:text-white">Post Title</label>
-                                    <input type="text" id="title" name="title" class="block w-full p-2 mt-1 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="Hair serum" required />
-                                </div>
-                                <div class="mb-4">
-                                    <label for="content" class="block text-sm font-medium text-gray-900 dark:text-white">Content</label>
-                                    <textarea id="content" name="content" rows="10" class="block w-full p-2 mt-1 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>Hair serum description</textarea>
-                                </div>
-                                <div class="flex items-center justify-end space-x-4">
-                                    <button type="submit" class="py-2 px-4 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 dark:focus:ring-offset-gray-800">DELETE</button>
-                                    <button type="submit" class="py-2 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-800">UPDATE</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-
-                </div>
-            </section>
-            <!--END OF LOGIN FORM-->
-
-        </div>
-        <!--END MAIN SECTION-->
->>>>>>> origin/master
-
-        <!-- Sidebar -->
-        <div class="col-span-2">
-            <aside class="w-full border-b sidebar-container" aria-label="Sidebar">
-                <div class="sidebar-content py-4 px-3 bg-gray-50  dark:bg-gray-800">
-                    <div class="mt-6">
-                        <h3 class="text-lg font-medium text-gray-900 dark:text-white">Connected Users</h3>
-                        <ul id="connected-users-list" class="mt-4 space-y-2">
-                            <!-- User avatars and names will be appended here -->
-                            <li class="flex items-center space-x-3">
-                                <div class="relative">
-                                    <img class="w-10 h-10 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Charlotte">
-                                    <span class="absolute top-0 left-7 w-3.5 h-3.5 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></span>
-                                </div>
-                                <div class="flex-1 min-w-0">
-                                    <p class="text-base font-medium text-gray-900 dark:text-white">Charlotte</p>
-                                </div>
-                            </li>
-                            <li class="flex items-center space-x-3">
-                                <div class="relative">
-                                    <img class="w-10 h-10 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Dylan">
-                                    <span class="absolute top-0 left-7 w-3.5 h-3.5 bg-red-400 border-2 border-white dark:border-gray-800 rounded-full"></span>
-                                </div>
-                                <div class="flex-1 min-w-0">
-                                    <p class="text-base font-medium text-gray-900 dark:text-white">Dylan</p>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-<<<<<<< HEAD
 
             </div>
         </section>
@@ -224,25 +87,6 @@
 
 <!--COPYRIGHT-->
 <footer th:insert="fragments :: footer" class="bg-white shadow dark:bg-gray-800"></footer>
-=======
-                <div class="sidebar-footer bg-gray-50 dark:bg-gray-800">
-                    <p class="text-sm text-gray-500 dark:text-gray-400">Connected: <span id="connected-count">1</span></p>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">Disconnected: <span id="disconnected-count">1</span></p>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">Number of visits: <span id="visitors-count">22</span></p>
-                </div>
-            </aside>
-        </div>
-        <!-- END OF Sidebar -->
-    </div>
-
-    <!--COPYRIGHT-->
-    <footer class="bg-white shadow dark:bg-gray-800">
-        <div class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
-            <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">Copyright © 2024 <a href="/" class="hover:underline">Beauty & Cosmetics</a>. All Rights Reserved.
-            </span>
-        </div>
-    </footer>
->>>>>>> origin/master
 
 
 </body>
