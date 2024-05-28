@@ -114,6 +114,11 @@ The project uses a relational database (e.g., MySQL). Make sure to update the `a
   - `GET /tasks/{id}` - Retrieve task by ID
   - `PUT /tasks/{id}` - Update task by ID
   - `DELETE /tasks/{id}` - Delete task by ID
+    ## 🖥️ HTML Templates
+The project includes several HTML templates located in `src/main/resources/templates`:
+- **index.html**: The home page of the application.
+- **users.html**: Page for managing users.
+- **tasks.html**: Page for managing tasks.
 
 ## Testing
 Unit and integration tests are included to ensure the correctness of the application. Run the tests using:
