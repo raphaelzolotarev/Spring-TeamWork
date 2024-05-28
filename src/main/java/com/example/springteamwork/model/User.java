@@ -1,12 +1,12 @@
 package com.example.springteamwork.model;
 
+import jakarta.jws.soap.SOAPBinding;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
 @Setter
 @Getter
 public class User {
@@ -25,6 +25,8 @@ public class User {
     private Role role;
 
     private boolean isOnline = true;
+
+    private int number_of_visits = 1;
 
     @NotNull
     private String firstName;
