@@ -56,6 +56,27 @@ Spring-TeamWork is a collaborative project built using the Spring framework. Thi
     ```
 
 ## Project Structure
+Spring-TeamWork/
+├── src/
+│ ├── main/
+│ │ ├── java/
+│ │ │ └── com/
+│ │ │ └── teamwork/
+│ │ │ ├── config/ # Configuration files
+│ │ │ ├── controller/ # REST controllers
+│ │ │ ├── dto/ # Data Transfer Objects
+│ │ │ ├── model/ # Entity models
+│ │ │ ├── repository/ # Repositories
+│ │ │ ├── service/ # Service layer
+│ │ │ └── SpringTeamworkApplication.java # Main application file
+│ │ └── resources/
+│ │ ├── static/ # Static resources
+│ │ ├── templates/ # Thymeleaf templates
+│ │ └── application.properties # Application properties
+│ └── test/ # Test files
+├── .gitignore
+├── README.md
+└── pom.xml
 
 ## Modules
 ### Config
