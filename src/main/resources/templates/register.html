@@ -6,7 +6,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/flowbite@1.5.1/dist/flowbite.min.css" rel="stylesheet">
     <script src="https://unpkg.com/flowbite@1.5.1/dist/flowbite.js"></script>
-    <title>Spring-TeamWork</title>
+    <title>Beauty & Cosmetics Blog</title>
     <style>
 
         /*LOGO*/
@@ -42,96 +42,154 @@
 
 <body>
 
+
 <!--HEADER-->
-<header th:insert="fragments :: menu"></header>
+<div th:insert="fragments :: menu"></div>
 
-    <!--MAIN SECTION-->
-    <div class="grid grid-cols-10">
-        <div class="col-span-8">
 
-            <!--REGISTER FORM-->
-            <section class="bg-white dark:bg-gray-900 py-8 lg:py-16 antialiased">
-                <div class="max-w-2xl mx-auto px-4 flex items-center justify-center">
-                    <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-                        <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-                            <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                                Create an account
-                            </h1>
-                            <form class="space-y-4 md:space-y-6" action="#">
+<!--MODAL TERMS-->
+<div id="default-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative p-4 w-full max-w-2xl max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <!-- Modal header -->
+            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                    Terms of Service
+                </h3>
+                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-target="default-modal" data-modal-toggle="default-modal" data-modal-hide="default-modal" >
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div class="p-4 md:p-5 space-y-4">
+                <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                    With less than a month to go before the European Union enacts new consumer privacy laws for its citizens, companies around the world are updating their terms of service agreements to comply.
+                </p>
+                <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                    The European Union’s General Data Protection Regulation (G.D.P.R.) goes into effect on May 25 and is meant to ensure a common set of data rights in the European Union. It requires organizations to notify users as soon as possible of high-risk data breaches that could personally affect them.
+                </p>
+            </div>
+            <!-- Modal footer -->
+            <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+                <button onclick="toggleCheckbox(true)" data-modal-target="default-modal" data-modal-toggle="default-modal" data-modal-hide="default-modal" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">I accept</button>
+                <button onclick="toggleCheckbox(false)" data-modal-target="default-modal" data-modal-toggle="default-modal" data-modal-hide="default-modal" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Decline</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--END MODAL TERMS-->
 
-                                <!--REQUIRED FIELDS-->
-                                <div>
-                                    <label for="firstname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First name *</label>
-                                    <input type="text" name="firstname" id="firstname" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Bob" required="">
-                                </div>
-                                <div>
-                                    <label for="lastname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First name *</label>
-                                    <input type="text" name="lastname" id="lastname" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Peters" required="">
-                                </div>
-                                <div>
-                                    <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username *</label>
-                                    <input type="text" name="username" id="username" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="bob348" required="">
-                                </div>
-                                <div>
-                                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email *</label>
-                                    <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="bob@gmail.com" required="">
-                                </div>
-                                <div>
-                                    <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password *</label>
-                                    <input type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
-                                </div>
-                                <div>
-                                    <label for="confirm-password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password *</label>
-                                    <input type="password" name="confirm-password" id="confirm-password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
-                                </div>
+<!--MAIN SECTION-->
+<div class="grid grid-cols-10">
+    <div class="col-span-8">
 
-                                <!--NOT REQUIRED FIELDS-->
-                                <div>
-                                    <label for="street" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Street</label>
-                                    <input type="text" name="street" id="street" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
-                                </div>
-                                <div>
-                                    <label for="housenbr" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">House N°</label>
-                                    <input type="number" name="housenbr" id="housenbr" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
-                                </div>
-                                <div>
-                                    <label for="city" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">City</label>
-                                    <input type="text" name="city" id="city" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
-                                </div>
-                                <div>
-                                    <label for="zip" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Zip</label>
-                                    <input type="text" name="zip" id="zip" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
-                                </div>
+        <!--REGISTER FORM-->
+        <section class="bg-white dark:bg-gray-900 py-8 lg:py-16 antialiased">
 
-                                <div class="flex items-start">
-                                    <div class="flex items-center h-5">
-                                        <input id="terms" aria-describedby="terms" type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" required="">
-                                    </div>
-                                    <div class="ml-3 text-sm">
-                                        <label for="terms" class="font-light text-gray-500 dark:text-gray-300">I accept the <a class="font-medium text-blue-600 hover:underline dark:text-blue-500" href="#">Terms and Conditions</a></label>
-                                    </div>
+            <!--ERROR MESSAGE-->
+            <div th:if="${error}" class="max-w-2xl mx-auto flex items-center p-4 mb-4 text-sm text-yellow-800 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300" role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                </svg>
+                <span class="sr-only">Info</span>
+                <div>
+                    <span class="font-medium">Warning !</span> <span th:text="${error}"></span>
+                </div>
+            </div>
+
+            <div class="max-w-2xl mx-auto px-4 flex items-center justify-center">
+
+                <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+                    <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+                        <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                            Create an account
+                        </h1>
+                        <form class="space-y-4 md:space-y-6" th:object="${newuser}" th:action="@{/register}" method="POST">
+
+                            <!--REQUIRED FIELDS-->
+                            <div>
+                                <label for="firstname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First name *</label>
+                                <input th:field="*{firstName}" type="text" name="firstname" id="firstname" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Bob" >
+                            </div>
+                            <div>
+                                <label for="lastname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First name *</label>
+                                <input th:field="*{lastName}" type="text" name="lastname" id="lastname" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Peters" >
+                            </div>
+                            <div>
+                                <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username *</label>
+                                <input th:field="*{username}" type="text" name="username" id="username" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="bob348" >
+                            </div>
+                            <div>
+                                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email *</label>
+                                <input th:field="*{email}" type="text" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="bob@gmail.com" >
+                            </div>
+                            <div>
+                                <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password *</label>
+                                <input th:field="*{password}" type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >
+                            </div>
+                            <div>
+                                <label for="confirm-password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password *</label>
+                                <input th:field="*{retypePassword}" type="password" name="confirm-password" id="confirm-password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >
+                            </div>
+
+                            <!--NOT REQUIRED FIELDS-->
+                            <div>
+                                <label for="street" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Street</label>
+                                <input th:field="*{street}" type="text" name="street" id="street" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
+                            </div>
+                            <div>
+                                <label for="housenbr" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">House N°</label>
+                                <input th:field="*{houseNr}" type="number" name="housenbr" id="housenbr" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
+                            </div>
+                            <div>
+                                <label for="city" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">City</label>
+                                <input th:field="*{city}" type="text" name="city" id="city" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
+                            </div>
+                            <div>
+                                <label for="zip" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Zip</label>
+                                <input th:field="*{zip}" type="text" name="zip" id="zip" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="">
+                            </div>
+
+                            <div class="flex items-start">
+                                <div class="flex items-center h-5">
+                                    <input name="acceptTerms" id="acceptTerms" aria-describedby="terms" type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800">
                                 </div>
-                                <button type="submit" class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Create an account</button>
-                                <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-                                    Already have an account? <a href="#" class="font-medium text-blue-600 hover:underline dark:text-blue-500">Login here</a>
-                                </p>
-                            </form>
-                        </div>
+                                <div class="ml-3 text-sm">
+                                    <label for="acceptTerms" class="font-light text-gray-500 dark:text-gray-300">I accept the <a data-modal-target="default-modal" data-modal-toggle="default-modal" data-modal-show="default-modal" class="font-medium text-blue-600 hover:underline dark:text-blue-500" href="javascript:void(0);">Terms and Conditions</a></label>
+                                </div>
+                            </div>
+                            <button type="submit" class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Create an account</button>
+                            <p class="text-sm font-light text-gray-500 dark:text-gray-400">
+                                Already have an account? <a th:href="@{/login}" href="#" class="font-medium text-blue-600 hover:underline dark:text-blue-500">Login here</a>
+                            </p>
+                        </form>
                     </div>
                 </div>
-            </section>
-            <!--END OF REGISTER FORM-->
+            </div>
+        </section>
+        <!--END OF REGISTER FORM-->
 
-        </div>
-        <!--END MAIN SECTION-->
-
-        <!-- Sidebar -->
-        <div th:insert="fragments :: sidebar" class="col-span-2"></div>
     </div>
+    <!--END MAIN SECTION-->
+
+    <!-- Sidebar -->
+    <div th:insert="fragments :: sidebar" class="col-span-2"></div>
+
+</div>
 
 <!--COPYRIGHT-->
 <footer th:insert="fragments :: footer" class="bg-white shadow dark:bg-gray-800"></footer>
 
+<script>
+    function toggleCheckbox(accept) {
+        let checkbox = document.getElementById('acceptTerms');
+        checkbox.checked = accept;
+    }
+</script>
 
 </body>
 </html>
