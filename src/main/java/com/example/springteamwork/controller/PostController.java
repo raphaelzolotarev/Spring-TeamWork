@@ -1,7 +1,10 @@
 package com.example.springteamwork.controller;
 
 import com.example.springteamwork.model.Post;
+import com.example.springteamwork.model.User;
 import com.example.springteamwork.service.PostServiceImpl;
+import com.example.springteamwork.service.UserServiceImpl;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,51 +18,71 @@ public class PostController {
     @Autowired
     private PostServiceImpl postService;
 
+
+
+    /*SHOW POST*/
     @GetMapping("/")
-    public String viewHomepage(Model model) {
-        model.addAttribute("ListPost", postService.getAllPosts());
+    public String showAllPost(Model model) {
+        List<Post> posts = postService.getAllPosts();
+        model.addAttribute("posts", posts);
         return "index";
     }
 
-    @GetMapping("/showPost/{id}")
-    public String viewPostById(Model model, @PathVariable Long id) {
-        Post post = postService.getPostId(id);
-        model.addAttribute("post", post);
-        return "post_page";
-    }
 
-    @GetMapping("/addNewPost")
-    public String showNewPostForm(Model model) {
-        Post post = new Post();
-        model.addAttribute("post", post);
-        return "new_post";
-    }
 
+    /*CREATE POST*/
+    @GetMapping("/newPost")
+    public String showPostForm(Model model) {
+        Post newpost = new Post();
+        model.addAttribute("newpost", newpost);
+        return "createpost";
+    }
     @PostMapping("/newPost")
-    public String newPost(@ModelAttribute("post") Post post) {
-        postService.savePost(post);
-        return "redirect:/";
+    public String createPost(@ModelAttribute Post newpost, Model model) {
+        try {
+            postService.savePost(newpost);
+            return "redirect:/";
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("error", e.getMessage());
+            model.addAttribute("newpost", new Post());
+            return "createpost";
+        }
     }
 
-    @GetMapping("/updatePost/{id}")
-    public String showUpdatePostForm(@PathVariable(value = "id") Long id, Model model) {
-        Post post = postService.getPostId(id);
-        model.addAttribute("post", post);
-        return "update_post";
+
+
+    /*EDIT POST*/
+    @GetMapping("/editPost/{id}")
+    public String showPostEditForm(@PathVariable Long id, Model model) {
+        Post updatePost = postService.getPostById(id);
+        model.addAttribute("updatePost", updatePost);
+        model.addAttribute("postid", id);
+        return "editpost";
+    }
+    @PostMapping("/editPost")
+    public String updatePost(
+            @RequestParam("postid") Long postID,
+            @RequestParam("title") String title,
+            @RequestParam("description") String description,
+            Model model) {
+        try {
+            Post updatedPost = postService.getPostById(postID);
+            postService.updatePost(updatedPost, title, description);
+            return "redirect:/editPost/"+postID;
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("error", e.getMessage());
+            return showPostEditForm(postID, model);
+        }
     }
 
-    @PostMapping("/updatePost/{id}")
-    public String updatePost(@PathVariable(value = "id") Long id, @ModelAttribute("post") Post postDetails) {
-        Post post = postService.getPostId(id);
-        post.setTitle(postDetails.getTitle());
-        post.setDescription(postDetails.getDescription());
-        postService.savePost(post);
-        return "redirect:/";
-    }
 
+
+
+    /*DELETE POST*/
     @GetMapping("/deletePost/{id}")
-    public String deletePost(@PathVariable(value = "id") Long id) {
-        postService.deletePostById(id);
+    public String deleteUser(@PathVariable Long id) {
+        postService.deletePost(id);
         return "redirect:/";
     }
+
 }

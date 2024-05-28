@@ -6,11 +6,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-public class Post {
+public class Post extends AuditModel{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
