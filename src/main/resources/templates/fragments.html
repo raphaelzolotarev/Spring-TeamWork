@@ -1,11 +1,14 @@
+
 <!--HEADER-->
 <nav th:fragment="menu" class="bg-white border-gray-200 dark:bg-gray-900 border-b border-gray-300 p-4">
     <div class="flex flex-wrap items-center justify-between max-w-screen-xl mx-auto">
+
         <!--LOGO-->
         <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
             <img th:src="@{/img/logo.png}" class="h-8 logo-light" style="height:5rem" alt="Beauty Logo" />
             <img th:src="@{/img/logo-dark.png}" class="h-8 logo-dark" style="height:5rem" alt="Beauty Logo (Dark Mode)" />
         </a>
+
         <!--SEARCH BAR-->
         <form class="max-w-lg mx-auto" style="width: 34rem;">
             <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
@@ -19,14 +22,17 @@
                 <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
             </div>
         </form>
+
         <!--CHANGING MENU DEPENDS ON USER PRIVILEGES-->
         <div class="flex items-center md:order-2 space-x-1 md:space-x-2 rtl:space-x-reverse">
+
 
             <!-- VISITORS -->
             <div th:unless="${userIdCookiePresent}">
                 <a th:href="@{/login}" href="#" class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">Login</a>
                 <a th:href="@{/register}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Sign up</a>
             </div>
+
             <!-- USERS -->
             <div th:if="${userIdCookiePresent && cookieObject.role == T(com.example.springteamwork.dto.Role).USER || cookieObject.role == T(com.example.springteamwork.dto.Role).AUTHOR}">
                 <button id="dropdownUserAvatarButton" data-dropdown-toggle="dropdownAvatar" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" type="button">
@@ -44,6 +50,7 @@
                         </div>
                     </div>
                     <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownUserAvatarButton">
+
                         <!--AUTHORS ONLY-->
                         <li th:if="${userIdCookiePresent && cookieObject.role == T(com.example.springteamwork.dto.Role).AUTHOR}">
                             <a th:href="@{/newPost}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
@@ -57,21 +64,28 @@
                                 </button>
                             </a>
                         </li>
+
                         <li>
                             <a th:href="@{/edit}" href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">My informations</a>
                         </li>
                     </ul>
                     <div class="py-2">
+
                         <a th:href="@{/logout/{id}(id=${cookieObject.id})}" href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
                     </div>
                 </div>
             </div>
 
+
+
         </div>
+
         <!--END OF MENU-->
+
     </div>
 </nav>
 <!--END OF HEADER-->
+
 
 <!-- Sidebar -->
 <aside th:fragment="sidebar" class="w-full border-b sidebar-container" aria-label="Sidebar">
@@ -108,9 +122,9 @@
 </aside>
 <!-- END OF Sidebar -->
 
+
 <!--COPYRIGHT-->
 <div th:fragment="footer" class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
-        <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">Copyright © 2024 <a href="/" class="hover:underline">Beauty & Cosmetics</a>. All Rights Reserved.
-        </span>
+            <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">Copyright © 2024 <a href="/" class="hover:underline">Beauty & Cosmetics</a>. All Rights Reserved.
+            </span>
 </div>
-has context menu

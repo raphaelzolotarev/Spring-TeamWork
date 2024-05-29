@@ -1,4 +1,4 @@
-package com.example.springteamwork.dto;
+package com.example.springteamwork.model;
 
 public enum Role {
     USER,
