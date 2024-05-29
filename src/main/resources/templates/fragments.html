@@ -36,9 +36,12 @@
             <!-- USERS -->
             <div th:if="${userIdCookiePresent && cookieObject.role == T(com.example.springteamwork.dto.Role).USER || cookieObject.role == T(com.example.springteamwork.dto.Role).AUTHOR}">
                 <button id="dropdownUserAvatarButton" data-dropdown-toggle="dropdownAvatar" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" type="button">
-                    <div class="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
-                        <svg class="absolute w-12 h-12 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
-                    </div>
+
+
+
+                    <img class="w-10 h-10 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" th:src="'data:image/jpg;base64,' + ${cookieObject.imageBase64}" alt="Bordered avatar">
+
+
                 </button>
                 <div id="dropdownAvatar" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
                     <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
@@ -95,7 +98,7 @@
             <ul id="connected-users-list" class="mt-4 space-y-2">
                 <li  th:each="connectedUser : ${listOfConnectedUsers}" class="flex items-center space-x-3">
                     <div class="relative">
-                        <img class="w-10 h-10 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Charlotte">
+                        <img class="w-10 h-10 rounded-full" th:src="'data:image/jpg;base64,' + ${connectedUser.imageBase64}">
                         <span class="absolute top-0 left-7 w-3.5 h-3.5 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></span>
                     </div>
                     <div class="flex-1 min-w-0">
@@ -104,7 +107,7 @@
                 </li>
                 <li th:each="disconnectedUser : ${listOfDisconnectedUsers}" class="flex items-center space-x-3">
                     <div class="relative">
-                        <img class="w-10 h-10 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="Dylan">
+                        <img class="w-10 h-10 rounded-full" th:src="'data:image/jpg;base64,' + ${disconnectedUser.imageBase64}" alt="Dylan">
                         <span class="absolute top-0 left-7 w-3.5 h-3.5 bg-red-400 border-2 border-white dark:border-gray-800 rounded-full"></span>
                     </div>
                     <div class="flex-1 min-w-0">
