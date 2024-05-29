@@ -1,18 +1,15 @@
 package com.example.springteamwork.service;
 
 import com.example.springteamwork.model.Post;
-import com.example.springteamwork.model.User;
 import com.example.springteamwork.repository.PostRepository;
-import com.example.springteamwork.repository.UserRepository;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -49,20 +46,46 @@ public class PostServiceImpl implements PostService {
         else if (post.getDescription() == null || post.getDescription().isEmpty()) {
             throw new IllegalArgumentException("Description cannot be empty");
         }
+        else if (post.getTag() == null || post.getTag().isEmpty()) {
+            throw new IllegalArgumentException("Tag cannot be empty");
+        }
+        else if (post.getFile() == null || post.getFile().isEmpty()) {
+            throw new IllegalArgumentException("File cannot be empty");
+        }
+        try {
+            if (post.getFile() != null && !post.getFile().isEmpty()) {
+                post.setImage(post.getFile().getBytes());
+            }
+        } catch (IOException e){
+            throw new IllegalArgumentException("Image cannot be uploaded");
+        }
+
         postRepository.save(post);
     }
 
     /*UPDATE POST*/
     @Override
-    public void updatePost(Post updatedpost, String title, String description) {
+    public void updatePost(Post updatedpost, String title, String description, String tag, MultipartFile file) {
+        updatedpost.setFile(file);
         if (title == null || title.isEmpty()) {
             throw new IllegalArgumentException("Title cannot be empty");
         }
         else if (description == null || description.isEmpty()) {
             throw new IllegalArgumentException("Description cannot be empty");
         }
+        else if (tag == null || tag.isEmpty()) {
+            throw new IllegalArgumentException("Tag cannot be empty");
+        }
+        try {
+            if (updatedpost.getFile() != null && !updatedpost.getFile().isEmpty() ) {
+                updatedpost.setImage(updatedpost.getFile().getBytes());
+            }
+        } catch (IOException e){
+            throw new IllegalArgumentException("Image cannot be uploaded");
+        }
         updatedpost.setTitle(title);
         updatedpost.setDescription(description);
+        updatedpost.setTag(tag);
         postRepository.save(updatedpost);
     }
 

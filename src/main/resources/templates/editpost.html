@@ -70,7 +70,7 @@
                 <div class="w-full max-w-2xl mx-auto bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                     <div class="p-6">
                         <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Edit Post</h2>
-                        <form th:object="${updatePost}" th:action="@{/editPost}" method="POST">
+                        <form th:object="${updatePost}" th:action="@{/editPost}" method="POST" enctype="multipart/form-data" >
                             <div class="mb-4">
                                 <input th:value="${postid}" type="hidden" id="postid" name="postid">
                                 <label for="title" class="block text-sm font-medium text-gray-900 dark:text-white">Post Title</label>
@@ -79,6 +79,22 @@
                             <div class="mb-4">
                                 <label for="description" class="block text-sm font-medium text-gray-900 dark:text-white">Content</label>
                                 <textarea th:field="*{description}" id="description" name="description" rows="10" class="block w-full p-2 mt-1 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" ></textarea>
+                            </div>
+                            <div class="mb-4">
+                                <label for="tag" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select a new tag</label>
+                                <select th:field="*{tag}" id="tag" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+
+                                    <option value="Skincare">Skincare</option>
+                                    <option value="Makeup">Makeup</option>
+                                    <option value="Mask">Mask</option>
+                                    <option value="Haircare">Haircare</option>
+                                    <option value="Oils">Oils</option>
+                                    <option value="Lipstick">Lipstick</option>
+                                </select>
+                            </div>
+                            <div class="mb-4">
+                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file">Upload an image if you want to change</label>
+                                <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="user_avatar_help" id="file" name="file" type="file">
                             </div>
                             <div class="flex items-center justify-end space-x-4">
                                 <a th:href="@{/deletePost/{postid}(postid=${postid})}">
