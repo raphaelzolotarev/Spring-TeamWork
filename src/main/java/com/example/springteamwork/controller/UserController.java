@@ -9,8 +9,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 @Controller
 public class UserController {
+
     @Autowired
     private UserServiceImpl userService;
 
@@ -30,12 +32,16 @@ public class UserController {
         }
     }
 
+
+
     /*LOGOUT*/
     @GetMapping("/logout/{id}")
     public String logout(@PathVariable(value="id") Long id, HttpServletResponse response) {
         userService.disconnectUser(id, response);
         return "redirect:/";
     }
+
+
 
     /*REGISTER FORM*/
     @GetMapping("/register")
@@ -55,6 +61,8 @@ public class UserController {
             return "register";
         }
     }
+
+
 
     /*EDIT FORM*/
     @GetMapping("/edit")
@@ -93,11 +101,13 @@ public class UserController {
         }
     }
 
+
+
     /*DELETE USER*/
     @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable(value="id") Long id, HttpServletResponse response) {
         userService.deleteUser(id, response);
         return "redirect:/";
     }
+
 }
- 
