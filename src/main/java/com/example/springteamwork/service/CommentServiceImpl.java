@@ -1,17 +1,17 @@
 package com.example.springteamwork.service;
-
 import com.example.springteamwork.model.Comment;
+import com.example.springteamwork.model.Post;
 import com.example.springteamwork.repository.CommentRepository;
+import com.example.springteamwork.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
-public class CommentServiceImpl implements CommentService {
+public class CommentServiceImpl implements CommentService{
+
     private final CommentRepository commentRepository;
 
     @Autowired
@@ -20,55 +20,28 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<Comment> getAllComments() {
-        return commentRepository.findAll();
+    public List<Comment> getAllCommentsByPostId(Long id) {
+        return commentRepository.findAll().stream().filter(c->c.getPost().getId()==id).collect(Collectors.toList());
     }
 
     @Override
-    public Page<Comment> getAllCommentsByPostId(Long postId, Pageable pageable) {
-        return commentRepository.findByPostId(postId, pageable);
-    }
-
-    @Override
-    public List<Comment> getAllCommentsByPostID(Long postId) {
-        return commentRepository.findByPostId(postId);
-    }
-
-    @Override
-    public List<Comment> getAllCommentsByUserID(Long userId) {
-        return commentRepository.findByUserId(userId);
-    }
-
-    @Override
-    public Optional<Comment> getCommentByIdAndPostId(Long id, Long postId) {
-        return commentRepository.findByIdAndPostId(id, postId);
-    }
-
-    @Override
-    public Optional<Comment> getCommentByIdAndUserId(Long id, Long userId) {
-        return commentRepository.findByIdAndUserId(id, userId);
+    public Post getCommentById(Long id) {
+        return null;
     }
 
     @Override
     public void saveComment(Comment comment) {
-        commentRepository.save(comment);
+        if (comment.getText()!=null &&  !comment.getText().isEmpty())
+            commentRepository.save(comment);
     }
 
     @Override
-    public Comment getCommentById(Long id) {
-        Optional<Comment> commentOptional = commentRepository.findById(id);
-        if (!commentOptional.isPresent()) {
-            throw new IllegalStateException("Comment doesn't exist");
-        }
-        return commentOptional.get();
+    public void updateComment(Comment comment) {
+
     }
 
     @Override
-    public void deleteCommentById(Long id) {
-        boolean exists = commentRepository.existsById(id);
-        if (!exists) {
-            throw new IllegalStateException("Comment id " + id + " does not exist");
-        }
-        commentRepository.deleteById(id);
+    public void deleteComment(Long id) {
+
     }
 }

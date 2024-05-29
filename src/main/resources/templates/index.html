@@ -57,15 +57,16 @@
 
                 <!--FILTER BY-->
                 <div class="max-w-screen-sm mx-auto lg:mb-16 mb-8">
-                    <form class="max-w-sm mx-auto">
+                    <form class="max-w-sm mx-auto" th:action="@{/}" method="GET">
                         <div class="flex items-center mb-6">
                             <label for="small" class="mr-2 text-sm font-medium text-gray-900 dark:text-white">Filter by</label>
-                            <select id="small" class="flex-1 p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <select name="filter" id="small" class="flex-1 p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 <option value="new">Newest</option>
                                 <option value="old">Oldest</option>
                                 <option value="most popular">Most popular</option>
                                 <option value="least popular">Least popular</option>
                             </select>
+                            <button type="submit" class="ml-2 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Sort</button>
                         </div>
                     </form>
                 </div>
@@ -97,11 +98,13 @@
 
                         <div class="flex justify-between items-center">
                             <div class="flex items-center space-x-4">
-                                <img class="w-7 h-7 rounded-full" th:src="'data:image/jpg;base64,' + ${post.getAuthor().getImageBase64()}" alt="Jese Leos avatar" />
-                                <span class="font-medium dark:text-white">
-                                        <span th:text="${post.getAuthor().firstName}"></span>
-                                        <span th:text="${post.getAuthor().lastName}"></span>
-                              </span>
+                                <a th:href="@{/author/{id}(id=${post.id})}" class="flex items-center space-x-4">
+                                    <img class="w-7 h-7 rounded-full" th:src="'data:image/jpg;base64,' + ${post.getAuthor().getImageBase64()}" alt="Jese Leos avatar" />
+                                    <span class="font-medium dark:text-white">
+                                            <span th:text="${post.getAuthor().firstName}"></span>
+                                            <span th:text="${post.getAuthor().lastName}"></span>
+                                        </span>
+                                </a>
                             </div>
                             <a th:href="@{/showPost/{id}(id=${post.id})}" href="#" class="inline-flex items-center font-medium text-primary-600 dark:text-white hover:underline">
                                 Read more
