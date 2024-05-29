@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -91,7 +92,7 @@ public class UserServiceImpl implements UserService {
     /*REGISTER FORM*/
     @Override
     public void saveUser(User user, boolean acceptTerms, HttpServletResponse response) {
-        validateUser(user, acceptTerms, true, true);
+        validateUser(user, acceptTerms, true, true, false);
         userRepository.save(user);
         Cookie userCookie = new Cookie("userId", user.getId().toString());
         userCookie.setMaxAge(30 * 24 * 60 * 60);
@@ -99,7 +100,7 @@ public class UserServiceImpl implements UserService {
     }
 
     /*REGISTER FORM VALIDATOR*/
-    private void validateUser(User user, boolean acceptTerms, boolean usernameChange, boolean emailChange) {
+    private void validateUser(User user, boolean acceptTerms, boolean usernameChange, boolean emailChange, boolean isPhotoOptional) {
         if (user.getFirstName() == null || user.getFirstName().isEmpty()) {
             throw new IllegalArgumentException("First name cannot be empty");
         }
@@ -118,9 +119,9 @@ public class UserServiceImpl implements UserService {
         else if (emailChange && getAllUsers().stream().anyMatch(u -> u.getEmail().equalsIgnoreCase(user.getEmail()))) {
             throw new IllegalArgumentException("Email already used please choose another one");
         }
-        /*else if (!isValidEmail(user.getEmail())) {
+        else if (!isValidEmail(user.getEmail())) {
             throw new IllegalArgumentException("Email must respect the good format: name@email.com");
-        }*/
+        }
         else if (user.getPassword() == null || user.getPassword().isEmpty() || user.getRetypePassword() == null || user.getRetypePassword().isEmpty()) {
             throw new IllegalArgumentException("Password cannot be empty");
         }
@@ -142,6 +143,16 @@ public class UserServiceImpl implements UserService {
         else if (!acceptTerms) {
             throw new IllegalArgumentException("You must accept our terms");
         }
+        else if ((user.getFile() == null || user.getFile().isEmpty()) && !isPhotoOptional) {
+            throw new IllegalArgumentException("File cannot be empty");
+        }
+        try {
+            if (user.getFile() != null && !user.getFile().isEmpty() ) {
+                user.setImage(user.getFile().getBytes());
+            }
+        } catch (IOException e){
+            throw new IllegalArgumentException("Image cannot be uploaded");
+        }
 
     }
 
@@ -159,7 +170,7 @@ public class UserServiceImpl implements UserService {
     /*UPDATE USER*/
     @Override
     public void updateUser(User user) {
-        validateUser(user, true, false, false);
+        validateUser(user, true, false, false, true);
         userRepository.save(user);
     }
 
