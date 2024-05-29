@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -83,6 +84,7 @@ public class UserController {
             @RequestParam("housenbr") String housenbr,
             @RequestParam("city") String city,
             @RequestParam("zip") String zip,
+            @RequestParam("file") MultipartFile file,
             Model model) {
         try {
             User updatedUser = userService.getUserById(id);
@@ -95,6 +97,7 @@ public class UserController {
             updatedUser.setHouseNr(housenbr);
             updatedUser.setCity(city);
             updatedUser.setZip(zip);
+            updatedUser.setFile(file);
             userService.updateUser(updatedUser);
             return "redirect:/edit";
         } catch (IllegalArgumentException e) {

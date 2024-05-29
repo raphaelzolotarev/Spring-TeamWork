@@ -1,3 +1,4 @@
+
 package com.example.springteamwork.model;
 
 import jakarta.persistence.*;

@@ -2,9 +2,7 @@ package com.example.springteamwork.service;
 import com.example.springteamwork.model.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
 import java.util.List;
-
 public interface UserService {
     List<User> getAllUsers();
     void saveUser(User user, boolean acceptTerms, HttpServletResponse response);
@@ -14,3 +12,4 @@ public interface UserService {
     void updateUser(User user);
     void deleteUser(Long id, HttpServletResponse response);
 }
+

@@ -94,6 +94,10 @@ public class PostServiceImpl implements PostService {
     public void deletePost(Long id) {
         postRepository.deleteById(id);
     }
+<<<<<<< HEAD
+}
+=======
 
 
 }
+>>>>>>> origin/master
