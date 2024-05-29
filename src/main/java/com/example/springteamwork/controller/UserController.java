@@ -1,6 +1,8 @@
 package com.example.springteamwork.controller;
 
+import com.example.springteamwork.model.Post;
 import com.example.springteamwork.model.User;
+import com.example.springteamwork.service.PostServiceImpl;
 import com.example.springteamwork.service.UserServiceImpl;
 import jakarta.jws.WebParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +13,16 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Controller
 public class UserController {
 
     @Autowired
     private UserServiceImpl userService;
+    @Autowired
+    private PostServiceImpl postService;
 
 
 
@@ -115,4 +122,16 @@ public class UserController {
         return "redirect:/";
     }
 
+
+
+
+    /*AUTHOR PROFILE*/
+    @GetMapping("/author/{id}")
+    public String showAuthorProfile(@PathVariable(value="id") Long id, Model model) {
+        User author = userService.getUserById(id);
+        List<Post> posts = postService.getAllPosts().stream().filter(p->p.getAuthor().getId()==author.getId()).collect(Collectors.toList());
+        model.addAttribute("author", author);
+        model.addAttribute("posts", posts);
+        return "userprofile";
+    }
 }
