@@ -34,7 +34,7 @@
             </div>
 
             <!-- USERS -->
-            <div th:if="${userIdCookiePresent && cookieObject.role == T(com.example.springteamwork.dto.Role).USER || cookieObject.role == T(com.example.springteamwork.dto.Role).AUTHOR}">
+            <div th:if="${userIdCookiePresent && cookieObject.role == T(com.example.springteamwork.model.Role).USER || cookieObject.role == T(com.example.springteamwork.model.Role).AUTHOR}">
                 <button id="dropdownUserAvatarButton" data-dropdown-toggle="dropdownAvatar" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" type="button">
 
 
@@ -55,7 +55,7 @@
                     <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownUserAvatarButton">
 
                         <!--AUTHORS ONLY-->
-                        <li th:if="${userIdCookiePresent && cookieObject.role == T(com.example.springteamwork.dto.Role).AUTHOR}">
+                        <li th:if="${userIdCookiePresent && cookieObject.role == T(com.example.springteamwork.model.Role).AUTHOR}">
                             <a th:href="@{/newPost}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                                 <button type="button" class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">
                                     <div class="flex items-center">
