@@ -125,7 +125,7 @@
                 <!--COMMENT-->
                 <div>
                     <div class="mt-10 flex justify-between items-center mb-6">
-                        <h2 class="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">Comments (20)</h2>
+                        <h2 class="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">Comments (<span th:text="${#lists.size(comments)}"></span>)</h2>
                     </div>
                     <div th:if="${userIdCookiePresent && cookieObject.role == T(com.example.springteamwork.dto.Role).USER || cookieObject.role == T(com.example.springteamwork.dto.Role).AUTHOR}">
                         <form th:action="@{/newComment}" method="POST"  class="mb-6">
