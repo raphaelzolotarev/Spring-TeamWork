@@ -1,8 +1,5 @@
 package com.example.springteamwork.model;
 
-import com.example.springteamwork.dto
-        .Role;
-import jakarta.jws.soap.SOAPBinding;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;

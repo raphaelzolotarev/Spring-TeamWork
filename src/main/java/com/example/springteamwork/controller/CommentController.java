@@ -19,7 +19,7 @@ import java.util.Optional;
 
 @Controller
 public class CommentController {
-
+/*
     @Autowired
     private CommentService commentService;
 
@@ -106,4 +106,6 @@ public class CommentController {
         commentService.deleteCommentById(id);
         return "redirect:/comments";
     }
+
+ */
 }

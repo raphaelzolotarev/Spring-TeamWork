@@ -9,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOError;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -20,12 +23,20 @@ public class PostController {
 
 
 
-    /*SHOW POST*/
+    /*SHOW ALL POSTS*/
     @GetMapping("/")
     public String showAllPost(Model model) {
         List<Post> posts = postService.getAllPosts();
         model.addAttribute("posts", posts);
         return "index";
+    }
+
+    /*SHOW ONE POST*/
+    @GetMapping("/showPost/{id}")
+    public String showOnePost(Model model, @PathVariable(value="id") Long id) {
+        Post post = postService.getPostById(id);
+        model.addAttribute("post", post);
+        return "blogpage";
     }
 
 
@@ -64,11 +75,13 @@ public class PostController {
             @RequestParam("postid") Long postID,
             @RequestParam("title") String title,
             @RequestParam("description") String description,
+            @RequestParam("tag") String tag,
+            @RequestParam("file") MultipartFile file,
             Model model) {
         try {
             Post updatedPost = postService.getPostById(postID);
-            postService.updatePost(updatedPost, title, description);
-            return "redirect:/editPost/"+postID;
+            postService.updatePost(updatedPost, title, description, tag, file);
+            return "redirect:/showPost/"+postID;
         } catch (IllegalArgumentException e) {
             model.addAttribute("error", e.getMessage());
             return showPostEditForm(postID, model);
