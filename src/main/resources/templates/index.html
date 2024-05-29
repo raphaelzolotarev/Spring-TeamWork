@@ -98,7 +98,7 @@
 
                         <div class="flex justify-between items-center">
                             <div class="flex items-center space-x-4">
-                                <a th:href="@{/author/{id}(id=${post.id})}" class="flex items-center space-x-4">
+                                <a th:href="@{/author/{id}(id=${post.getAuthor().getId()})}" class="flex items-center space-x-4">
                                     <img class="w-7 h-7 rounded-full" th:src="'data:image/jpg;base64,' + ${post.getAuthor().getImageBase64()}" alt="Jese Leos avatar" />
                                     <span class="font-medium dark:text-white">
                                             <span th:text="${post.getAuthor().firstName}"></span>

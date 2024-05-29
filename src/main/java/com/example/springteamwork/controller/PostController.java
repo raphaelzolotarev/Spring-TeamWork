@@ -26,6 +26,8 @@ public class PostController {
     private PostServiceImpl postService;
     @Autowired
     private CommentServiceImpl commentService;
+    @Autowired
+    private UserServiceImpl userService;
 
 
 
@@ -45,12 +47,16 @@ public class PostController {
 
     /*SHOW ALL POSTS*/
     @GetMapping("/filterAuthorProfile")
-    public String showAllPostInAuthorProfile(@RequestParam(value = "filter", required = false, defaultValue = "new") String filter, Model model) {
-        List<Post> posts =  postService.getAllPosts().stream().sorted(Comparator.comparing(Post::getId).reversed()).collect(Collectors.toList());
+    public String showAllPostInAuthorProfile(@RequestParam(value = "filter", required = false, defaultValue = "new") String filter,
+                                             @RequestParam(value = "authorId") Long authorId, Model model) {
+        List<Post> posts =  postService.getAllPosts().stream().filter(p->p.getAuthor().getId()==authorId).sorted(Comparator.comparing(Post::getId).reversed()).collect(Collectors.toList());
 
         if (filter.equals("old")){
-            posts = postService.getAllPosts().stream().sorted(Comparator.comparing(Post::getId)).collect(Collectors.toList());
+            posts = postService.getAllPosts().stream().filter(p->p.getAuthor().getId()==authorId).sorted(Comparator.comparing(Post::getId)).collect(Collectors.toList());
         }
+
+        User author = userService.getUserById(authorId);
+        model.addAttribute("author", author);
         model.addAttribute("posts", posts);
         model.addAttribute("filter", filter);
         return "userprofile";
