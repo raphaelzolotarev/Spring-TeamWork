@@ -36,7 +36,7 @@ public class PostController {
     public String showAllPost(@RequestParam(value = "filter", required = false, defaultValue = "new") String filter, Model model) {
         List<Post> posts =  postService.getAllPosts().stream().sorted(Comparator.comparing(Post::getId).reversed()).collect(Collectors.toList());
 
-        if (filter.equals("old")){
+        if (filter.equals("Oldest")){
             posts = postService.getAllPosts().stream().sorted(Comparator.comparing(Post::getId)).collect(Collectors.toList());
         }
         model.addAttribute("posts", posts);
@@ -51,7 +51,7 @@ public class PostController {
                                              @RequestParam(value = "authorId") Long authorId, Model model) {
         List<Post> posts =  postService.getAllPosts().stream().filter(p->p.getAuthor().getId()==authorId).sorted(Comparator.comparing(Post::getId).reversed()).collect(Collectors.toList());
 
-        if (filter.equals("old")){
+        if (filter.equals("Oldest")){
             posts = postService.getAllPosts().stream().filter(p->p.getAuthor().getId()==authorId).sorted(Comparator.comparing(Post::getId)).collect(Collectors.toList());
         }
 
