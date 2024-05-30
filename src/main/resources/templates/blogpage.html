@@ -127,7 +127,7 @@
                     <div class="mt-10 flex justify-between items-center mb-6">
                         <h2 class="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">Comments (<span th:text="${#lists.size(comments)}"></span>)</h2>
                     </div>
-                    <div th:if="${userIdCookiePresent && cookieObject.role == T(com.example.springteamwork.dto.Role).USER || cookieObject.role == T(com.example.springteamwork.dto.Role).AUTHOR}">
+                    <div th:if="${userIdCookiePresent && cookieObject.role == T(com.example.springteamwork.model.Role).USER || cookieObject.role == T(com.example.springteamwork.model.Role).AUTHOR}">
                         <form th:action="@{/newComment}" method="POST"  class="mb-6">
                             <div class="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
                                 <label for="comment" class="sr-only">Your comment</label>
