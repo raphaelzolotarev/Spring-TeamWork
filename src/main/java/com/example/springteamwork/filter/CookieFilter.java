@@ -1,5 +1,6 @@
 package com.example.springteamwork.filter;
 
+import com.example.springteamwork.model.Role;
 import com.example.springteamwork.model.User;
 import com.example.springteamwork.service.UserService;
 import jakarta.servlet.*;
