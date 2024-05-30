@@ -1,7 +1,9 @@
 package com.example.springteamwork.controller;
 
+import com.example.springteamwork.model.Comment;
 import com.example.springteamwork.model.Post;
 import com.example.springteamwork.model.User;
+import com.example.springteamwork.service.CommentServiceImpl;
 import com.example.springteamwork.service.PostServiceImpl;
 import com.example.springteamwork.service.UserServiceImpl;
 import jakarta.servlet.http.HttpServletResponse;
@@ -13,31 +15,77 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOError;
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class PostController {
 
     @Autowired
     private PostServiceImpl postService;
+    @Autowired
+    private CommentServiceImpl commentService;
+    @Autowired
+    private UserServiceImpl userService;
 
 
 
     /*SHOW ALL POSTS*/
     @GetMapping("/")
-    public String showAllPost(Model model) {
-        List<Post> posts = postService.getAllPosts();
+    public String showAllPost(@RequestParam(value = "filter", required = false, defaultValue = "new") String filter, Model model) {
+        List<Post> posts =  postService.getAllPosts().stream().sorted(Comparator.comparing(Post::getId).reversed()).collect(Collectors.toList());
+
+        if (filter.equals("old")){
+            posts = postService.getAllPosts().stream().sorted(Comparator.comparing(Post::getId)).collect(Collectors.toList());
+        }
         model.addAttribute("posts", posts);
+        model.addAttribute("filter", filter);
         return "index";
     }
+
+
+    /*SHOW ALL POSTS*/
+    @GetMapping("/filterAuthorProfile")
+    public String showAllPostInAuthorProfile(@RequestParam(value = "filter", required = false, defaultValue = "new") String filter,
+                                             @RequestParam(value = "authorId") Long authorId, Model model) {
+        List<Post> posts =  postService.getAllPosts().stream().filter(p->p.getAuthor().getId()==authorId).sorted(Comparator.comparing(Post::getId).reversed()).collect(Collectors.toList());
+
+        if (filter.equals("old")){
+            posts = postService.getAllPosts().stream().filter(p->p.getAuthor().getId()==authorId).sorted(Comparator.comparing(Post::getId)).collect(Collectors.toList());
+        }
+
+        User author = userService.getUserById(authorId);
+        model.addAttribute("author", author);
+        model.addAttribute("posts", posts);
+        model.addAttribute("filter", filter);
+        return "userprofile";
+    }
+
+
 
     /*SHOW ONE POST*/
     @GetMapping("/showPost/{id}")
     public String showOnePost(Model model, @PathVariable(value="id") Long id) {
         Post post = postService.getPostById(id);
         model.addAttribute("post", post);
+
+        List<Comment> comments = commentService.getAllCommentsByPostId(id);
+        model.addAttribute("comments", comments);
         return "blogpage";
     }
+
+
+    /*SEARCH ALL POSTS*/
+    @PostMapping("/")
+    public String searchPost(@RequestParam(value = "search", required = false, defaultValue = "") String search, Model model) {
+        List<Post> posts = postService.getAllPosts().stream()
+                .filter(post -> post.getTitle().toLowerCase().contains(search.toLowerCase()) || post.getTag().toLowerCase().contains(search.toLowerCase()) || post.getAuthor().getFirstName().toLowerCase().contains(search.toLowerCase()) || post.getAuthor().getLastName().toLowerCase().contains(search.toLowerCase()))
+                .collect(Collectors.toList());
+        model.addAttribute("posts", posts);
+        return "index";
+    }
+
 
 
 
