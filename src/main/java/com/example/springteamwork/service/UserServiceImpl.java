@@ -9,6 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.time.Instant;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -69,21 +73,17 @@ public class UserServiceImpl implements UserService {
         if (userId == 0){
             throw new IllegalArgumentException("Wrong Username or Password");
         } else {
-            Cookie userCookie = new Cookie("userId", userId.toString());
-            userCookie.setMaxAge(30 * 24 * 60 * 60);
-            response.addCookie(userCookie);
+            cookieGenerator(user.get(), response);
         }
     }
 
     /*LOGOUT FORM*/
     @Override
     public void disconnectUser(Long id, HttpServletResponse response) {
-        Cookie cookie = new Cookie("userId", "");
-        cookie.setMaxAge(0);
-        cookie.setPath("/");
-        response.addCookie(cookie);
+        cookieDeletor(response);
         User user = getUserById(id);
         user.setOnline(false);
+        user.setToken(null);
         userRepository.save(user);
     }
 
@@ -94,9 +94,7 @@ public class UserServiceImpl implements UserService {
     public void saveUser(User user, boolean acceptTerms, HttpServletResponse response) {
         validateUser(user, acceptTerms, true, true, false);
         userRepository.save(user);
-        Cookie userCookie = new Cookie("userId", user.getId().toString());
-        userCookie.setMaxAge(30 * 24 * 60 * 60);
-        response.addCookie(userCookie);
+        cookieGenerator(user, response);
     }
 
     /*REGISTER FORM VALIDATOR*/
@@ -181,9 +179,57 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(Long id, HttpServletResponse response) {
         userRepository.deleteById(id);
+    }
+
+
+
+
+    /*COOKIE GENERATOR*/
+    private void cookieGenerator(User user, HttpServletResponse response) {
+
+        //CREATE COOKIE USER ID
+        Cookie userCookie = new Cookie("userId", user.getId().toString());
+        userCookie.setMaxAge(30 * 24 * 60 * 60);
+        response.addCookie(userCookie);
+
+
+        //CREATE COOKIE TOKEN
+        String token = generateTheMostExtremlySecuredTokenOnEarth();
+        user.setToken(token);
+        userRepository.save(user);
+
+        Cookie tokenCookie = new Cookie("token", token);
+        tokenCookie.setMaxAge(30 * 24 * 60 * 60);
+        response.addCookie(tokenCookie);
+    }
+
+    /*COOKIE DELETOR*/
+    private void cookieDeletor(HttpServletResponse response) {
         Cookie cookie = new Cookie("userId", "");
         cookie.setMaxAge(0);
         cookie.setPath("/");
         response.addCookie(cookie);
+
+        Cookie cookieToken = new Cookie("token", "");
+        cookieToken.setMaxAge(0);
+        cookieToken.setPath("/");
+        response.addCookie(cookieToken);
     }
+
+    /*TOKEN GENERATOR*/
+    private String generateTheMostExtremlySecuredTokenOnEarth() {
+        try {
+            SecureRandom secureRandom = SecureRandom.getInstance("SHA1PRNG");
+            long timestamp = Instant.now().toEpochMilli();
+            byte[] randomBytes = new byte[16];
+            secureRandom.nextBytes(randomBytes);
+            String token = Long.toHexString(timestamp) + Base64.getUrlEncoder().withoutPadding().encodeToString(randomBytes);
+            return token;
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } return null;
+    }
+
+
+
 }
