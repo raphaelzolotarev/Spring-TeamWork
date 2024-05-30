@@ -25,7 +25,6 @@ public class UserController {
     private PostServiceImpl postService;
 
 
-
     /*LOGIN FORM*/
     @GetMapping("/login")
     public String showLoginForm() {

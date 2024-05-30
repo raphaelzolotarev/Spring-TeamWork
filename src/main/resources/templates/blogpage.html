@@ -54,7 +54,7 @@
                 <!--AUTHOR-->
                 <header class="mb-4 lg:mb-6 not-format">
 
-                    <div th:if="${userIdCookiePresent && cookieObject.role == T(com.example.springteamwork.dto.Role).USER || cookieObject.role == T(com.example.springteamwork.dto.Role).AUTHOR}" class="w-full flex justify-end">
+                    <div th:if="${userIdCookiePresent && cookieObject.role == T(com.example.springteamwork.model.Role).AUTHOR && cookieObject.id == post.getAuthor().id}" class="w-full flex justify-end">
                         <a th:href="@{/editPost/{id}(id=${post.getId()})}">
                             <button class="mb-10 flex items-center px-4 py-2 bg-green-800 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
@@ -127,7 +127,7 @@
                     <div class="mt-10 flex justify-between items-center mb-6">
                         <h2 class="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">Comments (<span th:text="${#lists.size(comments)}"></span>)</h2>
                     </div>
-                    <div th:if="${userIdCookiePresent && cookieObject.role == T(com.example.springteamwork.dto.Role).USER || cookieObject.role == T(com.example.springteamwork.dto.Role).AUTHOR}">
+                    <div th:if="${userIdCookiePresent && cookieObject.role == T(com.example.springteamwork.model.Role).USER || cookieObject.role == T(com.example.springteamwork.model.Role).AUTHOR}">
                         <form th:action="@{/newComment}" method="POST"  class="mb-6">
                             <div class="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
                                 <label for="comment" class="sr-only">Your comment</label>
