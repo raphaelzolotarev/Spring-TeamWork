@@ -20,26 +20,23 @@ public class LikeServiceImpl implements LikeService {
     }
 
     @Override
-    public void saveLike(Like like) {
-        likeRepository.save(like);
+    public void likePost(Long id) {
+        Like like = likeRepository.findById(id).orElseThrow(() -> new RuntimeException("Like not found"));
+
     }
 
     @Override
-    public Like getLikeById(Long id) {
-        Optional<Like> optionalLike = likeRepository.findById(id);
-        if (!optionalLike.isPresent()) {
-            throw new IllegalStateException("Like with id " + id + " doesn't exist");
-        }
-        return optionalLike.get();
+    public void unlikePost(Long id) {
+
     }
 
-    @Override
-    public void deleteLikeById(Long id) {
-        boolean exists = likeRepository.existsById(id);
-        if (!exists) {
-            throw new IllegalStateException("Like with id " + id + " does not exist");
-        }
-        likeRepository.deleteById(id);
-    }
+
+
+
+
+
+
+
+
 }
 

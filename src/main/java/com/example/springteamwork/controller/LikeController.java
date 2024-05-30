@@ -22,12 +22,6 @@ public class LikeController {
         return "likes";
     }
 
-    @GetMapping("/likes/{id}")
-    public String viewLikeById(@PathVariable Long id, Model model) {
-        Like like = likeService.getLikeById(id);
-        model.addAttribute("like", like);
-        return "like_detail";
-    }
 
     @GetMapping("/likes/new")
     public String showNewLikeForm(Model model) {
@@ -36,31 +30,11 @@ public class LikeController {
         return "new_like";
     }
 
-    @PostMapping("/likes")
-    public String saveLike(@ModelAttribute("like") Like like) {
-        likeService.saveLike(like);
-        return "redirect:/likes";
-    }
 
-    @GetMapping("/likes/edit/{id}")
-    public String showEditLikeForm(@PathVariable Long id, Model model) {
-        Like like = likeService.getLikeById(id);
-        model.addAttribute("like", like);
-        return "edit_like";
-    }
 
-    @PostMapping("/likes/{id}")
-    public String updateLike(@PathVariable Long id, @ModelAttribute("like") Like likeDetails) {
-        Like like = likeService.getLikeById(id);
-        like.setUser_id(likeDetails.getUser_id());
-        like.setPost_id(likeDetails.getPost_id());
-        likeService.saveLike(like);
-        return "redirect:/likes";
-    }
 
-    @GetMapping("/likes/delete/{id}")
-    public String deleteLike(@PathVariable Long id) {
-        likeService.deleteLikeById(id);
-        return "redirect:/likes";
-    }
+
+
+
+
 }
