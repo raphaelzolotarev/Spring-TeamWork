@@ -6,8 +6,7 @@ import java.util.List;
 
 public interface LikeService {
     List<Like> getAllLikes();
-    void saveLike(Like like);
-    Like getLikeById(Long id);
-    void deleteLikeById(Long id);
+    void likePost(Long id);
+    void unlikePost(Long id);
 }
 
