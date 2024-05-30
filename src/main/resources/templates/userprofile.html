@@ -85,11 +85,12 @@
                         <div class="flex items-center mb-6">
                             <input type="hidden" name="authorId" th:value="${author.id}">
                             <label for="small" class="mr-2 text-sm font-medium text-gray-900 dark:text-white">Filter by</label>
-                            <select name="filter" id="small" class="flex-1 p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option value="new">Newest</option>
-                                <option value="old">Oldest</option>
-                                <option value="most popular">Most popular</option>
-                                <option value="least popular">Least popular</option>
+                            <select th:value="${filter}" name="filter" id="small" class="flex-1 p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option value="Newest" th:selected="${filter == 'Newest'}">Newest</option>
+                                <option value="Oldest" th:selected="${filter == 'Oldest'}">Oldest</option>
+                                <!--<option value="Most popular" th:selected="${filter == 'Most popular'}">Most popular</option>
+                                <option value="Least popular" th:selected="${filter == 'Least popular'}">Least popular</option>
+                            -->
                             </select>
                             <button type="submit" class="ml-2 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Sort</button>
                         </div>
@@ -156,9 +157,11 @@
                             <li>
                                 <a href="#" aria-current="page" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
                             </li>
+                            <!--
                             <li>
                                 <a href="#" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
                             </li>
+                            -->
                             <li>
                                 <a href="#" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                                     <span class="sr-only">Next</span>
