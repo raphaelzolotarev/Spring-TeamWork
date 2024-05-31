@@ -31,9 +31,9 @@ public class UserController {
         return "login";
     }
     @PostMapping("/login")
-    public String connectUser(Model model, @RequestParam("username") String username, @RequestParam("password") String password, HttpServletResponse response) {
+    public String connectUser(Model model, @RequestParam("username") String username, @RequestParam("password") String password, @RequestParam(name = "remember", required = false) boolean remember, HttpServletResponse response) {
         try {
-            userService.connectUser(username, password, response);
+            userService.connectUser(username, password, remember, response);
             return "redirect:/";
         } catch (IllegalArgumentException e){
             model.addAttribute("error", e.getMessage());
