@@ -1,6 +1,8 @@
 package com.example.springteamwork.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +18,8 @@ public class NumberOfVisits {
 
     public int numberOfVisits;
 
-    public NumberOfVisits(int numberOfVisits) {
+    public NumberOfVisits(Byte id, int numberOfVisits) {
+        this.id = id;
         this.numberOfVisits = numberOfVisits;
     }
 }
