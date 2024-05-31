@@ -1,9 +1,9 @@
 package com.example.springteamwork.repository;
 
-import com.example.springteamwork.model.MailGun;
+import com.example.springteamwork.model.MailJet;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface MailGunRepository extends JpaRepository<MailGun, Byte> {
+public interface MailJetRepository extends JpaRepository<MailJet, Byte> {
 }
