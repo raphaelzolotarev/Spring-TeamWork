@@ -6,6 +6,11 @@ import com.example.springteamwork.model.User;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -241,6 +246,40 @@ public class UserServiceImpl implements UserService {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         } return null;
+    }
+
+
+
+    /*FORGOT PASSWORD*/
+    public void passwordSenderMail(String username){
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+            HttpPost request = new HttpPost("https://api.mailgun.net/v3/sandbox574f9b0022f145d599d03ac14b225690.mailgun.org/messages");
+            request.setHeader("Authorization", "Basic " + Base64.getEncoder().encodeToString(("api:6697d9b1c6176e8993705bf18a378d4e-0996409b-7a574495").getBytes()));
+            request.setHeader("Content-Type", "application/x-www-form-urlencoded");
+
+            User user = userRepository.getUserByUsername(username);
+
+            String json = "from=info@beautycosmetic.com" +
+                    "&to=" + user.getEmail() +
+                    "&subject=Password Recovery" +
+                    "&text=Hello "+user.getFirstName()+",\n\n" +
+                    "Here is the password recovery information:\n" +
+                    "\n" +
+                    "Your password: " + user.getPassword() + "\n" +
+                    "\n" +
+                    "Thank you!\n" +
+                    "Best regards,\n" +
+                    "BeautyCosmetic Team";
+
+
+
+            request.setEntity(new StringEntity(json));
+
+            HttpResponse response = client.execute(request);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("An error occurred! Please try again later.");
+        }
+
     }
 
 
