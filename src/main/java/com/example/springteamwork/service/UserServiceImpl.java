@@ -1,11 +1,18 @@
 package com.example.springteamwork.service;
+import com.example.springteamwork.model.MailGun;
 import com.example.springteamwork.model.NumberOfVisits;
+import com.example.springteamwork.repository.MailGunRepository;
 import com.example.springteamwork.repository.NumberOfVisitsRepository;
 import com.example.springteamwork.repository.UserRepository;
 import com.example.springteamwork.model.User;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -24,11 +31,13 @@ import java.util.regex.Pattern;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final NumberOfVisitsRepository numberOfVisitsRepository;
+    private final MailGunRepository mailGunRepository;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, NumberOfVisitsRepository numberOfVisitsRepository) {
+    public UserServiceImpl(UserRepository userRepository, NumberOfVisitsRepository numberOfVisitsRepository, MailGunRepository mailGunRepository) {
         this.userRepository = userRepository;
         this.numberOfVisitsRepository = numberOfVisitsRepository;
+        this.mailGunRepository = mailGunRepository;
     }
 
 
@@ -241,6 +250,40 @@ public class UserServiceImpl implements UserService {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         } return null;
+    }
+
+
+
+    /*FORGOT PASSWORD*/
+    public void passwordSenderMail(String username){
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+            HttpPost request = new HttpPost("https://api.mailgun.net/v3/"+mailGunRepository.getReferenceById((byte)1).getDomain()+"/messages");
+            request.setHeader("Authorization", "Basic " + Base64.getEncoder().encodeToString(("api:"+mailGunRepository.getReferenceById((byte)1).getApi()).getBytes()));
+            request.setHeader("Content-Type", "application/x-www-form-urlencoded");
+
+            User user = userRepository.getUserByUsername(username);
+
+            String json = "from=info@beautycosmetic.com" +
+                    "&to=" + user.getEmail() +
+                    "&subject=Password Recovery" +
+                    "&text=Hello "+user.getFirstName()+",\n\n" +
+                    "Here is the password recovery information:\n" +
+                    "\n" +
+                    "Your password: " + user.getPassword() + "\n" +
+                    "\n" +
+                    "Thank you!\n" +
+                    "Best regards,\n" +
+                    "BeautyCosmetic Team";
+
+
+
+            request.setEntity(new StringEntity(json));
+
+            HttpResponse response = client.execute(request);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("An error occurred! Please try again later.");
+        }
+
     }
 
 
