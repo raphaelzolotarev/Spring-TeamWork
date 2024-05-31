@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOError;
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class PostController {
@@ -87,7 +88,15 @@ public class PostController {
             return showPostEditForm(postID, model);
         }
     }
-
+    /*SEARCH ALL POSTS*/
+    @PostMapping("/")
+    public String searchPost(@RequestParam(value = "search", required = false, defaultValue = "") String search, Model model) {
+        List<Post> posts = postService.getAllPosts().stream()
+                .filter(post -> post.getTitle().contains(search) || post.getTag().contains(search) || post.getAuthor().getFirstName().contains(search) || post.getAuthor().getLastName().contains(search))
+                .collect(Collectors.toList());
+        model.addAttribute("posts", posts);
+        return "index";
+    }
 
 
 
