@@ -54,7 +54,7 @@
                 <!--AUTHOR-->
                 <header class="mb-4 lg:mb-6 not-format">
 
-                    <div th:if="${userIdCookiePresent && cookieObject.role == T(com.example.springteamwork.model.Role).USER || cookieObject.role == T(com.example.springteamwork.model.Role).AUTHOR}" class="w-full flex justify-end">
+                    <div th:if="${userIdCookiePresent && cookieObject.role == T(com.example.springteamwork.model.Role).AUTHOR && cookieObject.id == post.getAuthor().id}" class="w-full flex justify-end">
                         <a th:href="@{/editPost/{id}(id=${post.getId()})}">
                             <button class="mb-10 flex items-center px-4 py-2 bg-green-800 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
@@ -67,10 +67,12 @@
 
                     <address class="flex items-center mb-6 not-italic">
                         <div class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white">
-                            <img class="mr-4 w-16 h-16 rounded-full"  th:src="'data:image/jpg;base64,' + ${post.getAuthor().getImageBase64()}"  alt="Jese Leos">
+                            <a th:href="@{/author/{id}(id=${post.getAuthor().id})}" rel="author" class="text-xl font-bold text-gray-900 dark:text-white" >
+                                <img class="mr-4 w-16 h-16 rounded-full"  th:src="'data:image/jpg;base64,' + ${post.getAuthor().getImageBase64()}"  alt="Jese Leos">
+                            </a>
                             <div>
-                                <a href="#" rel="author" class="text-xl font-bold text-gray-900 dark:text-white" >
-                                    <span th:text="${post.getAuthor().getFirstName()}"></span>
+                                <a th:href="@{/author/{id}(id=${post.getAuthor().id})}" rel="author" class="text-xl font-bold text-gray-900 dark:text-white" >
+                                    <span th:text="${post.getAuthor().getFirstName()}"> </span>
                                     <span th:text="${post.getAuthor().getLastName()}"></span>
                                 </a>
                                 <p class="text-base text-gray-500 dark:text-gray-400">
@@ -121,55 +123,70 @@
 
 
                 <!--COMMENT-->
-                <div class="mt-10 flex justify-between items-center mb-6">
-                    <h2 class="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">Discussion (20)</h2>
-                </div>
-                <form class="mb-6">
-                    <div class="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
-                        <label for="comment" class="sr-only">Your comment</label>
-                        <textarea id="comment" rows="6"
-                                  class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800"
-                                  placeholder="Write a comment..." required></textarea>
+                <div>
+                    <div class="mt-10 flex justify-between items-center mb-6">
+                        <h2 class="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">Comments (<span th:text="${#lists.size(comments)}"></span>)</h2>
                     </div>
-                    <button type="submit"
-                            class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:bg-blue-700 dark:focus:ring-primary-900 hover:bg-primary-800 dark:hover:bg-primary-800">
-                        Post comment
-                    </button>
-                </form>
-                <article class="p-6 text-base bg-white border-t border-gray-200 dark:border-gray-700 dark:bg-gray-900">
-                    <footer class="flex justify-between items-center mb-2">
-                        <div class="flex items-center">
-                            <p class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold"><img
-                                    class="mr-2 w-6 h-6 rounded-full"
-                                    src="https://flowbite.com/docs/images/people/profile-picture-4.jpg"
-                                    alt="Helene Engels">Helene Engels</p>
-                            <p class="text-sm text-gray-600 dark:text-gray-400"><time pubdate datetime="2022-06-23"
-                                                                                      title="June 23rd, 2022">Jun. 23, 2022</time></p>
-                        </div>
-                        <button id="dropdownComment4Button" data-dropdown-toggle="dropdownComment4"
-                                class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-500 dark:text-gray-40 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                                type="button">
-                            <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 3">
-                                <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z"/>
-                            </svg>
-                        </button>
-                        <div id="dropdownComment4"
-                             class="hidden z-10 w-36 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                            <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
-                                aria-labelledby="dropdownMenuIconHorizontalButton">
-                                <li>
-                                    <a href="#"
-                                       class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                       class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Remove</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </footer>
-                    <p class="text-gray-500 dark:text-gray-400">Thanks for sharing this. I do came from the Backend development and explored some of the tools to design my Side Projects.</p>
-                </article>
+                    <div th:if="${userIdCookiePresent && cookieObject.role == T(com.example.springteamwork.model.Role).USER || cookieObject.role == T(com.example.springteamwork.model.Role).AUTHOR}">
+                        <form th:action="@{/newComment}" method="POST"  class="mb-6">
+                            <div class="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+                                <label for="comment" class="sr-only">Your comment</label>
+                                <input type="hidden" name="authorId" th:value="${cookieObject.getId()}">
+                                <input type="hidden" name="postId" th:value="${post.getId()}">
+                                <textarea name="text" id="comment" rows="6" class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800" placeholder="Write a comment..." required></textarea>
+
+                            </div>
+                            <button type="submit" class="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 shadow-lg shadow-teal-500/50 dark:shadow-lg dark:shadow-teal-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Send</button>
+
+                        </form>
+                    </div>
+
+                    <!--COMMENT-->
+                    <article th:each="comment:${comments}" class="p-6 text-base bg-white border-t border-gray-200 dark:border-gray-700 dark:bg-gray-900">
+                        <footer class="flex justify-between items-center mb-2">
+                            <div class="flex items-center">
+                                <p class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold"><img
+                                        class="mr-2 w-6 h-6 rounded-full"
+                                        th:src="'data:image/jpg;base64,' + ${comment.getUser().imageBase64}"
+                                        alt="Helene Engels">
+                                    <span th:text="${comment.getUser().getFirstName()}"> </span>
+                                    &nbsp; <span th:text="${comment.getUser().getLastName()}"></span>
+                                </p>
+                                <p class="text-sm text-gray-600 dark:text-gray-400" th:text="${#dates.format(comment.updatedAt, 'dd MMMM yyyy')} + ' at ' + ${#dates.format(comment.updatedAt, 'HH:mm')}"></p>
+                            </div>
+
+
+
+                            <!--EDIT COMMENT-->
+                            <div th:if="${(userIdCookiePresent && cookieObject.id == comment.getUser().id) || cookieObject.id == comment.getPost().getAuthor().getId()}" >
+                                <button th:id="'dropdownComment'+${comment.id}+'Button'"  th:data-dropdown-toggle="'dropdownComment'+${comment.id}"
+                                        class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-500 dark:text-gray-40 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                                        type="button">
+                                    <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 3">
+                                        <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z"/>
+                                    </svg>
+                                </button>
+                                <div th:id="'dropdownComment'+${comment.id}" class="hidden z-10 w-36 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+                                    <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
+                                        aria-labelledby="dropdownMenuIconHorizontalButton">
+                                        <!--<li>
+                                            <a href="#"
+                                               class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edivt</a>
+                                        </li>
+                                        -->
+                                        <li>
+                                            <a th:href="@{/deleteComment/{postId}/{commentId}(postId=${comment.getPost().getId()}, commentId=${comment.id})}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Remove</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </footer>
+                        <p class="text-gray-500 dark:text-gray-400" th:text="${comment.getText()}"></p>
+                    </article>
+                    <!--END OF COMMENT-->
+
+                </div>
                 <!--END OF COMMENT-->
 
             </div>
