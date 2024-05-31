@@ -10,15 +10,15 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class MailGun {
+public class MailJet {
     @Id
     public Byte id;
-    public String domain;
 
     public String api;
+    public String secret;
 
-    public MailGun(String domain, String api) {
-        this.domain = domain;
+    public MailJet(String api, String secret) {
         this.api = api;
+        this.secret = secret;
     }
 }
