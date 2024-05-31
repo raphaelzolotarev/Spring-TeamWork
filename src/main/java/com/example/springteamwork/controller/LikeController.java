@@ -14,7 +14,7 @@ public class LikeController {
 
     @Autowired
     private LikeServiceImpl likeService;
-
+/*
     @GetMapping("/likes")
     public String viewLikesPage(Model model) {
         List<Like> likes = likeService.getAllLikes();
@@ -29,7 +29,7 @@ public class LikeController {
         model.addAttribute("like", like);
         return "new_like";
     }
-
+*/
 
 
 

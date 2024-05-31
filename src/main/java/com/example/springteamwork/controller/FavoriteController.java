@@ -14,7 +14,7 @@ public class FavoriteController {
 
     @Autowired
     private FavoriteServiceImpl favoriteService;
-
+/*
     @GetMapping("/favorites")
     public String viewFavoritesPage(Model model) {
         List<Favorite> favorites = favoriteService.getAllFavorites();
@@ -37,6 +37,6 @@ public class FavoriteController {
         return "redirect:/favorites";
     }
 
-
+*/
 
 }
