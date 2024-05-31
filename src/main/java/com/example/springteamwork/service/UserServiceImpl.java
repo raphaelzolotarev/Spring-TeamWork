@@ -1,4 +1,6 @@
 package com.example.springteamwork.service;
+import com.example.springteamwork.model.NumberOfVisits;
+import com.example.springteamwork.repository.NumberOfVisitsRepository;
 import com.example.springteamwork.repository.UserRepository;
 import com.example.springteamwork.model.User;
 import jakarta.servlet.http.Cookie;
@@ -21,10 +23,12 @@ import java.util.regex.Pattern;
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
+    private final NumberOfVisitsRepository numberOfVisitsRepository;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, NumberOfVisitsRepository numberOfVisitsRepository) {
         this.userRepository = userRepository;
+        this.numberOfVisitsRepository = numberOfVisitsRepository;
     }
 
 
@@ -65,8 +69,11 @@ public class UserServiceImpl implements UserService {
             if(user.get().getPassword().equalsIgnoreCase(password)){
                 userId = user.get().getId();
                 user.get().setOnline(true);
-                user.get().setNumber_of_visits(user.get().getNumber_of_visits()+1);
                 userRepository.save(user.get());
+
+                NumberOfVisits numberOfVisits = numberOfVisitsRepository.findById((byte)1).get();
+                numberOfVisits.setNumberOfVisits(numberOfVisits.getNumberOfVisits()+1);
+                numberOfVisitsRepository.save(numberOfVisits);
             }
         }
 
@@ -95,6 +102,10 @@ public class UserServiceImpl implements UserService {
         validateUser(user, acceptTerms, true, true, false);
         userRepository.save(user);
         cookieGenerator(user, response);
+
+        NumberOfVisits numberOfVisits = numberOfVisitsRepository.findById((byte)1).get();
+        numberOfVisits.setNumberOfVisits(numberOfVisits.getNumberOfVisits()+1);
+        numberOfVisitsRepository.save(numberOfVisits);
     }
 
     /*REGISTER FORM VALIDATOR*/
@@ -179,6 +190,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(Long id, HttpServletResponse response) {
         userRepository.deleteById(id);
+        cookieDeletor(response);
     }
 
 
