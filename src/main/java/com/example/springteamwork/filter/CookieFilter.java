@@ -1,6 +1,7 @@
 package com.example.springteamwork.filter;
 
 import com.example.springteamwork.model.User;
+import com.example.springteamwork.service.NumberOfVisitsService;
 import com.example.springteamwork.service.UserService;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
@@ -14,8 +15,11 @@ public class CookieFilter implements Filter {
 
     private UserService userService;
 
-    public CookieFilter(UserService userService) {
+    private NumberOfVisitsService numberOfVisitsService;
+
+    public CookieFilter(UserService userService, NumberOfVisitsService numberOfVisitsService) {
         this.userService = userService;
+        this.numberOfVisitsService = numberOfVisitsService;
     }
 
     @Override
@@ -29,13 +33,15 @@ public class CookieFilter implements Filter {
         //voor sidebar statistieken
         httpRequest.setAttribute("numberOfConnectedUsers", userService.getAllUsers().stream().filter(User::isOnline).count());
         httpRequest.setAttribute("numberOfDisconnectedUsers", userService.getAllUsers().stream().filter(user -> !user.isOnline()).count());
-        httpRequest.setAttribute("numberOfVisits", userService.getAllUsers().stream().mapToLong(User::getNumber_of_visits).sum());
+        httpRequest.setAttribute("numberOfVisits", numberOfVisitsService.getNumberOfVisits().getNumberOfVisits());
         httpRequest.setAttribute("listOfConnectedUsers", userService.getAllUsers().stream().filter(User::isOnline));
         httpRequest.setAttribute("listOfDisconnectedUsers", userService.getAllUsers().stream().filter(user -> !user.isOnline()));
 
         String cookieValue="";
         Cookie[] cookies = httpRequest.getCookies();
-        boolean hasCookie = true;
+
+        httpRequest.setAttribute("userIdCookiePresent", false);
+        httpRequest.setAttribute("cookieObject", new User());
 
         Long userId = 0L;
 
@@ -48,18 +54,10 @@ public class CookieFilter implements Filter {
                     User user = userService.getUserById(userId);
                     httpRequest.setAttribute("userIdCookiePresent", true);
                     httpRequest.setAttribute("cookieObject", user);
-                    hasCookie=true;
                     break;
-                }else {
-                    hasCookie=false;
                 }
             }
         }
-        if (!hasCookie){
-            httpRequest.setAttribute("userIdCookiePresent", false);
-            httpRequest.setAttribute("cookieObject", new User());
-        }
-
         chain.doFilter(request, response);
     }
 
