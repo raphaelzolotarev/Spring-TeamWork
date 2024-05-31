@@ -1,22 +1,18 @@
 package com.example.springteamwork.service;
-import com.example.springteamwork.model.MailGun;
 import com.example.springteamwork.model.NumberOfVisits;
-import com.example.springteamwork.repository.MailGunRepository;
+import com.example.springteamwork.repository.MailJetRepository;
 import com.example.springteamwork.repository.NumberOfVisitsRepository;
 import com.example.springteamwork.repository.UserRepository;
 import com.example.springteamwork.model.User;
+import com.mailjet.client.MailjetClient;
+import com.mailjet.client.MailjetRequest;
+import com.mailjet.client.resource.Emailv31;
 import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -31,13 +27,13 @@ import java.util.regex.Pattern;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final NumberOfVisitsRepository numberOfVisitsRepository;
-    private final MailGunRepository mailGunRepository;
+    private final MailJetRepository mailJetRepository;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, NumberOfVisitsRepository numberOfVisitsRepository, MailGunRepository mailGunRepository) {
+    public UserServiceImpl(UserRepository userRepository, NumberOfVisitsRepository numberOfVisitsRepository, MailJetRepository mailJetRepository) {
         this.userRepository = userRepository;
         this.numberOfVisitsRepository = numberOfVisitsRepository;
-        this.mailGunRepository = mailGunRepository;
+        this.mailJetRepository = mailJetRepository;
     }
 
 
@@ -255,37 +251,39 @@ public class UserServiceImpl implements UserService {
 
 
     /*FORGOT PASSWORD*/
-    public void passwordSenderMail(String username){
-        try (CloseableHttpClient client = HttpClients.createDefault()) {
-            HttpPost request = new HttpPost("https://api.mailgun.net/v3/"+mailGunRepository.getReferenceById((byte)1).getDomain()+"/messages");
-            request.setHeader("Authorization", "Basic " + Base64.getEncoder().encodeToString(("api:"+mailGunRepository.getReferenceById((byte)1).getApi()).getBytes()));
-            request.setHeader("Content-Type", "application/x-www-form-urlencoded");
+    public void passwordSenderMail(String username) throws Exception {
+        String apiKey = mailJetRepository.getReferenceById((byte)1).getApi();
+        String apiSecret = mailJetRepository.getReferenceById((byte)1).getSecret();
 
-            User user = userRepository.getUserByUsername(username);
+        MailjetClient client = new MailjetClient(apiKey, apiSecret);
+        User user = userRepository.getUserByUsername(username);
 
-            String json = "from=info@beautycosmetic.com" +
-                    "&to=" + user.getEmail() +
-                    "&subject=Password Recovery" +
-                    "&text=Hello "+user.getFirstName()+",\n\n" +
-                    "Here is the password recovery information:\n" +
-                    "\n" +
-                    "Your password: " + user.getPassword() + "\n" +
-                    "\n" +
-                    "Thank you!\n" +
-                    "Best regards,\n" +
-                    "BeautyCosmetic Team";
+        String senderEmail = "raphaelzintec@gmail.com";
+        String senderName = "Beauty & Cosmetic";
+        String recipientEmail = user.getEmail();
+        String subject = "Password Recovery";
+        String htmlContent = "<p>Hi dear "+user.getFirstName().toUpperCase()+",</p><br><strong>This is a password reminder</strong><br><p>Here is your registered password: <strong>"+user.getPassword()+"</strong></p><br><p><i>We strongly advise you to change your password in the edit zone of our website!</i></p><br><p>Best regards,</p><p>Beauty & Cosmetics</p>";
 
+        // Créez la requête d'e-mail Mailjet
+        MailjetRequest request = new MailjetRequest(Emailv31.resource)
+                .property(Emailv31.MESSAGES, new JSONArray()
+                        .put(new JSONObject()
+                                .put("From", new JSONObject()
+                                        .put("Email", senderEmail)
+                                        .put("Name", senderName))
+                                .put("To", new JSONArray()
+                                        .put(new JSONObject()
+                                                .put("Email", recipientEmail)))
+                                .put("Subject", subject)
+                                .put("HTMLPart", htmlContent)));
 
+        try {
+            client.post(request);
 
-            request.setEntity(new StringEntity(json));
-
-            HttpResponse response = client.execute(request);
         } catch (Exception e) {
-            throw new IllegalArgumentException("An error occurred! Please try again later.");
+            throw new Exception(e.getMessage());
         }
-
     }
-
 
 
 }
