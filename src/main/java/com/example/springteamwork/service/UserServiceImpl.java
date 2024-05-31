@@ -1,5 +1,7 @@
 package com.example.springteamwork.service;
+import com.example.springteamwork.model.MailGun;
 import com.example.springteamwork.model.NumberOfVisits;
+import com.example.springteamwork.repository.MailGunRepository;
 import com.example.springteamwork.repository.NumberOfVisitsRepository;
 import com.example.springteamwork.repository.UserRepository;
 import com.example.springteamwork.model.User;
@@ -29,11 +31,13 @@ import java.util.regex.Pattern;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final NumberOfVisitsRepository numberOfVisitsRepository;
+    private final MailGunRepository mailGunRepository;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, NumberOfVisitsRepository numberOfVisitsRepository) {
+    public UserServiceImpl(UserRepository userRepository, NumberOfVisitsRepository numberOfVisitsRepository, MailGunRepository mailGunRepository) {
         this.userRepository = userRepository;
         this.numberOfVisitsRepository = numberOfVisitsRepository;
+        this.mailGunRepository = mailGunRepository;
     }
 
 
@@ -253,8 +257,8 @@ public class UserServiceImpl implements UserService {
     /*FORGOT PASSWORD*/
     public void passwordSenderMail(String username){
         try (CloseableHttpClient client = HttpClients.createDefault()) {
-            HttpPost request = new HttpPost("https://api.mailgun.net/v3/sandbox574f9b0022f145d599d03ac14b225690.mailgun.org/messages");
-            request.setHeader("Authorization", "Basic " + Base64.getEncoder().encodeToString(("api:6697d9b1c6176e8993705bf18a378d4e-0996409b-7a574495").getBytes()));
+            HttpPost request = new HttpPost("https://api.mailgun.net/v3/"+mailGunRepository.getReferenceById((byte)1).getDomain()+"/messages");
+            request.setHeader("Authorization", "Basic " + Base64.getEncoder().encodeToString(("api:"+mailGunRepository.getReferenceById((byte)1).getApi()).getBytes()));
             request.setHeader("Content-Type", "application/x-www-form-urlencoded");
 
             User user = userRepository.getUserByUsername(username);
