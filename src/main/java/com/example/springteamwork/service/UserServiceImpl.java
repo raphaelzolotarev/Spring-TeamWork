@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
 
     /*LOGIN FORM*/
     @Override
-    public void connectUser(String username, String password, HttpServletResponse response) {
+    public void connectUser(String username, String password, boolean remember, HttpServletResponse response) {
         if (username == null || username.isEmpty()) {
             throw new IllegalArgumentException("Username cannot be empty");
         }
@@ -79,8 +79,8 @@ public class UserServiceImpl implements UserService {
 
         if (userId == 0){
             throw new IllegalArgumentException("Wrong Username or Password");
-        } else {
-            cookieGenerator(user.get(), response);
+        } else  {
+            cookieGenerator(user.get(), remember, response);
         }
     }
 
@@ -101,7 +101,7 @@ public class UserServiceImpl implements UserService {
     public void saveUser(User user, boolean acceptTerms, HttpServletResponse response) {
         validateUser(user, acceptTerms, true, true, false);
         userRepository.save(user);
-        cookieGenerator(user, response);
+        cookieGenerator(user, false, response);
 
         NumberOfVisits numberOfVisits = numberOfVisitsRepository.findById((byte)1).get();
         numberOfVisits.setNumberOfVisits(numberOfVisits.getNumberOfVisits()+1);
@@ -197,13 +197,14 @@ public class UserServiceImpl implements UserService {
 
 
     /*COOKIE GENERATOR*/
-    private void cookieGenerator(User user, HttpServletResponse response) {
+    private void cookieGenerator(User user, boolean remember, HttpServletResponse response) {
+
+        System.out.println(remember);
 
         //CREATE COOKIE USER ID
         Cookie userCookie = new Cookie("userId", user.getId().toString());
-        userCookie.setMaxAge(30 * 24 * 60 * 60);
+        userCookie.setMaxAge(remember ? 30 * 24 * 60 * 60 : 24 * 60 * 60);
         response.addCookie(userCookie);
-
 
         //CREATE COOKIE TOKEN
         String token = generateTheMostExtremlySecuredTokenOnEarth();
@@ -211,7 +212,7 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
 
         Cookie tokenCookie = new Cookie("token", token);
-        tokenCookie.setMaxAge(30 * 24 * 60 * 60);
+        tokenCookie.setMaxAge(remember ? 30 * 24 * 60 * 60 : 24 * 60 * 60);
         response.addCookie(tokenCookie);
     }
 
