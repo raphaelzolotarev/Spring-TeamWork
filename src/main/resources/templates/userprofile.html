@@ -129,20 +129,29 @@
 
                         <article th:each="post:${posts}" class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
                             <div class="flex justify-between items-center mb-5 text-gray-500">
-                                      <span class="bg-primary-100 text-primary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-primary-200 dark:text-primary-800">
-                                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                              <path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z" />
-                                              <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6Z" />
-                                            </svg>
-                                            <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"></path></svg>
-                                          &nbsp; <span th:text="${post.tag}"></span>
-                                      </span>
+
+                                <!--TAG-->
+                                <form  th:action="@{/}" method="POST" >
+                                    <input th:value="${post.getTag()}" type="hidden" name="search" />
+                                    <button type="submit">
+                                    <span class="bg-gray-100 text-gray-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded me-2 dark:bg-gray-700 dark:text-gray-400 border border-gray-500 ">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                          <path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z" />
+                                          <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6Z" />
+                                        </svg> &nbsp;
+                                        <span th:text="${post.tag}"></span>
+                                    </span>
+                                    </button>
+                                </form>
+
                                 <span class="text-sm" th:text="${#dates.format(post.createdAt, 'dd MMMM yyyy')} + ' at ' + ${#dates.format(post.createdAt, 'HH:mm')}"></span>
                             </div>
                             <h2 class="mb-5 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                                 <a th:text="${post.title}" th:href="@{/showPost/{id}(id=${post.id})}">How to quickly deploy a static website</a>
                             </h2>
-                            <img class="rounded-lg" th:src="'data:image/jpeg;base64,' + ${post.imageBase64}" alt="Image"/>
+                            <a  th:href="@{/showPost/{id}(id=${post.id})}">
+                                <img class="rounded-lg" th:src="'data:image/jpeg;base64,' + ${post.imageBase64}" alt="Image"/>
+                            </a>
 
                             <div class="mt-5 mb-5 font-light text-gray-500 dark:text-white-400">
                                 <span th:utext="${post.description.length() > 200 ? #strings.substring(post.description, 0, 200) : post.description}"></span>
