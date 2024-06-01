@@ -154,4 +154,14 @@ public class UserController {
             return "forgotpassword";
         }
     }
+
+
+
+    /*LOGIN FORM*/
+    @GetMapping("/contact")
+    public String contactForm() {
+        return "contact";
+    }
+
+
 }

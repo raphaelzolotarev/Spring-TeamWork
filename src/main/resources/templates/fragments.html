@@ -37,8 +37,6 @@
             <div th:if="${userIdCookiePresent && cookieObject.role == T(com.example.springteamwork.model.Role).USER || cookieObject.role == T(com.example.springteamwork.model.Role).AUTHOR}">
                 <button id="dropdownUserAvatarButton" data-dropdown-toggle="dropdownAvatar" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" type="button">
 
-
-
                     <img class="w-10 h-10 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" th:src="'data:image/jpg;base64,' + ${cookieObject.imageBase64}" alt="Bordered avatar">
 
 
@@ -150,6 +148,13 @@
 
 <!--COPYRIGHT-->
 <div th:fragment="footer" class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
-            <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">Copyright © 2024 <a href="/" class="hover:underline">Beauty & Cosmetics</a>. All Rights Reserved.
-            </span>
+    <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">Copyright © 2024 <a href="/" class="hover:underline">Beauty & Cosmetics</a>. All Rights Reserved.</span>
+    <!--PHONE BUTTON-->
+    <a th:href="@{/contact}" class="fixed bottom-4 right-4 bg-blue-500 rounded-full p-3 shadow-lg hover:bg-blue-600 transition text-white">
+        <span class="[&>svg]:h-5 [&>svg]:w-5">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+            </svg>
+        </span>
+    </a>
 </div>
