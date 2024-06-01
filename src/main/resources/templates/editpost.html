@@ -64,9 +64,22 @@
                 </div>
             </div>
 
+            <!--IF NOT LOGGED-->
+            <div th:unless="${userIdCookiePresent && cookieObject.role == T(com.example.springteamwork.model.Role).AUTHOR && updatePost.getAuthor().getId() == cookieObject.getId()}" class="max-w-2xl mx-auto flex items-center p-4 mb-4 text-sm text-yellow-800 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300" role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                </svg>
+                <span class="sr-only">Info</span>
+                <div>
+                    <span class="font-medium">Warning !</span>
+                    <span th:unless="${userIdCookiePresent}">What a damn visitor is even doing here 🤣</span>
+                    <span th:if="${userIdCookiePresent && cookieObject.role == T(com.example.springteamwork.model.Role).USER}">It's not cuz you just subscribed that it allows you to make posts 🤣</span>
+                    <span th:if="${userIdCookiePresent && cookieObject.role == T(com.example.springteamwork.model.Role).AUTHOR && updatePost.getAuthor().getId() != cookieObject.getId()}"h>You're just an author not an admin bro, edit your  damn posts 🤣</span>
+                </div>
+            </div>
 
-            <div class="max-w-2xl mx-auto px-4 flex items-center justify-center">
-
+            <!--IF LOGGED-->
+            <div th:if="${userIdCookiePresent && cookieObject.role == T(com.example.springteamwork.model.Role).AUTHOR && updatePost.getAuthor().getId() == cookieObject.getId()}" class="max-w-2xl mx-auto px-4 flex items-center justify-center">
                 <div class="w-full max-w-2xl mx-auto bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                     <div class="p-6">
                         <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Edit Post</h2>
@@ -105,8 +118,9 @@
                         </form>
                     </div>
                 </div>
-
             </div>
+
+
         </section>
         <!--END OF LOGIN FORM-->
 
