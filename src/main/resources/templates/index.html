@@ -47,7 +47,7 @@
 
 <!--MAIN SECTION-->
 <div class="grid grid-cols-10">
-    <div class="col-span-8">
+    <div class="col-span-10">
         <section class="bg-white dark:bg-gray-900">
             <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
 
@@ -179,9 +179,8 @@
     </div>
     <!--END MAIN SECTION-->
 
-    <!-- Sidebar -->
+    <!-- Sidebar-->
     <div th:insert="fragments :: sidebar" class="col-span-2"></div>
-
 
 
 
@@ -191,4 +190,8 @@
 <footer th:insert="fragments :: footer" class="bg-white shadow dark:bg-gray-800"></footer>
 
 </body>
+
+<!--JS SCRIPT-->
+<script th:insert="fragments :: myJSscript" th:remove="tag"></script>
+
 </html>
