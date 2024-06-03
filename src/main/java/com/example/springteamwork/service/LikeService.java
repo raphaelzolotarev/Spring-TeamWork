@@ -3,10 +3,12 @@ package com.example.springteamwork.service;
 import com.example.springteamwork.model.Like;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface LikeService {
     List<Like> getAllLikes();
-    void likePost(Long id);
-    void unlikePost(Long id);
+    void likePost(Long userId, Long postId);
+    void unlikePost(Long userId, Long postId);
 }
+
 

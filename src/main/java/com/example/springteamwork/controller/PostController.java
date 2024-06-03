@@ -5,6 +5,7 @@ import com.example.springteamwork.model.Post;
 import com.example.springteamwork.model.Role;
 import com.example.springteamwork.model.User;
 import com.example.springteamwork.service.CommentServiceImpl;
+import com.example.springteamwork.service.LikeServiceImpl;
 import com.example.springteamwork.service.PostServiceImpl;
 import com.example.springteamwork.service.UserServiceImpl;
 import jakarta.annotation.PostConstruct;
@@ -32,6 +33,8 @@ public class PostController {
     private CommentServiceImpl commentService;
     @Autowired
     private UserServiceImpl userService;
+    @Autowired
+    private LikeServiceImpl likeService;
 
 
     private final int postPerPage = 6;
@@ -190,6 +193,10 @@ public class PostController {
 
         List<Comment> comments = commentService.getAllCommentsByPostId(id);
         model.addAttribute("comments", comments);
+
+        int numberOfLike = (int) likeService.getAllLikes().stream().filter(like -> like.getPost().getId() == id).count();
+        model.addAttribute("numberOfLike", numberOfLike);
+
         return "blogpage";
     }
 

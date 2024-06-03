@@ -1,7 +1,6 @@
 package com.example.springteamwork.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,15 +16,16 @@ public class Like {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    private Long user_id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    @NotNull
-    private Long post_id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id")
+    private Post post;
 
-    public Like(Long user_id, Long post_id) {
-        this.user_id = user_id;
-        this.post_id = post_id;
+    public Like(User user, Post post) {
+        this.user = user;
+        this.post = post;
     }
-  
 }

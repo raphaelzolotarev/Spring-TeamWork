@@ -1,11 +1,16 @@
 package com.example.springteamwork.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Base64;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -59,6 +64,9 @@ public class User {
     private MultipartFile file;
 
     private String token;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Like> likes = new HashSet<>();
 
     public User(Role role, boolean isOnline, int number_of_visits, String firstName, String lastName, String username, String email, String password, String street, String houseNr, String city, String zip, byte[] image, String token) {
         this.role = role;
