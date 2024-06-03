@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
-public class CommentController {
+public class    CommentController {
 
     @Autowired
     private CommentServiceImpl commentService;
