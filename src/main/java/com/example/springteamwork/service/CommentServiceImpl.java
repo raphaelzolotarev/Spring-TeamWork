@@ -38,8 +38,10 @@ public class CommentServiceImpl implements CommentService{
     }
 
     @Override
-    public void updateComment(Comment comment) {
-
+    public void updateComment(Long id, String comment) {
+        Comment commentToUpdate = commentRepository.findById(id).get();
+        commentToUpdate.setText(comment);
+        commentRepository.save(commentToUpdate);
     }
 
 

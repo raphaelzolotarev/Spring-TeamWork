@@ -183,8 +183,15 @@
 <!--COPYRIGHT-->
 <div th:fragment="footer" class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
 <span class="lg:justify-start md:justify-start sm:justify-center justify-center  text-sm text-gray-500 sm:text-center dark:text-gray-400 flex items-center">
-    Copyright © 2024 &nbsp;<a href="/" class="hover:underline"> Beauty & Cosmetics</a>. All Rights Reserved.
+    Copyright © 2024 &nbsp;<a href="/" class="hover:font-bold"> Beauty & Cosmetics</a>. All Rights Reserved.
 </span>
+
+    <!-- About Us button -->
+    <div class="ml-4">
+        <a href="/about_us" class="text-sm text-gray-500 font-normal transition-all hover:font-bold">About Us</a>
+    </div>
+
+
 
     <div class="lg:mt-0 md:mt-0 sm:mt-3 mt-3 sm:justify-center justify-center lg:justify-end md:justify-end text-sm text-gray-500 sm:text-center dark:text-gray-400 flex items-center">
 
@@ -251,4 +258,36 @@
             modalUsers.style.right = "-250px";
         }
     });
+
+
+    <!--JS EDIT COMMENT-->
+    /*const buttonEditComment= document.getElementById('editButton');
+    const formEditComment = document.getElementById('commentForm');
+
+    buttonEditComment.addEventListener('click', function() {
+        if (formEditComment.style.display === 'none') {
+            formEditComment.style.display = 'block';
+        } else {
+            formEditComment.style.display = 'none';
+        }
+    });*/
+
+
+    var editButtons = document.querySelectorAll('.editButtons');
+
+    editButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            var clickedButtonId = this.id.replace("editButton", '');
+
+            var formEditComment = document.getElementById('commentForm'+clickedButtonId);
+
+            if (formEditComment.style.display === 'none') {
+                formEditComment.style.display = 'block';
+            } else {
+                formEditComment.style.display = 'none';
+            }
+        });
+    });
+
+
 </script>
