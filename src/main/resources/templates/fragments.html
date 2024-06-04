@@ -258,4 +258,36 @@
             modalUsers.style.right = "-250px";
         }
     });
+
+
+    <!--JS EDIT COMMENT-->
+    /*const buttonEditComment= document.getElementById('editButton');
+    const formEditComment = document.getElementById('commentForm');
+
+    buttonEditComment.addEventListener('click', function() {
+        if (formEditComment.style.display === 'none') {
+            formEditComment.style.display = 'block';
+        } else {
+            formEditComment.style.display = 'none';
+        }
+    });*/
+
+
+    var editButtons = document.querySelectorAll('.editButtons');
+
+    editButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            var clickedButtonId = this.id.replace("editButton", '');
+
+            var formEditComment = document.getElementById('commentForm'+clickedButtonId);
+
+            if (formEditComment.style.display === 'none') {
+                formEditComment.style.display = 'block';
+            } else {
+                formEditComment.style.display = 'none';
+            }
+        });
+    });
+
+
 </script>
