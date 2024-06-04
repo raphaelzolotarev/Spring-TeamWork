@@ -31,16 +31,18 @@ public class LikeServiceImpl implements LikeService {
 
     @Override
     public void likePost(Long userId, Long postId) {
-        Like likeExists = likeRepository.getLikeByUserId(userId);
-        if (likeExists==null){
+        Like getLikeByUserIdAndPostId = likeRepository.getLikeByUserIdAndPostId(userId, postId);
+        if (getLikeByUserIdAndPostId==null){
             Like like = new Like(userRepository.getReferenceById(userId), postRepository.getReferenceById(postId));
             likeRepository.save(like);
+        } else{
+            unlikePost(getLikeByUserIdAndPostId);
         }
     }
 
 
     @Override
-    public void unlikePost(Long userId, Long postId) {
-        likeRepository.deleteByUserIdAndPostId(userId, postId);
+    public void unlikePost(Like like) {
+        likeRepository.delete(like);
     }
 }

@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface LikeService {
     List<Like> getAllLikes();
     void likePost(Long userId, Long postId);
-    void unlikePost(Long userId, Long postId);
+    void unlikePost(Like like);
 }
 
 
