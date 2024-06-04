@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
-public class CommentController {
+public class    CommentController {
 
     @Autowired
     private CommentServiceImpl commentService;
@@ -36,6 +36,15 @@ public class CommentController {
         commentService.saveComment(newComment);
         return "redirect:/showPost/"+postId;
     }
+
+  /*EDIT COMMENT*/
+  @PostMapping("/editComment")
+  public String editComment(@RequestParam(value = "postId") Long postId,
+                            @RequestParam(value = "commentId") Long commentId,
+                            @RequestParam(value = "comment") String comment) {
+      commentService.updateComment(commentId, comment);
+      return "redirect:/showPost/" + postId;
+  }
 
 
     /*DELETE COMMENT*/

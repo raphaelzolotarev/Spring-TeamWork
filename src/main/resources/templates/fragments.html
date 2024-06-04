@@ -1,31 +1,68 @@
 
 <!--HEADER-->
 <nav th:fragment="menu" class="bg-white border-gray-200 dark:bg-gray-900 border-b border-gray-300 p-4">
-    <div class="flex flex-wrap items-center justify-between max-w-screen-xl mx-auto">
+
+    <!--
+    <div class="relative flex items-center">
+        <div class="absolute left-0">
+            <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">logo</button>
+        </div>
+        <div class="mx-auto">
+            <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">search</button>
+        </div>
+        <div class="absolute right-0">
+            <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">menu</button>
+        </div>
+    </div>
+
+
+    <div class="flex flex-col md:flex-row items-center justify-center gap-4">
+        <div class="w-full md:w-auto">
+            <img th:src="@{/img/logo-dark.png}" alt="Image" class="w-full md:w-auto">
+        </div>
+        <div class="w-full md:w-auto">
+            <form action="#" class="flex">
+                <input type="text" placeholder="Rechercher" class="border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:border-blue-500">
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg ml-2">Rechercher</button>
+            </form>
+        </div>
+        <div class="w-full md:w-auto">
+            <button class="bg-green-500 text-white px-4 py-2 rounded-lg">Connexion</button>
+        </div>
+    </div>
+    -->
+
+
+    <!--HEADER CONTAINER-->
+    <div class="grid lg:grid-cols-10 md:grid-cols-10 sm:grid-cols-10 grid-cols-10 items-center gap-4">
 
         <!--LOGO-->
-        <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
-            <img th:src="@{/img/logo.png}" class="h-8 logo-light" style="height:5rem" alt="Beauty Logo" />
-            <img th:src="@{/img/logo-dark.png}" class="h-8 logo-dark" style="height:5rem" alt="Beauty Logo (Dark Mode)" />
-        </a>
+        <div class="lg:col-span-3 md:col-span-3 sm:col-span-10 col-span-10 flex justify-center items-center">
+            <a href="/" class="">
+                <img th:src="@{/img/logo.png}" class="max-w-xs w-full h-auto logo-light" alt="Beauty Logo" />
+                <img th:src="@{/img/logo-dark.png}" class="max-w-xs w-full h-auto logo-dark" alt="Beauty Logo (Dark Mode)" />
+            </a>
+        </div>
+
 
         <!--SEARCH BAR-->
-        <form  th:action="@{/}" method="POST" class="max-w-lg mx-auto" style="width: 34rem;">
-            <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-            <div class="relative">
-                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                    </svg>
+        <div th:classappend="${!userIdCookiePresent} ? 'col-span-10' : 'col-span-8'"  class="lg:col-span-4 md:col-span-4 sm:col-span-6">
+            <form  th:action="@{/}" method="POST" class="" >
+                <label for="default-search" class="text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                        </svg>
+                    </div>
+                    <input th:value="${currentKeyword}" type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search by Title, Tags, Author..." value="" name="search" />
+                    <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
                 </div>
-                <input type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search by Title, Tags, Author..." value="" name="search" />
-                <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
-            </div>
-        </form>
+            </form>
+        </div>
 
         <!--CHANGING MENU DEPENDS ON USER PRIVILEGES-->
-        <div class="flex items-center md:order-2 space-x-1 md:space-x-2 rtl:space-x-reverse">
-
+        <div th:classappend="${!userIdCookiePresent} ? 'col-span-10' : 'col-span-2'" class="lg:col-span-3 md:col-span-3 sm:col-span-4 sm:ml-auto flex justify-center items-center">
 
             <!-- VISITORS -->
             <div th:unless="${userIdCookiePresent}">
@@ -36,12 +73,7 @@
             <!-- USERS -->
             <div th:if="${userIdCookiePresent && cookieObject.role == T(com.example.springteamwork.model.Role).USER || cookieObject.role == T(com.example.springteamwork.model.Role).AUTHOR}">
                 <button id="dropdownUserAvatarButton" data-dropdown-toggle="dropdownAvatar" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" type="button">
-
-
-
                     <img class="w-10 h-10 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" th:src="'data:image/jpg;base64,' + ${cookieObject.imageBase64}" alt="Bordered avatar">
-
-
                 </button>
                 <div id="dropdownAvatar" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
                     <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
@@ -78,54 +110,63 @@
                     </div>
                 </div>
             </div>
-
-
-
         </div>
-
         <!--END OF MENU-->
 
     </div>
+    <!--END OF HEADER CONTAINER-->
+
+
+
 </nav>
 <!--END OF HEADER-->
 
 
 <!-- Sidebar -->
-<aside th:fragment="sidebar" class="w-full border-b sidebar-container" aria-label="Sidebar">
+<aside id="modalUsers" th:fragment="sidebar" class=" w-full border-b sidebar-container" aria-label="Sidebar" style="position: fixed; width: 250px;    top: 0;    right: -250px; transition: right 0.7s;">
     <div class="sidebar-content py-4 px-3 bg-gray-50  dark:bg-gray-800">
         <div class="mt-6">
             <h3 class="text-lg font-medium text-gray-900 dark:text-white">Users</h3>
             <ul id="connected-users-list" class="mt-4 space-y-2">
-                <li  th:each="connectedUser : ${listOfConnectedUsers}" class="flex items-center space-x-3">
-                    <div class="relative">
-                        <img class="w-10 h-10 rounded-full" th:src="'data:image/jpg;base64,' + ${connectedUser.imageBase64}">
-                        <span class="absolute top-0 left-7 w-3.5 h-3.5 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></span>
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <p style="display: inline-block" th:text="${connectedUser.username}" class="text-base font-medium text-gray-900 dark:text-white">Charlotte</p>
-                        <span th:if="${connectedUser.role == T(com.example.springteamwork.model.Role).AUTHOR}" class="inline-flex items-center justify-center w-6 h-6 me-2 text-sm font-semibold text-blue-800 bg-blue-100 rounded-full dark:bg-gray-700 dark:text-blue-400">
-                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill="currentColor" d="m18.774 8.245-.892-.893a1.5 1.5 0 0 1-.437-1.052V5.036a2.484 2.484 0 0 0-2.48-2.48H13.7a1.5 1.5 0 0 1-1.052-.438l-.893-.892a2.484 2.484 0 0 0-3.51 0l-.893.892a1.5 1.5 0 0 1-1.052.437H5.036a2.484 2.484 0 0 0-2.48 2.481V6.3a1.5 1.5 0 0 1-.438 1.052l-.892.893a2.484 2.484 0 0 0 0 3.51l.892.893a1.5 1.5 0 0 1 .437 1.052v1.264a2.484 2.484 0 0 0 2.481 2.481H6.3a1.5 1.5 0 0 1 1.052.437l.893.892a2.484 2.484 0 0 0 3.51 0l.893-.892a1.5 1.5 0 0 1 1.052-.437h1.264a2.484 2.484 0 0 0 2.481-2.48V13.7a1.5 1.5 0 0 1 .437-1.052l.892-.893a2.484 2.484 0 0 0 0-3.51Z"/>
-                            <path fill="#fff" d="M8 13a1 1 0 0 1-.707-.293l-2-2a1 1 0 1 1 1.414-1.414l1.42 1.42 5.318-3.545a1 1 0 0 1 1.11 1.664l-6 4A1 1 0 0 1 8 13Z"/>
-                            </svg>
-                        </span>
-                    </div>
-                </li>
-                <li th:each="disconnectedUser : ${listOfDisconnectedUsers}" class="flex items-center space-x-3">
-                    <div class="relative">
-                        <img class="w-10 h-10 rounded-full" th:src="'data:image/jpg;base64,' + ${disconnectedUser.imageBase64}" alt="Dylan">
-                        <span class="absolute top-0 left-7 w-3.5 h-3.5 bg-red-400 border-2 border-white dark:border-gray-800 rounded-full"></span>
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <p style="display: inline-block"  th:text="${disconnectedUser.username}" class="text-base font-medium text-gray-900 dark:text-white">Dylan</p>
-                        <span th:if="${disconnectedUser.role == T(com.example.springteamwork.model.Role).AUTHOR}" class="inline-flex items-center justify-center w-6 h-6 me-2 text-sm font-semibold text-blue-800 bg-blue-100 rounded-full dark:bg-gray-700 dark:text-blue-400">
-                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill="currentColor" d="m18.774 8.245-.892-.893a1.5 1.5 0 0 1-.437-1.052V5.036a2.484 2.484 0 0 0-2.48-2.48H13.7a1.5 1.5 0 0 1-1.052-.438l-.893-.892a2.484 2.484 0 0 0-3.51 0l-.893.892a1.5 1.5 0 0 1-1.052.437H5.036a2.484 2.484 0 0 0-2.48 2.481V6.3a1.5 1.5 0 0 1-.438 1.052l-.892.893a2.484 2.484 0 0 0 0 3.51l.892.893a1.5 1.5 0 0 1 .437 1.052v1.264a2.484 2.484 0 0 0 2.481 2.481H6.3a1.5 1.5 0 0 1 1.052.437l.893.892a2.484 2.484 0 0 0 3.51 0l.893-.892a1.5 1.5 0 0 1 1.052-.437h1.264a2.484 2.484 0 0 0 2.481-2.48V13.7a1.5 1.5 0 0 1 .437-1.052l.892-.893a2.484 2.484 0 0 0 0-3.51Z"/>
-                            <path fill="#fff" d="M8 13a1 1 0 0 1-.707-.293l-2-2a1 1 0 1 1 1.414-1.414l1.42 1.42 5.318-3.545a1 1 0 0 1 1.11 1.664l-6 4A1 1 0 0 1 8 13Z"/>
-                            </svg>
-                        </span>
-                    </div>
-                </li>
+
+                <a class="" th:each="connectedUser : ${listOfConnectedUsers}" th:href="@{/userProfile/{id}(id=${connectedUser.getId()})}">
+                    <li class="mb-4 flex items-center space-x-3">
+                        <div class="relative">
+                            <img class="w-10 h-10 rounded-full" th:src="'data:image/jpg;base64,' + ${connectedUser.imageBase64}">
+                            <span class="absolute top-0 left-7 w-3.5 h-3.5 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></span>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <p style="display: inline-block" th:text="${connectedUser.username}" class="text-base font-medium text-gray-900 dark:text-white">Charlotte</p>
+                            <span title="Author" th:if="${connectedUser.role == T(com.example.springteamwork.model.Role).AUTHOR}" class="inline-flex items-center justify-center w-6 h-6 me-2 text-sm font-semibold text-blue-800 bg-blue-100 rounded-full dark:bg-gray-700 dark:text-blue-400">
+                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill="currentColor" d="m18.774 8.245-.892-.893a1.5 1.5 0 0 1-.437-1.052V5.036a2.484 2.484 0 0 0-2.48-2.48H13.7a1.5 1.5 0 0 1-1.052-.438l-.893-.892a2.484 2.484 0 0 0-3.51 0l-.893.892a1.5 1.5 0 0 1-1.052.437H5.036a2.484 2.484 0 0 0-2.48 2.481V6.3a1.5 1.5 0 0 1-.438 1.052l-.892.893a2.484 2.484 0 0 0 0 3.51l.892.893a1.5 1.5 0 0 1 .437 1.052v1.264a2.484 2.484 0 0 0 2.481 2.481H6.3a1.5 1.5 0 0 1 1.052.437l.893.892a2.484 2.484 0 0 0 3.51 0l.893-.892a1.5 1.5 0 0 1 1.052-.437h1.264a2.484 2.484 0 0 0 2.481-2.48V13.7a1.5 1.5 0 0 1 .437-1.052l.892-.893a2.484 2.484 0 0 0 0-3.51Z"/>
+                                <path fill="#fff" d="M8 13a1 1 0 0 1-.707-.293l-2-2a1 1 0 1 1 1.414-1.414l1.42 1.42 5.318-3.545a1 1 0 0 1 1.11 1.664l-6 4A1 1 0 0 1 8 13Z"/>
+                                </svg>
+                            </span>
+                        </div>
+                    </li>
+                </a>
+
+
+                <a th:each="disconnectedUser : ${listOfDisconnectedUsers}" th:href="@{/userProfile/{id}(id=${disconnectedUser.getId()})}">
+                    <li class="mb-4 flex items-center space-x-3">
+                        <div class="relative">
+                            <img class="w-10 h-10 rounded-full" th:src="'data:image/jpg;base64,' + ${disconnectedUser.imageBase64}" alt="Dylan">
+                            <span class="absolute top-0 left-7 w-3.5 h-3.5 bg-red-400 border-2 border-white dark:border-gray-800 rounded-full"></span>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <p style="display: inline-block"  th:text="${disconnectedUser.username}" class="text-base font-medium text-gray-900 dark:text-white">Dylan</p>
+                            <span th:if="${disconnectedUser.role == T(com.example.springteamwork.model.Role).AUTHOR}" class="inline-flex items-center justify-center w-6 h-6 me-2 text-sm font-semibold text-blue-800 bg-blue-100 rounded-full dark:bg-gray-700 dark:text-blue-400">
+                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill="currentColor" d="m18.774 8.245-.892-.893a1.5 1.5 0 0 1-.437-1.052V5.036a2.484 2.484 0 0 0-2.48-2.48H13.7a1.5 1.5 0 0 1-1.052-.438l-.893-.892a2.484 2.484 0 0 0-3.51 0l-.893.892a1.5 1.5 0 0 1-1.052.437H5.036a2.484 2.484 0 0 0-2.48 2.481V6.3a1.5 1.5 0 0 1-.438 1.052l-.892.893a2.484 2.484 0 0 0 0 3.51l.892.893a1.5 1.5 0 0 1 .437 1.052v1.264a2.484 2.484 0 0 0 2.481 2.481H6.3a1.5 1.5 0 0 1 1.052.437l.893.892a2.484 2.484 0 0 0 3.51 0l.893-.892a1.5 1.5 0 0 1 1.052-.437h1.264a2.484 2.484 0 0 0 2.481-2.48V13.7a1.5 1.5 0 0 1 .437-1.052l.892-.893a2.484 2.484 0 0 0 0-3.51Z"/>
+                                <path fill="#fff" d="M8 13a1 1 0 0 1-.707-.293l-2-2a1 1 0 1 1 1.414-1.414l1.42 1.42 5.318-3.545a1 1 0 0 1 1.11 1.664l-6 4A1 1 0 0 1 8 13Z"/>
+                                </svg>
+                            </span>
+                        </div>
+                    </li>
+                </a>
+
+
             </ul>
         </div>
     </div>
@@ -138,8 +179,115 @@
 <!-- END OF Sidebar -->
 
 
+
 <!--COPYRIGHT-->
 <div th:fragment="footer" class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
-            <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">Copyright © 2024 <a href="/" class="hover:underline">Beauty & Cosmetics</a>. All Rights Reserved.
-            </span>
+<span class="lg:justify-start md:justify-start sm:justify-center justify-center  text-sm text-gray-500 sm:text-center dark:text-gray-400 flex items-center">
+    Copyright © 2024 &nbsp;<a href="/" class="hover:font-bold"> Beauty & Cosmetics</a>. All Rights Reserved.
+</span>
+
+    <!-- About Us button -->
+    <div class="ml-4">
+        <a href="/about_us" class="text-sm text-gray-500 font-normal transition-all hover:font-bold">About Us</a>
+    </div>
+
+
+
+    <div class="lg:mt-0 md:mt-0 sm:mt-3 mt-3 sm:justify-center justify-center lg:justify-end md:justify-end text-sm text-gray-500 sm:text-center dark:text-gray-400 flex items-center">
+
+        <a class="" href="https://www.facebook.com/EsteeLauder/" target="_blank">
+    <span class="">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 320 512" class="h-5 w-5">
+          <path d="M80 299.3V512H196V299.3h86.5l18-97.8H196V166.9c0-51.7 20.3-71.5 72.7-71.5c16.3 0 29.4 .4 37 1.2V7.9C291.4 4 256.4 0 236.2 0C129.3 0 80 50.5 80 159.4v42.1H14v97.8H80z" />
+        </svg>
+    </span>
+        </a>
+
+        <a class="ml-4" href="https://www.instagram.com/esteelauder/" target="_blank">
+    <span class=" [&>svg]:h-5 [&>svg]:w-5">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 448 512">
+        <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z" />
+      </svg>
+    </span>
+        </a>
+
+        <a class="ml-4" href="https://nl.pinterest.com/esteelauder/" target="_blank">
+    <span class=" [&>svg]:h-5 [&>svg]:w-5">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 496 512">
+        <path d="M496 256c0 137-111 248-248 248-25.6 0-50.2-3.9-73.4-11.1 10.1-16.5 25.2-43.5 30.8-65 3-11.6 15.4-59 15.4-59 8.1 15.4 31.7 28.5 56.8 28.5 74.8 0 128.7-68.8 128.7-154.3 0-81.9-66.9-143.2-152.9-143.2-107 0-163.9 71.8-163.9 150.1 0 36.4 19.4 81.7 50.3 96.1 4.7 2.2 7.2 1.2 8.3-3.3 .8-3.4 5-20.3 6.9-28.1 .6-2.5 .3-4.7-1.7-7.1-10.1-12.5-18.3-35.3-18.3-56.6 0-54.7 41.4-107.6 112-107.6 60.9 0 103.6 41.5 103.6 100.9 0 67.1-33.9 113.6-78 113.6-24.3 0-42.6-20.1-36.7-44.8 7-29.5 20.5-61.3 20.5-82.6 0-19-10.2-34.9-31.4-34.9-24.9 0-44.9 25.7-44.9 60.2 0 22 7.4 36.8 7.4 36.8s-24.5 103.8-29 123.2c-5 21.4-3 51.6-.9 71.2C65.4 450.9 0 361.1 0 256 0 119 111 8 248 8s248 111 248 248z" />
+      </svg>
+    </span>
+        </a>
+
+        <a class="ml-4" href="https://www.youtube.com/esteelauder" target="_blank">
+    <span class=" [&>svg]:h-5 [&>svg]:w-5">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 576 512">
+        <path d="M549.7 124.1c-6.3-23.7-24.8-42.3-48.3-48.6C458.8 64 288 64 288 64S117.2 64 74.6 75.5c-23.5 6.3-42 24.9-48.3 48.6-11.4 42.9-11.4 132.3-11.4 132.3s0 89.4 11.4 132.3c6.3 23.7 24.8 41.5 48.3 47.8C117.2 448 288 448 288 448s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zm-317.5 213.5V175.2l142.7 81.2-142.7 81.2z" />
+      </svg>
+    </span>
+        </a>
+
+    </div>
+
+    <!--PHONE BUTTON-->
+    <a th:href="@{/contact}" class="fixed bottom-10 right-4 bg-blue-500 rounded-full p-3 shadow-lg hover:bg-blue-600 transition text-white">
+        <span class="[&>svg]:h-5 [&>svg]:w-5">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+            </svg>
+        </span>
+    </a>
+    <!--USER BUTTON-->
+    <a id="toggleButtonUsers" style="cursor: pointer" class="fixed bottom-24 right-4 bg-blue-500 rounded-full p-3 shadow-lg hover:bg-blue-600 transition text-white">
+        <span class="[&>svg]:h-5 [&>svg]:w-5">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
+            </svg>
+        </span>
+    </a>
 </div>
+
+<!--JS SCRIPT-->
+<script  th:fragment="myJSscript">
+    var toggleButtonUsers = document.getElementById("toggleButtonUsers");
+    var modalUsers = document.getElementById("modalUsers");
+    toggleButtonUsers.addEventListener("click", function() {
+        if (modalUsers.style.right === "-250px") {
+            modalUsers.style.right = "0px";
+        } else {
+            modalUsers.style.right = "-250px";
+        }
+    });
+
+
+    <!--JS EDIT COMMENT-->
+    /*const buttonEditComment= document.getElementById('editButton');
+    const formEditComment = document.getElementById('commentForm');
+
+    buttonEditComment.addEventListener('click', function() {
+        if (formEditComment.style.display === 'none') {
+            formEditComment.style.display = 'block';
+        } else {
+            formEditComment.style.display = 'none';
+        }
+    });*/
+
+
+    var editButtons = document.querySelectorAll('.editButtons');
+
+    editButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            var clickedButtonId = this.id.replace("editButton", '');
+
+            var formEditComment = document.getElementById('commentForm'+clickedButtonId);
+
+            if (formEditComment.style.display === 'none') {
+                formEditComment.style.display = 'block';
+            } else {
+                formEditComment.style.display = 'none';
+            }
+        });
+    });
+
+
+</script>
