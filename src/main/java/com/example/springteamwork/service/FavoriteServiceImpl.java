@@ -2,6 +2,8 @@ package com.example.springteamwork.service;
 
 import com.example.springteamwork.model.Favorite;
 import com.example.springteamwork.repository.FavoriteRepository;
+import com.example.springteamwork.repository.PostRepository;
+import com.example.springteamwork.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,32 +16,24 @@ public class FavoriteServiceImpl implements FavoriteService {
     @Autowired
     private FavoriteRepository favoriteRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private PostRepository postRepository;
+
     @Override
     public List<Favorite> getAllFavorites() {
         return favoriteRepository.findAll();
     }
 
     @Override
-    public void saveFavorite(Favorite favorite) {
-        favoriteRepository.save(favorite);
-    }
-
-    @Override
-    public Favorite getFavoriteById(Long id) {
-        Optional<Favorite> optionalFavorite = favoriteRepository.findById(id);
-        if (!optionalFavorite.isPresent()) {
-            throw new IllegalStateException("Favorite with id " + id + " doesn't exist");
+    public void favoritePost(Long userId, Long postId) {
+        Favorite getFavoriteByUserIdPostId = favoriteRepository.findByUserIdAndPostId(userId, postId);
+        if (getFavoriteByUserIdPostId==null){
+            Favorite favorite = new Favorite(userRepository.getReferenceById(userId).getId(), postRepository.getReferenceById(postId).getId());
+            favoriteRepository.save(favorite);
         }
-        return optionalFavorite.get();
-    }
-
-    @Override
-    public void deleteFavoriteById(Long id) {
-        boolean exists = favoriteRepository.existsById(id);
-        if (!exists) {
-            throw new IllegalStateException("Favorite with id " + id + " does not exist");
-        }
-        favoriteRepository.deleteById(id);
     }
 }
 

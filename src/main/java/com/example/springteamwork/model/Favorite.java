@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
+@Table(name = "favorites")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -16,14 +17,16 @@ public class Favorite {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    private Long user_id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    @NotNull
-    private Long author_id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id")
+    private Post post;
 
     public Favorite(Long user_id, Long author_id) {
-        this.user_id = user_id;
-        this.author_id = author_id;
+        this.user = user;
+        this.post = post;
     }
 }
