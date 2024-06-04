@@ -37,6 +37,15 @@ public class    CommentController {
         return "redirect:/showPost/"+postId;
     }
 
+  /*EDIT COMMENT*/
+  @PostMapping("/editComment")
+  public String editComment(@RequestParam(value = "postId") Long postId,
+                            @RequestParam(value = "commentId") Long commentId,
+                            @RequestParam(value = "comment") String comment) {
+      commentService.updateComment(commentId, comment);
+      return "redirect:/showPost/" + postId;
+  }
+
 
     /*DELETE COMMENT*/
     @GetMapping("/deleteComment/{postId}/{commentId}")

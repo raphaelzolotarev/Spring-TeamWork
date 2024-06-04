@@ -254,11 +254,10 @@
                                 <div th:id="'dropdownComment'+${comment.id}" class="hidden z-10 w-36 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
                                     <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
                                         aria-labelledby="dropdownMenuIconHorizontalButton">
-                                        <!--<li>
-                                            <a href="#"
-                                               class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edivt</a>
+                                        <li>
+                                            <a style="cursor:pointer" th:id="'editButton'+${comment.id}" class="editButtons block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
                                         </li>
-                                        -->
+
                                         <li>
                                             <a th:href="@{/deleteComment/{postId}/{commentId}(postId=${comment.getPost().getId()}, commentId=${comment.id})}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Remove</a>
                                         </li>
@@ -268,6 +267,26 @@
 
                         </footer>
                         <p class="text-gray-500 dark:text-gray-400" th:text="${comment.getText()}"></p>
+
+                        <form th:action="@{/editComment}"  method="POST"   style="display:none;" th:if="${(userIdCookiePresent && cookieObject.id == comment.getUser().id) || cookieObject.id == comment.getPost().getAuthor().getId()}" th:id="'commentForm'+${comment.getId()}" class="mt-5 editComments">
+                            <div class="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
+                                <div class="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
+                                    <input type="hidden" name="postId" th:value="${post.getId()}">
+                                    <input type="hidden" name="commentId" th:value="${comment.getId()}">
+                                    <label for="comment" class="sr-only">Your comment</label>
+                                    <textarea th:text="${comment.getText()}" name="comment" id="comment" rows="4" class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" placeholder="Write a comment..." required ></textarea>
+                                </div>
+                                <div class="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600">
+                                    <button type="submit" class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
+                                        Update my comment
+                                    </button>
+                                    <p class="mt-2 ms-auto text-xs text-gray-500 dark:text-gray-400">Remember, contributions to this topic should follow our Conditions.</p>
+
+                                </div>
+
+                            </div>
+                        </form>
+
                     </article>
                     <!--END OF COMMENT-->
 
