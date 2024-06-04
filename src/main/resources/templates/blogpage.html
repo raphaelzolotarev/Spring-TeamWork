@@ -86,7 +86,7 @@
                         </div>
                     </address>
 
-                    <div class="flex">
+                    <div class="flex item-center">
                         <!--TAG-->
                         <form  th:action="@{/searchByTag}" method="POST" >
                             <input th:value="'#'+${post.getTag()}" type="hidden" name="search" />
@@ -100,11 +100,11 @@
                         </form>
 
                         <!--LIKE BUTTON-->
-                        <form th:action="@{/likes/add}" method="POST">
+                        <form th:action="@{/likes/add}" method="POST" class="">
                             <input type="hidden" name="userId" th:value="${cookieObject.getId()}">
                             <input type="hidden" name="postId" th:value="${post.getId()}">
-                            <button type="submit" class="">
-                                <span class="flex h-min w-min space-x-1 items-center rounded-full text-gray-400 hover:text-rose-600 bg-gray-700 hover:bg-rose-50 py-1 px-2 text-xs font-medium">
+                            <button type="submit" class="ml-5 m-1">
+                                <span class="flex h-min w-min space-x-1 items-center rounded-full text-white hover:text-rose-600 bg-red-700 hover:bg-rose-50 py-2 px-2 text-xs font-medium">
                                   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-current hover:text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                                   </svg>
@@ -112,6 +112,21 @@
                                 </span>
                             </button>
                         </form>
+
+                        <!--USERS WHO LIKE-->
+                        <div class="flex ">
+                            <a th:each="like:${allLikes}" th:href="'/userProfile/'+${like.getUser().getId()}" class="border-2 border-white dark:border-gray-800 rounded-full h-10 w-10 -mr-2">
+                                <img class="border-2 border-white dark:border-gray-800 rounded-full h-10 w-10 -mr-2" th:src="'data:image/jpeg;base64,' + ${like.getUser().getImageBase64()}" alt="">
+                            </a>
+                            <span th:if="${numberOfLike>allLikes.size()}" th:text="'+'+${numberOfLike - allLikes.size()}" class="flex items-center justify-center bg-white dark:bg-gray-800 text-sm text-gray-800 dark:text-white font-semibold border-2 border-gray-200 dark:border-gray-700 rounded-full h-10 w-10"></span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="flex">
+                        <div class="flex justify-end mr-2">
+                            </div>
                     </div>
 
                     <!--TITLE-->

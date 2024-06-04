@@ -1,9 +1,6 @@
 package com.example.springteamwork.controller;
 
-import com.example.springteamwork.model.Comment;
-import com.example.springteamwork.model.Post;
-import com.example.springteamwork.model.Role;
-import com.example.springteamwork.model.User;
+import com.example.springteamwork.model.*;
 import com.example.springteamwork.service.CommentServiceImpl;
 import com.example.springteamwork.service.LikeServiceImpl;
 import com.example.springteamwork.service.PostServiceImpl;
@@ -196,6 +193,9 @@ public class PostController {
 
         int numberOfLike = (int) likeService.getAllLikes().stream().filter(like -> like.getPost().getId() == id).count();
         model.addAttribute("numberOfLike", numberOfLike);
+
+        List<Like> allLikes = likeService.getAllLikes().stream().filter(like -> like.getPost().getId()==id).limit(5).toList();
+        model.addAttribute("allLikes", allLikes);
 
         return "blogpage";
     }

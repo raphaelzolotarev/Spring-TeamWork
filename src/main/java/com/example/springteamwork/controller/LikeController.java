@@ -22,10 +22,4 @@ public class LikeController {
         return "redirect:" + request.getHeader("referer");
 
     }
-
-    @PostMapping("/delete")
-    public String unlikePost(@RequestParam Long userId, @RequestParam Long postId, HttpServletRequest request) {
-        likeService.unlikePost(userId, postId);
-        return "redirect:" + request.getHeader("referer");
-    }
 }
