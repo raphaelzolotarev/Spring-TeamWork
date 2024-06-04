@@ -18,7 +18,7 @@ public class FavoriteController {
     private FavoriteServiceImpl favoriteService;
 
     @GetMapping("/add")
-    public String FavoritesAuthor(@RequestParam Long userId, @RequestParam Long postId, HttpServletRequest request) {
+    public String addFavorites(@RequestParam Long userId, @RequestParam Long postId, HttpServletRequest request) {
         favoriteService.favoritePost(userId, postId);
         return "redirect:" + request.getHeader("referer");
     }

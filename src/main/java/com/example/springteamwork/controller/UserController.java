@@ -1,7 +1,9 @@
 package com.example.springteamwork.controller;
 
+import com.example.springteamwork.model.Favorite;
 import com.example.springteamwork.model.Post;
 import com.example.springteamwork.model.User;
+import com.example.springteamwork.service.FavoriteServiceImpl;
 import com.example.springteamwork.service.PostServiceImpl;
 import com.example.springteamwork.service.UserServiceImpl;
 import jakarta.jws.WebParam;
@@ -24,6 +26,9 @@ public class UserController {
     private UserServiceImpl userService;
     @Autowired
     private PostServiceImpl postService;
+
+    @Autowired
+    private FavoriteServiceImpl favoriteService;
 
 
     /*LOGIN FORM*/
@@ -132,6 +137,13 @@ public class UserController {
         List<Post> posts = postService.getAllPosts().stream().filter(p->p.getAuthor().getId()==author.getId()).limit(4).collect(Collectors.toList());
         model.addAttribute("user", author);
         model.addAttribute("posts", posts);
+
+        int numberOfLike = (int) favoriteService.getAllFavorites().stream().filter(favorite -> favorite.getUser().getId() == id).count();
+        model.addAttribute("numberOfLike", numberOfLike);
+
+        List<Favorite> allFavorite = favoriteService.getAllFavorites().stream().filter(favorite -> favorite.getUser().getId() == id).limit(5).toList();
+        model.addAttribute("allFavorite", allFavorite);
+
         return "userprofile";
     }
 
