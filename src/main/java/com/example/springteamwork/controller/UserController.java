@@ -129,7 +129,7 @@ public class UserController {
     @GetMapping("/userProfile/{id}")
     public String showAuthorProfile(@PathVariable(value="id") Long id, Model model) {
         User author = userService.getUserById(id);
-        List<Post> posts = postService.getAllPosts().stream().filter(p->p.getAuthor().getId()==author.getId()).collect(Collectors.toList());
+        List<Post> posts = postService.getAllPosts().stream().filter(p->p.getAuthor().getId()==author.getId()).limit(4).collect(Collectors.toList());
         model.addAttribute("user", author);
         model.addAttribute("posts", posts);
         return "userprofile";
