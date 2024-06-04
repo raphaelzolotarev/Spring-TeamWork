@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -34,11 +35,12 @@ public class CommentServiceImpl implements CommentService{
         if (comment.getText()!=null &&  !comment.getText().isEmpty())
             commentRepository.save(comment);
     }
-
     @Override
     public void updateComment(Comment comment) {
 
+
     }
+
 
     @Override
     public void deleteComment(Long id) {
