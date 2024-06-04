@@ -16,30 +16,6 @@ public class LikeController {
     @Autowired
     private LikeServiceImpl likeService;
 
-/*
-    @GetMapping("/likes")
-    public String viewLikesPage(Model model) {
-        List<Like> likes = likeService.getAllLikes();
-        model.addAttribute("likes", likes);
-        return "likes";
-    }
-
-
-    @GetMapping("/likes/new")
-    public String showNewLikeForm(Model model) {
-        Like like = new Like();
-        model.addAttribute("like", like);
-        return "new_like";
-    }
-*/
-
-
-
-
-
-
-
-
 
     @PostMapping("/add")
     public String likePost(@RequestParam Long userId, @RequestParam Long postId, HttpServletRequest request) {
