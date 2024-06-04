@@ -50,59 +50,88 @@
 <div class="grid grid-cols-10">
     <div class="col-span-10">
 
-        <!--LOGIN FORM-->
-        <section class="bg-white dark:bg-gray-900 py-8 lg:py-16 antialiased">
+        <!--MAIN SECTION-->
+        <div class="grid grid-cols-10">
+            <div class="col-span-10">
 
-            <!--ERROR MESSAGE-->
-            <div th:if="${error}" class="max-w-2xl mx-auto flex items-center p-4 mb-4 text-sm text-yellow-800 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300" role="alert">
-                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
-                </svg>
-                <span class="sr-only">Info</span>
-                <div>
-                    <span class="font-medium">Warning !</span> <span th:text="${f}"></span>
-                </div>
-            </div>
+                <!--LOGIN FORM-->
+                <section class="bg-white dark:bg-gray-900 py-8 lg:py-16 antialiased">
 
-            <div class="max-w-2xl mx-auto px-4 flex items-center justify-center">
-
-                <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-                    <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-                        <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                            Sign in to your account
-                        </h1>
-                        <form class="space-y-4 md:space-y-6" th:action="@{/login}" method="POST">
-                            <div>
-                                <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
-                                <input type="text" name="username" id="username" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  >
-                            </div>
-                            <div>
-                                <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                                <input type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >
-                            </div>
-
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-start">
-                                    <div class="flex items-center h-5">
-                                        <input id="remember" name="remember" aria-describedby="remember" type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" >
-                                    </div>
-                                    <div class="ml-3 text-sm">
-                                        <label for="remember" class="text-gray-500 dark:text-gray-300">Remember me</label>
-                                    </div>
-                                </div>
-                                <a th:href="@{/passwordRecovery}" class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">Forgot password?</a>
-                            </div>
-
-                            <button type="submit" class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Sign in</button>
-                            <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-                                Don’t have an account yet? <a th:href="@{/register}" href="#" class="font-medium text-blue-600 hover:underline dark:text-blue-500">Sign up</a>
-                            </p>
-                        </form>
+                    <!--ERROR MESSAGE-->
+                    <div th:if="${error}" class="max-w-2xl mx-auto flex items-center p-4 mb-4 text-sm text-yellow-800 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300" role="alert">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                        </svg>
+                        <span class="sr-only">Info</span>
+                        <div>
+                            <span class="font-medium">Warning !</span> <span th:text="${f}"></span>
+                        </div>
                     </div>
-                </div>
+
+                    <div class="max-w-2xl mx-auto px-4 flex items-center justify-center">
+
+                        <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+                            <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+                                <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                                    Sign in to your account
+                                </h1>
+                                <form class="space-y-4 md:space-y-6" th:action="@{/login}" method="POST">
+                                    <div>
+                                        <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
+                                        <input type="text" name="username" id="username" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    </div>
+                                    <div>
+                                        <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                                        <input type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    </div>
+
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-start">
+                                            <div class="flex items-center h-5">
+                                                <input id="remember" name="remember" aria-describedby="remember" type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800">
+                                            </div>
+                                            <div class="ml-3 text-sm">
+                                                <label for="remember" class="text-gray-500 dark:text-gray-300">Remember me</label>
+                                            </div>
+                                        </div>
+                                        <a th:href="@{/passwordRecovery}" class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">Forgot password?</a>
+                                    </div>
+
+                                    <button type="submit" class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Sign in</button>
+
+                                    <div class="flex items-center justify-between">
+                                        <hr class="w-full border-gray-300">
+                                        <span class="px-3 text-gray-500 dark:text-gray-400">or</span>
+                                        <hr class="w-full border-gray-300">
+                                    </div>
+
+                                    <div class="space-y-4">
+                                        <button type="button" class="w-full flex items-center justify-center text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+                                            Sign in with Google
+                                            <svg class="w-4 h-4 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M21.805 10.023h-9.598v3.982h6.01c-.383 1.992-2.27 3.593-6.01 3.593a6.883 6.883 0 1 1 6.49-8.888zM12 4a7.953 7.953 0 0 1 5.471 2.155l2.834-2.834A11.903 11.903 0 0 0 12 .944 11.935 11.935 0 0 0 .828 12a11.935 11.935 0 0 0 11.172 11.056c5.742 0 10.528-4.02 11.716-9.362h-1.911A9.924 9.924 0 0 1 12 22c-5.474 0-9.905-4.43-9.905-9.905 0-5.474 4.43-9.905 9.905-9.905z"/></svg>
+                                        </button>
+                                        <button type="button" class="w-full flex items-center justify-center text-white bg-blue-800 hover:bg-blue-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-800 dark:hover:bg-blue-900 dark:focus:ring-blue-800">
+                                            Sign in with Microsoft
+                                            <svg class="w-4 h-4 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                                <path d="M 12 2 C 6.477 2 2 6.477 2 12 C 2 17.523 6.477 22 12 22 C 17.523 22 22 17.523 22 12 C 22 6.477 17.523 2 12 2 z M 5.1425781 7.4765625 L 8.609375 7.4765625 L 8.609375 10.945312 L 5.1425781 10.945312 L 5.1425781 7.4765625 z M 5.1425781 12.480469 L 8.609375 12.480469 L 8.609375 16.125 L 5.1425781 16.125 L 5.1425781 12.480469 z M 9.3847656 7.4765625 L 12.849609 7.4765625 L 12.849609 10.945312 L 9.3847656 10.945312 L 9.3847656 7.4765625 z M 9.3847656 12.480469 L 12.849609 12.480469 L 12.849609 16.125 L 9.3847656 16.125 L 9.3847656 12.480469 z M 13.625 7.4765625 L 17.089844 7.4765625 L 17.089844 10.945312 L 13.625 10.945312 L 13.625 7.4765625 z M 13.625 12.480469 L 17.089844 12.480469 L 17.089844 16.125 L 13.625 16.125 L 13.625 12.480469 z"/>
+                                            </svg>
+
+                                        </button>
+                                    </div>
+
+                                    <p class="text-sm font-light text-gray-500 dark:text-gray-400">
+                                        Don’t have an account yet? <a th:href="@{/register}" href="#" class="font-medium text-blue-600 hover:underline dark:text-blue-500">Sign up</a>
+                                    </p>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!--END OF LOGIN FORM-->
+
             </div>
-        </section>
-        <!--END OF LOGIN FORM-->
+        </div>
+        <!--END MAIN SECTION-->
 
     </div>
     <!--END MAIN SECTION-->
