@@ -25,10 +25,11 @@ public class CommentServiceImpl implements CommentService{
         return commentRepository.findAll().stream().filter(c->c.getPost().getId()==id).collect(Collectors.toList());
     }
 
-    @Override
-    public Post getCommentById(Long id) {
-        return null;
-    }
+   @Override
+   public Comment getCommentById(Long id) {
+
+    return null;
+   }
 
     @Override
     public void saveComment(Comment comment) {
@@ -36,8 +37,10 @@ public class CommentServiceImpl implements CommentService{
             commentRepository.save(comment);
     }
     @Override
-    public void updateComment(Comment comment) {
 
+    public void updateComment(Long id, String comment) {
+        Comment commentToUpdate = commentRepository.findById(id).get();
+        commentToUpdate.setText(comment);
 
     }
 

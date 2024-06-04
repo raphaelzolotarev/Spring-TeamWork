@@ -6,7 +6,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/flowbite@1.5.1/dist/flowbite.min.css" rel="stylesheet">
     <script src="https://unpkg.com/flowbite@1.5.1/dist/flowbite.js"></script>
-    <title>Beauty & Cosmetics Blog</title>
+    <title th:text="${post.getTitle()}"></title>
+    <link rel="shortcut icon" th:src="@{/favicon.ico}">
     <style>
 
         /*LOGO*/
@@ -38,6 +39,7 @@
             padding: 1rem;
         }
     </style>
+
 </head>
 
 <body>
@@ -47,7 +49,7 @@
 
 <!--MAIN SECTION-->
 <div class="grid grid-cols-10">
-    <div class="col-span-8">
+    <div class="col-span-10">
         <section class="bg-white dark:bg-gray-900 py-8 lg:py-16 antialiased">
             <div class="max-w-2xl mx-auto px-4">
 
@@ -65,13 +67,14 @@
                         </a>
                     </div>
 
+
                     <address class="flex items-center mb-6 not-italic">
                         <div class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white">
-                            <a th:href="@{/author/{id}(id=${post.getAuthor().id})}" rel="author" class="text-xl font-bold text-gray-900 dark:text-white" >
+                            <a th:href="@{/userProfile/{id}(id=${post.getAuthor().id})}" rel="author" class="text-xl font-bold text-gray-900 dark:text-white" >
                                 <img class="mr-4 w-16 h-16 rounded-full"  th:src="'data:image/jpg;base64,' + ${post.getAuthor().getImageBase64()}"  alt="Jese Leos">
                             </a>
                             <div>
-                                <a th:href="@{/author/{id}(id=${post.getAuthor().id})}" rel="author" class="text-xl font-bold text-gray-900 dark:text-white" >
+                                <a th:href="@{/userProfile/{id}(id=${post.getAuthor().id})}" rel="author" class="text-xl font-bold text-gray-900 dark:text-white" >
                                     <span th:text="${post.getAuthor().getFirstName()}"> </span>
                                     <span th:text="${post.getAuthor().getLastName()}"></span>
                                 </a>
@@ -85,16 +88,48 @@
                         </div>
                     </address>
 
-                    <!--TAG-->
-                    <button class="mb-2 relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6Z" />
-                        </svg>
-                        <span th:text="${post.getTag()}" class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                    <div class="flex item-center">
+                        <!--TAG-->
+                        <form  th:action="@{/searchByTag}" method="POST" >
+                            <input th:value="'#'+${post.getTag()}" type="hidden" name="search" />
+                            <button class="relative inline-flex items-center justify-center p-0.5 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6Z" />
+                                </svg>
+                                <span th:text="${post.getTag()}" class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0"></span>
+                            </button>
+                        </form>
 
-                            </span>
-                    </button>
+                        <!--LIKE BUTTON-->
+                        <form th:action="@{/likes/add}" method="POST" class="">
+                            <input type="hidden" name="userId" th:value="${cookieObject.getId()}">
+                            <input type="hidden" name="postId" th:value="${post.getId()}">
+                            <button type="submit" class="ml-5 m-1">
+                                <span class="flex h-min w-min space-x-1 items-center rounded-full text-white hover:text-rose-600 bg-red-700 hover:bg-rose-50 py-2 px-2 text-xs font-medium">
+                                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-current hover:text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                  </svg>
+                                  <p class="font-semibold text-xs" th:text="${numberOfLike}"></p>
+                                </span>
+                            </button>
+                        </form>
+
+                        <!--USERS WHO LIKE-->
+                        <div class="flex ">
+                            <a th:each="like:${allLikes}" th:href="'/userProfile/'+${like.getUser().getId()}" class="border-2 border-white dark:border-gray-800 rounded-full h-10 w-10 -mr-2">
+                                <img class="border-2 border-white dark:border-gray-800 rounded-full h-10 w-10 -mr-2" th:src="'data:image/jpeg;base64,' + ${like.getUser().getImageBase64()}" alt="">
+                            </a>
+                            <span th:if="${numberOfLike>allLikes.size()}" th:text="'+'+${numberOfLike - allLikes.size()}" class="flex items-center justify-center bg-white dark:bg-gray-800 text-sm text-gray-800 dark:text-white font-semibold border-2 border-gray-200 dark:border-gray-700 rounded-full h-10 w-10"></span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="flex">
+                        <div class="flex justify-end mr-2">
+                            </div>
+                    </div>
 
                     <!--TITLE-->
                     <h1 class="mt-2 mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white">
@@ -110,14 +145,66 @@
                     <div class="mb-3 text-gray-500 dark:text-gray-400" th:utext="${post.getDescription()}">
                     </div>
 
-                    <!--LIKE BUTTON-->
-                    <button type="button" class="mt-5 text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center me-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500">
-                        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
-                            <path d="M3 7H1a1 1 0 0 0-1 1v8a2 2 0 0 0 4 0V8a1 1 0 0 0-1-1Zm12.954 0H12l1.558-4.5a1.778 1.778 0 0 0-3.331-1.06A24.859 24.859 0 0 1 6 6.8v9.586h.114C8.223 16.969 11.015 18 13.6 18c1.4 0 1.592-.526 1.88-1.317l2.354-7A2 2 0 0 0 15.954 7Z"/>
-                        </svg>
-                        <span class="sr-only">Icon description</span>
-                    </button>
 
+                    <!--SHARE ON SOCIAL MEDIAS-->
+                    <div class="mt-10 flex justify-between items-center mb-6">
+                        <h2 class="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white"><span>Share on social media</span></h2>
+                    </div>
+
+                    <!-- X -->
+                    <a th:href="'https://twitter.com/intent/tweet?text=Check out this post! '+${post.getTitle()}+' &url=https://www.beautyandcosmetics.com/showPost/'+${post.getId()}" target="_blank">
+                        <button type="button" data-twe-ripple-init data-twe-ripple-color="light" class="mb-2 inline-block rounded bg-black px-6 py-2.5 text-xs font-medium uppercase leading-normal text-white shadow-md transition duration-150 ease-in-out hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg">
+                              <span class="[&>svg]:h-4 [&>svg]:w-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 512 512">
+                                  <path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z" />
+                                </svg>
+                              </span>
+                        </button>
+                    </a>
+
+                    <!-- Whatsapp-->
+                    <a th:href="'https://api.whatsapp.com/send?text=Check out this post! '+${post.getTitle()}+' https://www.beautyandcosmetics.com/showPost/'+${post.getId()}" target="_blank">
+                        <button type="button" data-twe-ripple-init data-twe-ripple-color="light" class="mb-2 inline-block rounded bg-[#128c7e] px-6 py-2.5 text-xs font-medium uppercase leading-normal text-white shadow-md transition duration-150 ease-in-out hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg">
+                              <span class="[&>svg]:h-4 [&>svg]:w-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 448 512">
+                                  <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z" />
+                                </svg>
+                              </span>
+                        </button>
+                    </a>
+
+                    <!-- Linkedin-->
+                    <a th:href="'https://www.linkedin.com/feed/?shareActive=true&text=Check out this post!  '+${post.getTitle()}+'  https://www.beautyandcosmetics.com/showPost/'+${post.getId()}" target="_blank">
+                        <button type="button" data-twe-ripple-init data-twe-ripple-color="light" class="mb-2 inline-block rounded bg-[#0077b5] px-6 py-2.5 text-xs font-medium uppercase leading-normal text-white shadow-md transition duration-150 ease-in-out hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg">
+                          <span class="[&>svg]:h-4 [&>svg]:w-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 448 512">
+                              <path d="M100.3 448H7.4V148.9h92.9zM53.8 108.1C24.1 108.1 0 83.5 0 53.8a53.8 53.8 0 0 1 107.6 0c0 29.7-24.1 54.3-53.8 54.3zM447.9 448h-92.7V302.4c0-34.7-.7-79.2-48.3-79.2-48.3 0-55.7 37.7-55.7 76.7V448h-92.8V148.9h89.1v40.8h1.3c12.4-23.5 42.7-48.3 87.9-48.3 94 0 111.3 61.9 111.3 142.3V448z" />
+                            </svg>
+                          </span>
+                        </button>
+                    </a>
+
+                    <!-- Pinterest
+                    <a th:href="'https://pinterest.com/pin/create/button/?url=https://www.beautyandcosmetics.com/showPost/'+${post.getId()}+'&media=data:image/jpg;base64,' + ${comment.getUser().imageBase64}+'&description='+${#strings.replace(post.description, '<[^>]*>', '')}" target="_blank">
+                        <button type="button" data-twe-ripple-init data-twe-ripple-color="light" class="mb-2 inline-block rounded bg-[#e60023] px-6 py-2.5 text-xs font-medium uppercase leading-normal text-white shadow-md transition duration-150 ease-in-out hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg">
+                              <span class="[&>svg]:h-4 [&>svg]:w-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 496 512">
+                                  <path d="M496 256c0 137-111 248-248 248-25.6 0-50.2-3.9-73.4-11.1 10.1-16.5 25.2-43.5 30.8-65 3-11.6 15.4-59 15.4-59 8.1 15.4 31.7 28.5 56.8 28.5 74.8 0 128.7-68.8 128.7-154.3 0-81.9-66.9-143.2-152.9-143.2-107 0-163.9 71.8-163.9 150.1 0 36.4 19.4 81.7 50.3 96.1 4.7 2.2 7.2 1.2 8.3-3.3 .8-3.4 5-20.3 6.9-28.1 .6-2.5 .3-4.7-1.7-7.1-10.1-12.5-18.3-35.3-18.3-56.6 0-54.7 41.4-107.6 112-107.6 60.9 0 103.6 41.5 103.6 100.9 0 67.1-33.9 113.6-78 113.6-24.3 0-42.6-20.1-36.7-44.8 7-29.5 20.5-61.3 20.5-82.6 0-19-10.2-34.9-31.4-34.9-24.9 0-44.9 25.7-44.9 60.2 0 22 7.4 36.8 7.4 36.8s-24.5 103.8-29 123.2c-5 21.4-3 51.6-.9 71.2C65.4 450.9 0 361.1 0 256 0 119 111 8 248 8s248 111 248 248z" />
+                                </svg>
+                              </span>
+                        </button>-->
+
+
+                    <!-- Telegram-->
+                    <a th:href="'https://t.me/share/url?url=https://www.beautyandcosmetics.com/showPost/'+${post.getId()}+'&text=Check out this post! '+${post.getTitle()}" target="_blank">
+                        <button type="button" data-twe-ripple-init data-twe-ripple-color="light" class="mb-2 inline-block rounded bg-[#0088cc] px-6 py-2.5 text-xs font-medium uppercase leading-normal text-white shadow-md transition duration-150 ease-in-out hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg">
+                              <span class="[&>svg]:h-4 [&>svg]:w-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 496 512">
+                                  <path d="M248 8C111 8 0 119 0 256S111 504 248 504 496 393 496 256 385 8 248 8zM363 176.7c-3.7 39.2-19.9 134.4-28.1 178.3-3.5 18.6-10.3 24.8-16.9 25.4-14.4 1.3-25.3-9.5-39.3-18.7-21.8-14.3-34.2-23.2-55.3-37.2-24.5-16.1-8.6-25 5.3-39.5 3.7-3.8 67.1-61.5 68.3-66.7 .2-.7 .3-3.1-1.2-4.4s-3.6-.8-5.1-.5q-3.3 .7-104.6 69.1-14.8 10.2-26.9 9.9c-8.9-.2-25.9-5-38.6-9.1-15.5-5-27.9-7.7-26.8-16.3q.8-6.7 18.5-13.7 108.4-47.2 144.6-62.3c68.9-28.6 83.2-33.6 92.5-33.8 2.1 0 6.6 .5 9.6 2.9a10.5 10.5 0 0 1 3.5 6.7A43.8 43.8 0 0 1 363 176.7z" />
+                                </svg>
+                              </span>
+                        </button>
+                    </a>
 
                 </header>
 
@@ -169,10 +256,10 @@
                                 <div th:id="'dropdownComment'+${comment.id}" class="hidden z-10 w-36 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
                                     <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
                                         aria-labelledby="dropdownMenuIconHorizontalButton">
-                                       <!-- <li>
-                                            <a th:href="@{/editComment/  ${comment.getPost().getId()}    ${comment.id}  '?text=newTextValue'}"
-                                               href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
-                                        </li> -->
+                                        <li>
+                                            <a style="cursor:pointer" th:id="'editButton'+${comment.id}" class="editButtons block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
+                                        </li>
+
 
                                         <li>
                                             <a th:href="@{/deleteComment/{postId}/{commentId}(postId=${comment.getPost().getId()}, commentId=${comment.id})}"
@@ -184,6 +271,26 @@
 
                         </footer>
                         <p class="text-gray-500 dark:text-gray-400" th:text="${comment.getText()}"></p>
+
+                        <form th:action="@{/editComment}"  method="POST"   style="display:none;" th:if="${(userIdCookiePresent && cookieObject.id == comment.getUser().id) || cookieObject.id == comment.getPost().getAuthor().getId()}" th:id="'commentForm'+${comment.getId()}" class="mt-5 editComments">
+                            <div class="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
+                                <div class="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
+                                    <input type="hidden" name="postId" th:value="${post.getId()}">
+                                    <input type="hidden" name="commentId" th:value="${comment.getId()}">
+                                    <label for="comment" class="sr-only">Your comment</label>
+                                    <textarea th:text="${comment.getText()}" name="comment" id="comment" rows="4" class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" placeholder="Write a comment..." required ></textarea>
+                                </div>
+                                <div class="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600">
+                                    <button type="submit" class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
+                                        Update my comment
+                                    </button>
+                                    <p class="mt-2 ms-auto text-xs text-gray-500 dark:text-gray-400">Remember, contributions to this topic should follow our Conditions.</p>
+
+                                </div>
+
+                            </div>
+                        </form>
+
                     </article>
                     <!--END OF COMMENT-->
 
@@ -205,4 +312,6 @@
 
 
 </body>
+<!--JS SCRIPT-->
+<script th:insert="fragments :: myJSscript" th:remove="tag"></script>
 </html>

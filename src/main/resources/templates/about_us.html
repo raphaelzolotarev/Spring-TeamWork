@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Beauty & Cosmetics Blog</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f3f3f3;
+            color: #555;
+        }
+
+        .header {
+            background: transparent;
+            padding: 60px 0;
+            text-align: center;
+            color: #ff69b4;
+            font-family: 'Great Vibes', cursive;
+            font-size: 60px;
+            font-weight: 400;
+        }
+        .header a {
+            text-decoration: none;
+            color: inherit;
+        }
+        .container {
+            padding: 60px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .content {
+            background-color: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .content h2 {
+            color: #ff69b4;
+            margin-top: 0;
+            font-size: 36px;
+        }
+        .content p {
+            line-height: 1.8;
+            margin-bottom: 30px;
+            font-size: 18px;
+        }
+        .team {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-top: 40px;
+        }
+        .team-member {
+            background-color: #fff;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .team-member:hover {
+            transform: translateY(-10px);
+        }
+        .team-member img {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+        .team-member h3 {
+            margin: 10px 0 5px;
+            color: #ff69b4;
+            font-size: 22px;
+        }
+        .team-member p {
+            margin: 0;
+            font-size: 16px;
+            color: #777;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 60px;
+        }
+        footer p {
+            margin: 0;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+<header class="header">
+    <a href="/">Beauty & Cosmetics Blog</a>
+</header>
+<div class="container">
+    <div class="content">
+        <h2>About Us</h2>
+        <p>Welcome to the Beauty & Cosmetics Blog! Our mission is to bring you the latest trends, tips, and insights from the world of beauty and cosmetics. We aim to help you feel beautiful and confident every day by providing expert advice and inspiration.</p>
+        <p>Founded in 2012, the Beauty & Cosmetics Blog has grown from a small passion project to a well-respected source of beauty information. We pride ourselves on our high-quality content, exceptional community engagement, and commitment to providing accurate and helpful information.</p>
+        <p>Our team of beauty enthusiasts and experts is dedicated to staying on the cutting edge of beauty trends and innovations, ensuring that we offer the most up-to-date and relevant content to our readers. We believe that beauty should be accessible to everyone, and we strive to make that a reality through our diverse range of articles and features.</p>
+
+        <div class="team">
+            <div class="team-member">
+                <img th:src="@{/img/Abdul.jpg}" alt="Abdulrazak Alyoussef">
+                <h3>Abdulrazak<br>Alyoussef</h3>
+                <p>Founder & CEO</p>
+            </div>
+            <div class="team-member">
+                <img th:src="@{/img/Raphael.jpeg}" alt="Raphael Zolotarev">
+                <h3>Raphael<br>Zolotarev</h3>
+                <p>Dramatic programmer</p>
+            </div>
+            <div class="team-member">
+                <img th:src="@{/img/janan.png}" alt="Jana Javdan">
+                <h3>Jana Javdan</h3>
+                <p>Creative Director</p>
+            </div>
+            <div class="team-member">
+                <img th:src="@{/img/Elmaz.jpg}" alt="Elmaz Dzhelianchyk">
+                <h3>Elmaz<br>Dzhelianchyk</h3>
+                <p>Marketing Head</p>
+            </div>
+        </div>
+    </div>
+</div>
+<footer>
+    <p>&copy; 2024 Beauty & Cosmetics Blog. All rights reserved.</p>
+</footer>
+</body>
+</html>

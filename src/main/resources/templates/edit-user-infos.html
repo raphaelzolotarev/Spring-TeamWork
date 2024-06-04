@@ -6,7 +6,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/flowbite@1.5.1/dist/flowbite.min.css" rel="stylesheet">
     <script src="https://unpkg.com/flowbite@1.5.1/dist/flowbite.js"></script>
-    <title>Beauty & Cosmetics Blog</title>
+    <title>Edit your information</title>
+    <link rel="shortcut icon" th:src="@{/favicon.ico}">
     <style>
 
         /*LOGO*/
@@ -47,7 +48,7 @@
 
 <!--MAIN SECTION-->
 <div class="grid grid-cols-10">
-    <div class="col-span-8">
+    <div class="col-span-10">
 
         <!--REGISTER FORM-->
         <section class="bg-white dark:bg-gray-900 py-8 lg:py-16 antialiased">
@@ -63,7 +64,19 @@
                 </div>
             </div>
 
-            <div class="max-w-2xl mx-auto px-4 flex items-center justify-center">
+            <!--IF NOT LOGGED-->
+            <div th:unless="${userIdCookiePresent && cookieObject.role == T(com.example.springteamwork.model.Role).USER || cookieObject.role == T(com.example.springteamwork.model.Role).AUTHOR}" class="max-w-2xl mx-auto flex items-center p-4 mb-4 text-sm text-yellow-800 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300" role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                </svg>
+                <span class="sr-only">Info</span>
+                <div>
+                    <span class="font-medium">Warning !</span> <span>Yo what are you tryna edit here with your nonexistent account 😂</span>
+                </div>
+            </div>
+
+            <!--IF LOGGED-->
+            <div th:if="${userIdCookiePresent && cookieObject.role == T(com.example.springteamwork.model.Role).USER || cookieObject.role == T(com.example.springteamwork.model.Role).AUTHOR}" class="max-w-2xl mx-auto px-4 flex items-center justify-center">
                 <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                     <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
                         <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
@@ -125,7 +138,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
                                 </svg>
                             </button>
-                            <a th:href="@{/delete/{id}(id=${cookieObject.id})}" >
+                            <a th:href="@{/delete/{id}(id=${cookieObject.id})}" onclick="return confirm('Hey there! Are you absolutely positive about deleting your account? It\'s like throwing away the keys to your secret hideout. Once it\'s gone, it\'s gone! ');" >
                                 <button type="button" class="mt-5 w-full flex items-center justify-center text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
                                     Delete my account
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 ml-2">
@@ -137,6 +150,8 @@
                     </div>
                 </div>
             </div>
+
+
         </section>
         <!--END OF REGISTER FORM-->
 
@@ -153,4 +168,6 @@
 
 
 </body>
+<!--JS SCRIPT-->
+<script th:insert="fragments :: myJSscript" th:remove="tag"></script>
 </html>

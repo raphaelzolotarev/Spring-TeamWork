@@ -1,16 +1,17 @@
 
 package com.example.springteamwork.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.awt.*;
-import java.util.Base64;
-import java.util.Date;
+import java.util.*;
 
 @Entity
 @Getter
@@ -45,13 +46,19 @@ public class Post extends AuditModel{
     @Transient
     private MultipartFile file;
 
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Like> likes = new HashSet<>();
+
     public Post(User author, String title, String description, String tag, byte[] image) {
         this.author = author;
         this.title = title;
         this.description = description;
         this.tag = tag;
         this.image = image;
+
     }
+
+
 
     public String getImageBase64() {
         return Base64.getEncoder().encodeToString(this.image);

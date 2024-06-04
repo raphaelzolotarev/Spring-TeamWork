@@ -6,7 +6,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/flowbite@1.5.1/dist/flowbite.min.css" rel="stylesheet">
     <script src="https://unpkg.com/flowbite@1.5.1/dist/flowbite.js"></script>
-    <title>Beauty & Cosmetics Blog</title>
+    <title>Edit post content</title>
+    <link rel="shortcut icon" th:src="@{/favicon.ico}">
     <style>
 
         /*LOGO*/
@@ -47,7 +48,7 @@
 
 <!--MAIN SECTION-->
 <div class="grid grid-cols-10">
-    <div class="col-span-8">
+    <div class="col-span-10">
 
         <!--LOGIN FORM-->
         <section class="bg-white dark:bg-gray-900 py-8 lg:py-16 antialiased">
@@ -64,9 +65,22 @@
                 </div>
             </div>
 
+            <!--IF NOT LOGGED-->
+            <div th:unless="${userIdCookiePresent && cookieObject.role == T(com.example.springteamwork.model.Role).AUTHOR && updatePost.getAuthor().getId() == cookieObject.getId()}" class="max-w-2xl mx-auto flex items-center p-4 mb-4 text-sm text-yellow-800 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300" role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                </svg>
+                <span class="sr-only">Info</span>
+                <div>
+                    <span class="font-medium">Warning !</span>
+                    <span th:unless="${userIdCookiePresent}">What a damn visitor is even doing here 🤣</span>
+                    <span th:if="${userIdCookiePresent && cookieObject.role == T(com.example.springteamwork.model.Role).USER}">It's not cuz you just subscribed that it allows you to make posts 🤣</span>
+                    <span th:if="${userIdCookiePresent && cookieObject.role == T(com.example.springteamwork.model.Role).AUTHOR && updatePost.getAuthor().getId() != cookieObject.getId()}"h>You're just an author not an admin bro, edit your  damn posts 🤣</span>
+                </div>
+            </div>
 
-            <div class="max-w-2xl mx-auto px-4 flex items-center justify-center">
-
+            <!--IF LOGGED-->
+            <div th:if="${userIdCookiePresent && cookieObject.role == T(com.example.springteamwork.model.Role).AUTHOR && updatePost.getAuthor().getId() == cookieObject.getId()}" class="max-w-2xl mx-auto px-4 flex items-center justify-center">
                 <div class="w-full max-w-2xl mx-auto bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                     <div class="p-6">
                         <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Edit Post</h2>
@@ -97,7 +111,7 @@
                                 <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="user_avatar_help" id="file" name="file" type="file">
                             </div>
                             <div class="flex items-center justify-end space-x-4">
-                                <a th:href="@{/deletePost/{postid}(postid=${postid})}">
+                                <a th:href="@{/deletePost/{postid}(postid=${postid})}" onclick="return confirm('Are you sure you want to delete this post?');">
                                     <button type="button" class="py-2 px-4 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 dark:focus:ring-offset-gray-800">DELETE</button>
                                 </a>
                                 <button type="submit" class="py-2 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-800">UPDATE</button>
@@ -105,8 +119,9 @@
                         </form>
                     </div>
                 </div>
-
             </div>
+
+
         </section>
         <!--END OF LOGIN FORM-->
 
@@ -123,4 +138,6 @@
 
 
 </body>
+<!--JS SCRIPT-->
+<script th:insert="fragments :: myJSscript" th:remove="tag"></script>
 </html>

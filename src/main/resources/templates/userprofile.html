@@ -6,7 +6,8 @@
     <link href="https://unpkg.com/flowbite@1.5.1/dist/flowbite.min.css" rel="stylesheet">
     <script src="https://unpkg.com/flowbite@1.5.1/dist/flowbite.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>Beauty & Cosmetics Blog</title>
+    <title th:text="${user.getFirstName()}+' '+${user.getLastName()}"></title>
+    <link rel="shortcut icon" th:src="@{/favicon.ico}">
     <style>
 
         /*LOGO*/
@@ -37,6 +38,7 @@
             margin-top: auto;
             padding: 1rem;
         }
+
     </style>
 </head>
 
@@ -47,20 +49,44 @@
 
 <!--MAIN SECTION-->
 <div class="grid grid-cols-10">
-    <div class="col-span-8">
+    <div class="col-span-10">
         <section class="bg-white dark:bg-gray-900">
             <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
 
                 <!--Profile card-->
                 <div class="w-full max-w-md mx-auto bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                     <div class="flex flex-col items-center pb-10">
-                        <img class="mt-5 w-24 h-24 mb-3 rounded-full shadow-lg" th:src="'data:image/jpg;base64,' + ${author.getImageBase64()}" alt="Bonnie image"/>
+                        <img class="mt-5 w-24 h-24 mb-3 rounded-full shadow-lg" th:src="'data:image/jpg;base64,' + ${user.getImageBase64()}" alt="Bonnie image"/>
+
+                        <!--ROLE-->
+                        <button type="button" class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 me-2 mb-2">
+                            <span th:if="${user.role == T(com.example.springteamwork.model.Role).AUTHOR}" class="inline-flex items-center justify-center w-6 h-6 me-2 text-sm font-semibold text-blue-800 bg-blue-100 rounded-full dark:bg-gray-700 dark:text-blue-400">
+                                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill="currentColor" d="m18.774 8.245-.892-.893a1.5 1.5 0 0 1-.437-1.052V5.036a2.484 2.484 0 0 0-2.48-2.48H13.7a1.5 1.5 0 0 1-1.052-.438l-.893-.892a2.484 2.484 0 0 0-3.51 0l-.893.892a1.5 1.5 0 0 1-1.052.437H5.036a2.484 2.484 0 0 0-2.48 2.481V6.3a1.5 1.5 0 0 1-.438 1.052l-.892.893a2.484 2.484 0 0 0 0 3.51l.892.893a1.5 1.5 0 0 1 .437 1.052v1.264a2.484 2.484 0 0 0 2.481 2.481H6.3a1.5 1.5 0 0 1 1.052.437l.893.892a2.484 2.484 0 0 0 3.51 0l.893-.892a1.5 1.5 0 0 1 1.052-.437h1.264a2.484 2.484 0 0 0 2.481-2.48V13.7a1.5 1.5 0 0 1 .437-1.052l.892-.893a2.484 2.484 0 0 0 0-3.51Z"/>
+                                    <path fill="#fff" d="M8 13a1 1 0 0 1-.707-.293l-2-2a1 1 0 1 1 1.414-1.414l1.42 1.42 5.318-3.545a1 1 0 0 1 1.11 1.664l-6 4A1 1 0 0 1 8 13Z"/>
+                                </svg>
+                            </span>
+                            <span th:if="${user.role == T(com.example.springteamwork.model.Role).USER}">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                </svg>
+                            </span>
+                            &nbsp; <span th:text="${user.getRole()}"></span>
+
+                        </button>
+
                         <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-                            <span th:text="${author.getFirstName()}"></span>
-                            <span th:text="${author.getLastName()}"></span>
+                            <span th:text="${user.getFirstName()}"></span>
+                            <span th:text="${user.getLastName()}"></span>
                         </h5>
-                        <span class="text-sm text-gray-500 dark:text-gray-400" th:text="${author.getRole()}">Visual Designer</span>
-                        <div class="flex mt-4 md:mt-6">
+
+                        <!--ONLINE LABEL-->
+                        <p class="mt-3">
+                            <span th:if="${user.isOnline() == true}" class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">Online</span>
+                            <span th:if="${user.isOnline() == false}" class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-red-900 dark:text-red-300">Offline</span>
+                        </p>
+
+                        <div th:if="${user.getRole() == T(com.example.springteamwork.model.Role).AUTHOR}" class="flex mt-4 md:mt-6">
                             <button class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800">
                                     <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0 flex items-center">
                                         Add to favorites
@@ -74,106 +100,39 @@
                 </div>
 
 
-                <!--TITLE-->
-                <div class="mt-10 mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
-                    <h2 class="mb-4 text-3xl lg:text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Author's posts</h2>
-                </div>
 
-                <!--FILTER BY-->
-                <div class="max-w-screen-sm mx-auto lg:mb-16 mb-8">
-                    <form class="max-w-sm mx-auto" th:action="@{/filterAuthorProfile}" method="GET">
-                        <div class="flex items-center mb-6">
-                            <input type="hidden" name="authorId" th:value="${author.id}">
-                            <label for="small" class="mr-2 text-sm font-medium text-gray-900 dark:text-white">Filter by</label>
-                            <select th:value="${filter}" name="filter" id="small" class="flex-1 p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option value="Newest" th:selected="${filter == 'Newest'}">Newest</option>
-                                <option value="Oldest" th:selected="${filter == 'Oldest'}">Oldest</option>
-                                <!--<option value="Most popular" th:selected="${filter == 'Most popular'}">Most popular</option>
-                                <option value="Least popular" th:selected="${filter == 'Least popular'}">Least popular</option>
-                            -->
-                            </select>
-                            <button type="submit" class="ml-2 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Sort</button>
-                        </div>
-                    </form>
-                </div>
+                <div th:if="${user.getRole() == T(com.example.springteamwork.model.Role).AUTHOR}">
+                    <aside aria-label="Related articles" class="mt-5 py-8 lg:py-24 bg-gray-50 dark:bg-gray-800">
+                        <div class="px-4 mx-auto max-w-screen-xl">
+                            <h2 class="mb-8 text-2xl font-bold text-gray-900 dark:text-white">Author's latest posts</h2>
+                            <div class="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
 
-                <!--POSTS-->
-                <div class="mt-10 grid gap-8 lg:grid-cols-2">
-
-                    <article th:each="post:${posts}" class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
-                        <div class="flex justify-between items-center mb-5 text-gray-500">
-                                  <span class="bg-primary-100 text-primary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-primary-200 dark:text-primary-800">
-                                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                          <path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z" />
-                                          <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6Z" />
-                                        </svg>
-                                        <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"></path></svg>
-                                      &nbsp; <span th:text="${post.tag}"></span>
-                                  </span>
-                            <span class="text-sm" th:text="${#dates.format(post.createdAt, 'dd MMMM yyyy')} + ' at ' + ${#dates.format(post.createdAt, 'HH:mm')}"></span>
-                        </div>
-                        <h2 class="mb-5 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                            <a th:text="${post.title}" th:href="@{/showPost/{id}(id=${post.id})}">How to quickly deploy a static website</a>
-                        </h2>
-                        <img class="rounded-lg" th:src="'data:image/jpeg;base64,' + ${post.imageBase64}" alt="Image"/>
-
-                        <div class="mt-5 mb-5 font-light text-gray-500 dark:text-white-400">
-                            <span th:utext="${post.description.length() > 200 ? #strings.substring(post.description, 0, 200) : post.description}"></span>
-                            <span th:if="${post.description.length() > 200}">...</span>
-                        </div>
-
-                        <div class="flex justify-between items-center">
-                            <div class="flex items-center space-x-4">
-                                <a th:href="@{/author/{id}(id=${post.getAuthor().getId()})}" class="flex items-center space-x-4">
-                                    <img class="w-7 h-7 rounded-full" th:src="'data:image/jpg;base64,' + ${post.getAuthor().getImageBase64()}" alt="Jese Leos avatar" />
-                                    <span class="font-medium dark:text-white">
-                                            <span th:text="${post.getAuthor().firstName}"></span>
-                                            <span th:text="${post.getAuthor().lastName}"></span>
-                                        </span>
-                                </a>
+                                <article th:each="post:${posts}" class="max-w-xs">
+                                    <a th:href="@{/showPost/{id}(id=${post.id})}">
+                                        <img th:src="'data:image/jpeg;base64,' + ${post.imageBase64}" class="mb-5 rounded-lg" th:alt="${post.getTitle()}">
+                                    </a>
+                                    <h2 class="mb-2 text-xl font-bold leading-tight text-gray-900 dark:text-white">
+                                        <a th:href="@{/showPost/{id}(id=${post.id})}" th:text="${post.getTitle()}">Our first office</a>
+                                    </h2>
+                                    <p class="mb-4 text-gray-500 dark:text-gray-400">
+                                        <span th:utext="${post.description.length() > 200 ? #strings.substring(post.description, 0, 200) : post.description}"></span>
+                                        <span th:if="${post.description.length() > 200}">...</span>
+                                    </p>
+                                    <a th:href="@{/showPost/{id}(id=${post.id})}" class="inline-flex items-center font-medium underline underline-offset-4 text-primary-600 dark:text-white hover:no-underline">
+                                        Read more
+                                    </a>
+                                </article>
                             </div>
-                            <a th:href="@{/showPost/{id}(id=${post.id})}" href="#" class="inline-flex items-center font-medium text-primary-600 dark:text-white hover:underline">
-                                Read more
-                                <svg class="ml-2 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                            </a>
+                            <div class="mt-20 w-full flex justify-center">
+                                <form th:action="@{/filterByAuthor}" method="GET" class="w-full flex justify-center">
+                                    <input type="hidden" name="authorId" th:value="${user.getId()}">
+                                    <button type="submit" class="w-1/3 text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Show more posts</button>
+                                </form>
+                            </div>
                         </div>
-                    </article>
-
+                    </aside>
                 </div>
-                <!--END OF POSTS-->
 
-                <!--PAGINATION-->
-                <div class="mt-10 grid place-items-center">
-                    <nav aria-label="Page navigation example">
-                        <ul class="flex items-center -space-x-px h-10 text-base">
-                            <li>
-                                <a href="#" class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                    <span class="sr-only">Previous</span>
-                                    <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
-                                    </svg>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" aria-current="page" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
-                            </li>
-                            <!--
-                            <li>
-                                <a href="#" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
-                            </li>
-                            -->
-                            <li>
-                                <a href="#" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                    <span class="sr-only">Next</span>
-                                    <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-                                    </svg>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-                <!--END OF PAGINATION-->
             </div>
         </section>
     </div>
@@ -189,4 +148,6 @@
 
 
 </body>
+<!--JS SCRIPT-->
+<script th:insert="fragments :: myJSscript" th:remove="tag"></script>
 </html>
