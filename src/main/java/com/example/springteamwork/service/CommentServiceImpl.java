@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,10 +25,11 @@ public class CommentServiceImpl implements CommentService{
         return commentRepository.findAll().stream().filter(c->c.getPost().getId()==id).collect(Collectors.toList());
     }
 
-    @Override
-    public Post getCommentById(Long id) {
-        return null;
-    }
+   @Override
+   public Comment getCommentById(Long id) {
+
+    return null;
+   }
 
     @Override
     public void saveComment(Comment comment) {
@@ -39,6 +41,7 @@ public class CommentServiceImpl implements CommentService{
     public void updateComment(Comment comment) {
 
     }
+
 
     @Override
     public void deleteComment(Long id) {
