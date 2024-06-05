@@ -180,7 +180,6 @@ public class UserServiceImpl implements UserService {
 
 
 
-
     /*UPDATE USER*/
     @Override
     public void updateUser(User user) {
@@ -190,14 +189,12 @@ public class UserServiceImpl implements UserService {
 
 
 
-
     /*DELETE USER*/
     @Override
     public void deleteUser(Long id, HttpServletResponse response) {
         userRepository.deleteById(id);
         cookieDeletor(response);
     }
-
 
 
 
@@ -249,7 +246,6 @@ public class UserServiceImpl implements UserService {
     }
 
 
-
     /*FORGOT PASSWORD*/
     public void passwordSenderMail(String username) throws Exception {
         String apiKey = mailJetRepository.getReferenceById((byte)1).getApi();
@@ -284,6 +280,5 @@ public class UserServiceImpl implements UserService {
             throw new Exception(e.getMessage());
         }
     }
-
 
 }

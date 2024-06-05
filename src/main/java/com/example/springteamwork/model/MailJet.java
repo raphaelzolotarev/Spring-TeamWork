@@ -13,7 +13,6 @@ import lombok.Setter;
 public class MailJet {
     @Id
     public Byte id;
-
     public String api;
     public String secret;
 

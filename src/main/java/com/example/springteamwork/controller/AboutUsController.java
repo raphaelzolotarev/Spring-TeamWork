@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class AboutUsController {
     @GetMapping("/about_us")
     public String aboutUs() {
-        return "about_us"; // assuming "about_us" is the name of your Thymeleaf templat
+        return "about_us";
     }
 }

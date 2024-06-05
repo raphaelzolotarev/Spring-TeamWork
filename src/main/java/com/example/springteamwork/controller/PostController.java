@@ -5,18 +5,11 @@ import com.example.springteamwork.service.CommentServiceImpl;
 import com.example.springteamwork.service.LikeServiceImpl;
 import com.example.springteamwork.service.PostServiceImpl;
 import com.example.springteamwork.service.UserServiceImpl;
-import jakarta.annotation.PostConstruct;
-import jakarta.jws.soap.SOAPBinding;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.bind.ConstructorBinding;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOError;
-import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,7 +25,6 @@ public class PostController {
     private UserServiceImpl userService;
     @Autowired
     private LikeServiceImpl likeService;
-
 
     private final int postPerPage = 6;
     private int currentPage = 1;
@@ -180,8 +172,6 @@ public class PostController {
 
 
 
-
-
     /*SHOW ONE POST*/
     @GetMapping("/showPost/{id}")
     public String showOnePost(Model model, @PathVariable(value="id") Long id) {
@@ -202,9 +192,6 @@ public class PostController {
 
         return "blogpage";
     }
-
-
-
 
 
 
@@ -257,15 +244,11 @@ public class PostController {
 
 
 
-
     /*DELETE POST*/
     @GetMapping("/deletePost/{id}")
     public String deleteUser(@PathVariable Long id) {
         postService.deletePost(id);
         return "redirect:/";
     }
-
-
-
 
 }

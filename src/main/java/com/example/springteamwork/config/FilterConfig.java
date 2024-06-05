@@ -9,16 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
 import java.util.List;
 
 @Configuration
 public class FilterConfig {
-
     private final UserService userService;
-
     private final NumberOfVisitsService numberOfVisitsService;
-
     private NumberOfVisitsRepository numberOfVisitsRepository;
 
     @Autowired
@@ -27,6 +23,7 @@ public class FilterConfig {
         this.numberOfVisitsService = numberOfVisitsService;
         this.numberOfVisitsRepository = numberOfVisitsRepository;
     }
+
     @Bean
     public FilterRegistrationBean<CookieFilter> cookieFilter() {
         List<NumberOfVisits> visits = numberOfVisitsRepository.findAll();
@@ -40,4 +37,5 @@ public class FilterConfig {
         registrationBean.addUrlPatterns("/*");
         return registrationBean;
     }
+
 }

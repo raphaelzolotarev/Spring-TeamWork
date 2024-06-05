@@ -1,13 +1,9 @@
 package com.example.springteamwork.service;
 import com.example.springteamwork.model.Comment;
-import com.example.springteamwork.model.Post;
 import com.example.springteamwork.repository.CommentRepository;
-import com.example.springteamwork.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -43,7 +39,6 @@ public class CommentServiceImpl implements CommentService{
         commentToUpdate.setText(comment);
         commentRepository.save(commentToUpdate);
     }
-
 
     @Override
     public void deleteComment(Long id) {

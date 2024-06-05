@@ -1,21 +1,12 @@
 package com.example.springteamwork.controller;
 
 import com.example.springteamwork.model.Comment;
-import com.example.springteamwork.model.Post;
-import com.example.springteamwork.model.User;
-import com.example.springteamwork.service.CommentService;
 import com.example.springteamwork.service.CommentServiceImpl;
 import com.example.springteamwork.service.PostServiceImpl;
 import com.example.springteamwork.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 public class    CommentController {
@@ -37,15 +28,14 @@ public class    CommentController {
         return "redirect:/showPost/"+postId;
     }
 
-  /*EDIT COMMENT*/
-  @PostMapping("/editComment")
-  public String editComment(@RequestParam(value = "postId") Long postId,
+    /*EDIT COMMENT*/
+    @PostMapping("/editComment")
+    public String editComment(@RequestParam(value = "postId") Long postId,
                             @RequestParam(value = "commentId") Long commentId,
                             @RequestParam(value = "comment") String comment) {
-      commentService.updateComment(commentId, comment);
-      return "redirect:/showPost/" + postId;
-  }
-
+        commentService.updateComment(commentId, comment);
+        return "redirect:/showPost/" + postId;
+    }
 
     /*DELETE COMMENT*/
     @GetMapping("/deleteComment/{postId}/{commentId}")

@@ -7,14 +7,12 @@ import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
-
 import java.io.IOException;
 
 @WebFilter("/*")
 public class CookieFilter implements Filter {
 
     private UserService userService;
-
     private NumberOfVisitsService numberOfVisitsService;
 
     public CookieFilter(UserService userService, NumberOfVisitsService numberOfVisitsService) {
@@ -64,6 +62,5 @@ public class CookieFilter implements Filter {
     @Override
     public void destroy() {
     }
-
 
 }

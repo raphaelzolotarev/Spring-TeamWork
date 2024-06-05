@@ -6,16 +6,12 @@ import com.example.springteamwork.model.User;
 import com.example.springteamwork.service.FavoriteServiceImpl;
 import com.example.springteamwork.service.PostServiceImpl;
 import com.example.springteamwork.service.UserServiceImpl;
-import jakarta.jws.WebParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,7 +22,6 @@ public class UserController {
     private UserServiceImpl userService;
     @Autowired
     private PostServiceImpl postService;
-
     @Autowired
     private FavoriteServiceImpl favoriteService;
 
@@ -48,14 +43,12 @@ public class UserController {
     }
 
 
-
     /*LOGOUT*/
     @GetMapping("/logout/{id}")
     public String logout(@PathVariable(value="id") Long id, HttpServletResponse response) {
         userService.disconnectUser(id, response);
         return "redirect:/";
     }
-
 
 
     /*REGISTER FORM*/
@@ -76,7 +69,6 @@ public class UserController {
             return "register";
         }
     }
-
 
 
     /*EDIT FORM*/
@@ -119,15 +111,12 @@ public class UserController {
     }
 
 
-
     /*DELETE USER*/
     @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable(value="id") Long id, HttpServletResponse response) {
         userService.deleteUser(id, response);
         return "redirect:/";
     }
-
-
 
 
     /*AUTHOR PROFILE*/
@@ -140,24 +129,15 @@ public class UserController {
         model.addAttribute("user", author);
         model.addAttribute("posts", posts);
 
-<<<<<<< HEAD
         //FAVORITES
         int numberOfFavorites = (int) favoriteService.getAllFavorites().stream().filter(favorite -> favorite.getAuthor().getId() == id).count();
         model.addAttribute("numberOfFavorites", numberOfFavorites);
 
         List<Favorite> allFavorite = favoriteService.getAllFavorites().stream().filter(favorite -> favorite.getAuthor().getId() == id).limit(5).toList();
-=======
-        int numberOfLike = (int) favoriteService.getAllFavorites().stream().filter(favorite -> favorite.getUser().getId() == id).count();
-        model.addAttribute("numberOfLike", numberOfLike);
-
-        List<Favorite> allFavorite = favoriteService.getAllFavorites().stream().filter(favorite -> favorite.getUser().getId() == id).limit(5).toList();
->>>>>>> 8bb92d02996e206e6111eee2c831f5342b775bb2
         model.addAttribute("allFavorite", allFavorite);
 
         return "userprofile";
     }
-
-
 
 
     /*PASSWORD RECOVERY*/
@@ -178,12 +158,10 @@ public class UserController {
     }
 
 
-
     /*LOGIN FORM*/
     @GetMapping("/contact")
     public String contactForm() {
         return "contact";
     }
-
 
 }

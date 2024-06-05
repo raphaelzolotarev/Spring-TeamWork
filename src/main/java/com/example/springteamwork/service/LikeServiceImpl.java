@@ -1,16 +1,12 @@
 package com.example.springteamwork.service;
 
 import com.example.springteamwork.model.Like;
-import com.example.springteamwork.model.Post;
-import com.example.springteamwork.model.User;
 import com.example.springteamwork.repository.LikeRepository;
 import com.example.springteamwork.repository.PostRepository;
 import com.example.springteamwork.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class LikeServiceImpl implements LikeService {
@@ -39,7 +35,6 @@ public class LikeServiceImpl implements LikeService {
             unlikePost(getLikeByUserIdAndPostId);
         }
     }
-
 
     @Override
     public void unlikePost(Like like) {

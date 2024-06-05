@@ -43,177 +43,144 @@
 
 <body>
 
-<!--HEADER-->
-<div th:insert="fragments :: menu"></div>
+    <!--HEADER-->
+    <div th:insert="fragments :: menu"></div>
 
-<!--MAIN SECTION-->
-<div class="grid grid-cols-10">
-    <div class="col-span-10">
-        <section class="bg-white dark:bg-gray-900">
-            <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+    <!--MAIN SECTION-->
+    <div class="grid grid-cols-10">
+        <div class="col-span-10">
+            <section class="bg-white dark:bg-gray-900">
+                <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
 
-                <!--Profile card-->
-                <div class="w-full max-w-md mx-auto bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                    <div class="flex flex-col items-center pb-10">
-                        <img class="mt-5 w-24 h-24 mb-3 rounded-full shadow-lg" th:src="'data:image/jpg;base64,' + ${user.getImageBase64()}" alt="Bonnie image"/>
+                    <!--Profile card-->
+                    <div class="w-full max-w-md mx-auto bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                        <div class="flex flex-col items-center pb-10">
+                            <img class="mt-5 w-24 h-24 mb-3 rounded-full shadow-lg" th:src="'data:image/jpg;base64,' + ${user.getImageBase64()}" alt="Bonnie image"/>
 
-                        <!--ROLE-->
-                        <button type="button" class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 me-2 mb-2">
-                            <span th:if="${user.role == T(com.example.springteamwork.model.Role).AUTHOR}" class="inline-flex items-center justify-center w-6 h-6 me-2 text-sm font-semibold text-blue-800 bg-blue-100 rounded-full dark:bg-gray-700 dark:text-blue-400">
-                                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill="currentColor" d="m18.774 8.245-.892-.893a1.5 1.5 0 0 1-.437-1.052V5.036a2.484 2.484 0 0 0-2.48-2.48H13.7a1.5 1.5 0 0 1-1.052-.438l-.893-.892a2.484 2.484 0 0 0-3.51 0l-.893.892a1.5 1.5 0 0 1-1.052.437H5.036a2.484 2.484 0 0 0-2.48 2.481V6.3a1.5 1.5 0 0 1-.438 1.052l-.892.893a2.484 2.484 0 0 0 0 3.51l.892.893a1.5 1.5 0 0 1 .437 1.052v1.264a2.484 2.484 0 0 0 2.481 2.481H6.3a1.5 1.5 0 0 1 1.052.437l.893.892a2.484 2.484 0 0 0 3.51 0l.893-.892a1.5 1.5 0 0 1 1.052-.437h1.264a2.484 2.484 0 0 0 2.481-2.48V13.7a1.5 1.5 0 0 1 .437-1.052l.892-.893a2.484 2.484 0 0 0 0-3.51Z"/>
-                                    <path fill="#fff" d="M8 13a1 1 0 0 1-.707-.293l-2-2a1 1 0 1 1 1.414-1.414l1.42 1.42 5.318-3.545a1 1 0 0 1 1.11 1.664l-6 4A1 1 0 0 1 8 13Z"/>
-                                </svg>
-                            </span>
-                            <span th:if="${user.role == T(com.example.springteamwork.model.Role).USER}">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                                </svg>
-                            </span>
-                            &nbsp; <span th:text="${user.getRole()}"></span>
-
-                        </button>
-
-                        <!--ONLINE LABEL-->
-                        <p class="mt-3">
-                            <span th:if="${user.isOnline() == true}" class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">Online</span>
-                            <span th:if="${user.isOnline() == false}" class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-red-900 dark:text-red-300">Offline</span>
-                        </p>
-
-                        <div th:if="${user.getRole() == T(com.example.springteamwork.model.Role).AUTHOR}" class="flex mt-4 md:mt-6">
-                            <form th:action="@{/favorites/add}" method="POST" class="">
-                                <input type="hidden" name="authorId" th:value="${user.getId()}">
-                                <input type="hidden" name="userId" th:value="${cookieObject.getId()}">
-                                <button type="submit" class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800">
-                                    <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0 flex items-center">
-                                        Add to favorites
-
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 ml-2">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.563 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
-                                        </svg>
-                                    </span>
+                            <!--ROLE-->
+                            <button type="button" class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 me-2 mb-2">
+                                <span th:if="${user.role == T(com.example.springteamwork.model.Role).AUTHOR}" class="inline-flex items-center justify-center w-6 h-6 me-2 text-sm font-semibold text-blue-800 bg-blue-100 rounded-full dark:bg-gray-700 dark:text-blue-400">
+                                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill="currentColor" d="m18.774 8.245-.892-.893a1.5 1.5 0 0 1-.437-1.052V5.036a2.484 2.484 0 0 0-2.48-2.48H13.7a1.5 1.5 0 0 1-1.052-.438l-.893-.892a2.484 2.484 0 0 0-3.51 0l-.893.892a1.5 1.5 0 0 1-1.052.437H5.036a2.484 2.484 0 0 0-2.48 2.481V6.3a1.5 1.5 0 0 1-.438 1.052l-.892.893a2.484 2.484 0 0 0 0 3.51l.892.893a1.5 1.5 0 0 1 .437 1.052v1.264a2.484 2.484 0 0 0 2.481 2.481H6.3a1.5 1.5 0 0 1 1.052.437l.893.892a2.484 2.484 0 0 0 3.51 0l.893-.892a1.5 1.5 0 0 1 1.052-.437h1.264a2.484 2.484 0 0 0 2.481-2.48V13.7a1.5 1.5 0 0 1 .437-1.052l.892-.893a2.484 2.484 0 0 0 0-3.51Z"/>
+                                        <path fill="#fff" d="M8 13a1 1 0 0 1-.707-.293l-2-2a1 1 0 1 1 1.414-1.414l1.42 1.42 5.318-3.545a1 1 0 0 1 1.11 1.664l-6 4A1 1 0 0 1 8 13Z"/>
+                                    </svg>
+                                </span>
+                                <span th:if="${user.role == T(com.example.springteamwork.model.Role).USER}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                    </svg>
+                                </span>
+                                &nbsp; <span th:text="${user.getRole()}"></span>
                             </button>
-                            </form>
 
+                            <!--ONLINE LABEL-->
+                            <p class="mt-3">
+                                <span th:if="${user.isOnline() == true}" class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">Online</span>
+                                <span th:if="${user.isOnline() == false}" class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-red-900 dark:text-red-300">Offline</span>
+                            </p>
 
+                            <div th:if="${user.getRole() == T(com.example.springteamwork.model.Role).AUTHOR}" class="flex mt-4 md:mt-6">
+                                <form th:action="@{/favorites/add}" method="POST" class="">
+                                    <input type="hidden" name="authorId" th:value="${user.getId()}">
+                                    <input type="hidden" name="userId" th:value="${cookieObject.getId()}">
+                                    <button type="submit" class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800">
+                                        <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0 flex items-center">
+                                            Add to favorites
 
-                        </div>
-
-                        <!--USERS WHO LIKE-->
-                        <div class="flex ">
-                            <a th:each="fav:${allFavorite}" th:href="'/userProfile/'+${fav.getUser().getId()}" class="border-2 border-white dark:border-gray-800 rounded-full h-10 w-10 -mr-2">
-                                <img class="border-2 border-white dark:border-gray-800 rounded-full h-10 w-10 -mr-2" th:src="'data:image/jpeg;base64,' + ${fav.getUser().getImageBase64()}" alt="">
-                            </a>
-                            <span th:if="${numberOfFavorites>allFavorite.size()}" th:text="'+'+${numberOfFavorites - allFavorite.size()}" class="flex items-center justify-center bg-white dark:bg-gray-800 text-sm text-gray-800 dark:text-white font-semibold border-2 border-gray-200 dark:border-gray-700 rounded-full h-10 w-10"></span>
-                        </div>
-
-                    </div>
-                </div>
-                <div th:if="${user.getRole() == T(com.example.springteamwork.model.Role).AUTHOR}">
-                    <aside aria-label="Related articles" class="mt-5 py-8 lg:py-24 bg-gray-50 dark:bg-gray-800">
-                        <div class="px-4 mx-auto max-w-screen-xl">
-                            <h2 class="mb-8 text-2xl font-bold text-gray-900 dark:text-white">Author's latest posts</h2>
-                            <div class="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
-
-                                <article th:each="post:${posts}" class="max-w-xs">
-                                    <a th:href="@{/showPost/{id}(id=${post.id})}">
-                                        <img th:src="'data:image/jpeg;base64,' + ${post.imageBase64}" class="mb-5 rounded-lg" th:alt="${post.getTitle()}">
-                                    </a>
-                                    <h2 class="mb-2 text-xl font-bold leading-tight text-gray-900 dark:text-white">
-                                        <a th:href="@{/showPost/{id}(id=${post.id})}" th:text="${post.getTitle()}">Our first office</a>
-                                    </h2>
-                                    <p class="mb-4 text-gray-500 dark:text-gray-400">
-                                        <span th:utext="${post.description.length() > 200 ? #strings.substring(post.description, 0, 200) : post.description}"></span>
-                                        <span th:if="${post.description.length() > 200}">...</span>
-                                    </p>
-                                    <a th:href="@{/showPost/{id}(id=${post.id})}" class="inline-flex items-center font-medium underline underline-offset-4 text-primary-600 dark:text-white hover:no-underline">
-                                        Read more
-                                    </a>
-
-
-                                </article>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 ml-2">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.563 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
+                                            </svg>
+                                        </span>
+                                </button>
+                                </form>
                             </div>
 
+                            <!--USERS WHO LIKE-->
+                            <div class="flex ">
+                                <a th:each="fav:${allFavorite}" th:href="'/userProfile/'+${fav.getUser().getId()}" class="border-2 border-white dark:border-gray-800 rounded-full h-10 w-10 -mr-2">
+                                    <img class="border-2 border-white dark:border-gray-800 rounded-full h-10 w-10 -mr-2" th:src="'data:image/jpeg;base64,' + ${fav.getUser().getImageBase64()}" alt="">
+                                </a>
+                                <span th:if="${numberOfFavorites>allFavorite.size()}" th:text="'+'+${numberOfFavorites - allFavorite.size()}" class="flex items-center justify-center bg-white dark:bg-gray-800 text-sm text-gray-800 dark:text-white font-semibold border-2 border-gray-200 dark:border-gray-700 rounded-full h-10 w-10"></span>
+                            </div>
 
-                            <div class="mt-20 w-full flex justify-center">
-                                <form th:action="@{/filterByAuthor}" method="GET" class="w-full flex justify-center">
-                                    <input type="hidden" name="authorId" th:value="${user.getId()}">
-                                    <button type="submit" class="w-1/3 text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Show more posts</button>
-                                </form>
+                        </div>
+                    </div>
+                    <div th:if="${user.getRole() == T(com.example.springteamwork.model.Role).AUTHOR}">
+                        <aside aria-label="Related articles" class="mt-5 py-8 lg:py-24 bg-gray-50 dark:bg-gray-800">
+                            <div class="px-4 mx-auto max-w-screen-xl">
+                                <h2 class="mb-8 text-2xl font-bold text-gray-900 dark:text-white">Author's latest posts</h2>
+                                <div class="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
 
-                                <!-- FAVORITE BUTTON
-                                <form th:action="@{/favorites/add}" method="POST" class="">
-                                    <input type="hidden" name="authorId" th:value="${user.getId()}">
-                                    <input type="hidden" name="userId" th:value="${cookieObject.getId()}">
-                                    <button type="submit" class="ml-5 m-1">
-                                            <span class="flex h-min w-min space-x-1 items-center rounded-full text-white hover:text-yellow-600 bg-yellow-700 hover:bg-yellow-50 py-2 px-2 text-xs font-medium">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-current hover:text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.563 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
-                                                </svg>
-                                                <p class="font-semibold text-xs" th:text="${numberOfFavorites}"></p>
-                                          </span>
-                                    </button>
-                                </form>
-
-                                <div class="flex">
-                                    <a th:each="favorite : ${allFavorites}" th:href="'/userProfile/'+${favorite.getUser().getId()}" class="border-2 border-white dark:border-gray-800 rounded-full h-10 w-10 -mr-2">
-                                        <img class="border-2 border-white dark:border-gray-800 rounded-full h-10 w-10 -mr-2" th:src="'data:image/jpeg;base64,' + ${favorite.getUser().getImageBase64()}" alt="">
-                                    </a>
-                                    <span th:if="${numberOfFavorites > allFavorites.size()}" th:text="'+'+(${numberOfFavorites} - ${allFavorites.size()})" class="flex items-center justify-center bg-white dark:bg-gray-800 text-sm text-gray-800 dark:text-white font-semibold border-2 border-gray-200 dark:border-gray-700 rounded-full h-10 w-10"></span>
-                                </div> -->
-
-
-
-
-                                <!-- FAVORITE BUTTON -->
-                                <form th:action="@{/favorites/add}" method="POST" class="">
-                                    <input type="hidden" name="userId" th:value="${cookieObject.getId()}">
-                                    <input type="hidden" name="postId" th:value="${post.getId()}">
-                                    <button type="submit" class="ml-5 m-1">
-                                         <span class="flex h-min w-min space-x-1 items-center rounded-full text-white hover:text-yellow-600 bg-yellow-700 hover:bg-yellow-50 py-2 px-2 text-xs font-medium">
-                                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-current hover:text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.563 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
-                                      </svg>
-                                      <p class="font-semibold text-xs" th:text="${numberOfFavorites}"></p>
-                                    </span>
-                                    </button>
-                                </form>
-                                <!-- USERS WHO FAVORITED -->
-                                <div class="flex">
-                                    <a th:each="favorite:${allFavorites}" th:href="'/userProfile/'+${favorite.getUser().getId()}" class="border-2 border-white dark:border-gray-800 rounded-full h-10 w-10 -mr-2">
-                                        <img class="border-2 border-white dark:border-gray-800 rounded-full h-10 w-10 -mr-2" th:src="'data:image/jpeg;base64,' + ${favorite.getUser().getImageBase64()}" alt="">
-                                    </a>
-                                    <span th:if="${numberOfFavorites > allFavorites.size()}" th:text="'+'+${numberOfFavorites - allFavorites.size()}" class="flex items-center justify-center bg-white dark:bg-gray-800 text-sm text-gray-800 dark:text-white font-semibold border-2 border-gray-200 dark:border-gray-700 rounded-full h-10 w-10"></span>
+                                    <article th:each="post:${posts}" class="max-w-xs">
+                                        <a th:href="@{/showPost/{id}(id=${post.id})}">
+                                            <img th:src="'data:image/jpeg;base64,' + ${post.imageBase64}" class="mb-5 rounded-lg" th:alt="${post.getTitle()}">
+                                        </a>
+                                        <h2 class="mb-2 text-xl font-bold leading-tight text-gray-900 dark:text-white">
+                                            <a th:href="@{/showPost/{id}(id=${post.id})}" th:text="${post.getTitle()}">Our first office</a>
+                                        </h2>
+                                        <p class="mb-4 text-gray-500 dark:text-gray-400">
+                                            <span th:utext="${post.description.length() > 200 ? #strings.substring(post.description, 0, 200) : post.description}"></span>
+                                            <span th:if="${post.description.length() > 200}">...</span>
+                                        </p>
+                                        <a th:href="@{/showPost/{id}(id=${post.id})}" class="inline-flex items-center font-medium underline underline-offset-4 text-primary-600 dark:text-white hover:no-underline">
+                                            Read more
+                                        </a>
+                                    </article>
                                 </div>
 
-                                <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-                                    <span th:text="${user.getFirstName()}"></span>
-                                    <span th:text="${user.getLastName()}"></span>
-                                </h5>
+                                <div class="mt-20 w-full flex justify-center">
+                                    <form th:action="@{/filterByAuthor}" method="GET" class="w-full flex justify-center">
+                                        <input type="hidden" name="authorId" th:value="${user.getId()}">
+                                        <button type="submit" class="w-1/3 text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Show more posts</button>
+                                    </form>
 
+                                    <!-- FAVORITE BUTTON -->
+                                    <form th:action="@{/favorites/add}" method="POST" class="">
+                                        <input type="hidden" name="userId" th:value="${cookieObject.getId()}">
+                                        <input type="hidden" name="postId" th:value="${post.getId()}">
+                                        <button type="submit" class="ml-5 m-1">
+                                             <span class="flex h-min w-min space-x-1 items-center rounded-full text-white hover:text-yellow-600 bg-yellow-700 hover:bg-yellow-50 py-2 px-2 text-xs font-medium">
+                                          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-current hover:text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.563 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
+                                          </svg>
+                                          <p class="font-semibold text-xs" th:text="${numberOfFavorites}"></p>
+                                        </span>
+                                        </button>
+                                    </form>
+                                    <!-- USERS WHO FAVORITED -->
+                                    <div class="flex">
+                                        <a th:each="favorite:${allFavorites}" th:href="'/userProfile/'+${favorite.getUser().getId()}" class="border-2 border-white dark:border-gray-800 rounded-full h-10 w-10 -mr-2">
+                                            <img class="border-2 border-white dark:border-gray-800 rounded-full h-10 w-10 -mr-2" th:src="'data:image/jpeg;base64,' + ${favorite.getUser().getImageBase64()}" alt="">
+                                        </a>
+                                        <span th:if="${numberOfFavorites > allFavorites.size()}" th:text="'+'+${numberOfFavorites - allFavorites.size()}" class="flex items-center justify-center bg-white dark:bg-gray-800 text-sm text-gray-800 dark:text-white font-semibold border-2 border-gray-200 dark:border-gray-700 rounded-full h-10 w-10"></span>
+                                    </div>
+
+                                    <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">
+                                        <span th:text="${user.getFirstName()}"></span>
+                                        <span th:text="${user.getLastName()}"></span>
+                                    </h5>
+
+                                </div>
                             </div>
-                        </div>
-                    </aside>
+                        </aside>
+                    </div>
+
                 </div>
+            </section>
+        </div>
+        <!--END MAIN SECTION-->
 
+        <!-- Sidebar -->
+        <div th:insert="fragments :: sidebar" class="col-span-2"></div>
 
-
-
-            </div>
-        </section>
     </div>
-    <!--END MAIN SECTION-->
 
-    <!-- Sidebar -->
-    <div th:insert="fragments :: sidebar" class="col-span-2"></div>
-
-</div>
-
-<!--COPYRIGHT-->
-<footer th:insert="fragments :: footer" class="bg-white shadow dark:bg-gray-800"></footer>
-
+    <!--COPYRIGHT-->
+    <footer th:insert="fragments :: footer" class="bg-white shadow dark:bg-gray-800"></footer>
 
 </body>
+
 <!--JS SCRIPT-->
 <script th:insert="fragments :: myJSscript" th:remove="tag"></script>
+
 </html>

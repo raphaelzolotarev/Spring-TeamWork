@@ -1,13 +1,9 @@
 package com.example.springteamwork.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.util.Base64;
 import java.util.HashSet;
 import java.util.Set;
