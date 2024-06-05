@@ -251,7 +251,7 @@
 <script  th:fragment="myJSscript">
     var toggleButtonUsers = document.getElementById("toggleButtonUsers");
     var modalUsers = document.getElementById("modalUsers");
-    toggleButtonUsers.addEventListener("click", function() {
+    toggleButtonUsers.addEventListener("click", function () {
         if (modalUsers.style.right === "-250px") {
             modalUsers.style.right = "0px";
         } else {
@@ -276,10 +276,10 @@
     var editButtons = document.querySelectorAll('.editButtons');
 
     editButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             var clickedButtonId = this.id.replace("editButton", '');
 
-            var formEditComment = document.getElementById('commentForm'+clickedButtonId);
+            var formEditComment = document.getElementById('commentForm' + clickedButtonId);
 
             if (formEditComment.style.display === 'none') {
                 formEditComment.style.display = 'block';
@@ -288,6 +288,8 @@
             }
         });
     });
+
+
 
 
 </script>

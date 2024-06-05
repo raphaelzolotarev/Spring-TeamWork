@@ -36,12 +36,12 @@ public class CommentServiceImpl implements CommentService{
         if (comment.getText()!=null &&  !comment.getText().isEmpty())
             commentRepository.save(comment);
     }
-
     @Override
+
     public void updateComment(Long id, String comment) {
         Comment commentToUpdate = commentRepository.findById(id).get();
         commentToUpdate.setText(comment);
-        commentRepository.save(commentToUpdate);
+
     }
 
 

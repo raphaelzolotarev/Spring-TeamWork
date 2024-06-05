@@ -39,6 +39,7 @@
             padding: 1rem;
         }
     </style>
+
 </head>
 
 <body>
@@ -65,6 +66,7 @@
                             </button>
                         </a>
                     </div>
+
 
                     <address class="flex items-center mb-6 not-italic">
                         <div class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white">
@@ -191,7 +193,7 @@
                                 </svg>
                               </span>
                         </button>-->
-                    </a>
+
 
                     <!-- Telegram-->
                     <a th:href="'https://t.me/share/url?url=https://www.beautyandcosmetics.com/showPost/'+${post.getId()}+'&text=Check out this post! '+${post.getTitle()}" target="_blank">
@@ -258,8 +260,10 @@
                                             <a style="cursor:pointer" th:id="'editButton'+${comment.id}" class="editButtons block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
                                         </li>
 
+
                                         <li>
-                                            <a th:href="@{/deleteComment/{postId}/{commentId}(postId=${comment.getPost().getId()}, commentId=${comment.id})}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Remove</a>
+                                            <a th:href="@{/deleteComment/{postId}/{commentId}(postId=${comment.getPost().getId()}, commentId=${comment.id})}"
+                                               class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Remove</a>
                                         </li>
                                     </ul>
                                 </div>
