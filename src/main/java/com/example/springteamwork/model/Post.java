@@ -45,9 +45,6 @@ public class Post extends AuditModel{
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Like> likes = new HashSet<>();
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Favorite> favorites = new HashSet<>();
-
     public Post(User author, String title, String description, String tag, byte[] image) {
         this.author = author;
         this.title = title;
