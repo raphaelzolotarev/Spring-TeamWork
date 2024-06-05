@@ -1,0 +1,47 @@
+package com.example.springteamwork.service;
+import com.example.springteamwork.model.Comment;
+import com.example.springteamwork.repository.CommentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+public class CommentServiceImpl implements CommentService{
+
+    private final CommentRepository commentRepository;
+
+    @Autowired
+    public CommentServiceImpl(CommentRepository commentRepository) {
+        this.commentRepository = commentRepository;
+    }
+
+    @Override
+    public List<Comment> getAllCommentsByPostId(Long id) {
+        return commentRepository.findAll().stream().filter(c->c.getPost().getId()==id).collect(Collectors.toList());
+    }
+
+   @Override
+   public Comment getCommentById(Long id) {
+
+    return null;
+   }
+
+    @Override
+    public void saveComment(Comment comment) {
+        if (comment.getText()!=null &&  !comment.getText().isEmpty())
+            commentRepository.save(comment);
+    }
+
+    @Override
+    public void updateComment(Long id, String comment) {
+        Comment commentToUpdate = commentRepository.findById(id).get();
+        commentToUpdate.setText(comment);
+        commentRepository.save(commentToUpdate);
+    }
+
+    @Override
+    public void deleteComment(Long id) {
+        commentRepository.deleteById(id);
+    }
+}
