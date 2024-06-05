@@ -5,6 +5,8 @@ import com.example.springteamwork.service.CommentServiceImpl;
 import com.example.springteamwork.service.LikeServiceImpl;
 import com.example.springteamwork.service.PostServiceImpl;
 import com.example.springteamwork.service.UserServiceImpl;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -174,7 +176,7 @@ public class PostController {
 
     /*SHOW ONE POST*/
     @GetMapping("/showPost/{id}")
-    public String showOnePost(Model model, @PathVariable(value="id") Long id) {
+    public String showOnePost(Model model, @PathVariable(value="id") Long id, HttpServletRequest request) {
         //POST CONTENT
         Post post = postService.getPostById(id);
         model.addAttribute("post", post);
@@ -189,6 +191,21 @@ public class PostController {
 
         List<Like> allLikes = likeService.getAllLikes().stream().filter(like -> like.getPost().getId()==id).limit(5).toList();
         model.addAttribute("allLikes", allLikes);
+
+        //CHECK IF LIKED ALREADY
+        Long userId = 0L;
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("userId")) {
+                    userId = Long.parseLong(cookie.getValue());
+                }
+            }
+        }
+        final Long userIdFinal = userId;
+        boolean hasLiked = likeService.getAllLikes().stream().anyMatch(like->like.getPost().getId()==id
+                && like.getUser().getId()==userIdFinal);
+        model.addAttribute("hasLiked", hasLiked);
 
         return "blogpage";
     }
