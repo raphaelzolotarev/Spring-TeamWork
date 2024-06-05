@@ -219,13 +219,16 @@
                         <article th:each="comment:${comments}" class="p-6 text-base bg-white border-t border-gray-200 dark:border-gray-700 dark:bg-gray-900">
                             <footer class="flex justify-between items-center mb-2">
                                 <div class="flex items-center">
-                                    <p class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold"><img
-                                            class="mr-2 w-6 h-6 rounded-full"
-                                            th:src="'data:image/jpg;base64,' + ${comment.getUser().imageBase64}"
-                                            alt="Helene Engels">
-                                        <span th:text="${comment.getUser().getFirstName()}"> </span>
-                                        &nbsp; <span th:text="${comment.getUser().getLastName()}"></span>
-                                    </p>
+                                    <a th:href="@{/userProfile/{id}(id=${comment.getUser().id})}">
+                                        <p class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold"><img
+                                                class="mr-2 w-6 h-6 rounded-full"
+                                                th:src="'data:image/jpg;base64,' + ${comment.getUser().imageBase64}"
+                                                alt="Helene Engels">
+                                                <span th:text="${comment.getUser().getFirstName()}"> </span>
+                                            &nbsp; <span th:text="${comment.getUser().getLastName()}"></span>
+                                        </p>
+                                    </a>
+
                                     <p class="text-sm text-gray-600 dark:text-gray-400" th:text="${#dates.format(comment.updatedAt, 'dd MMMM yyyy')} + ' at ' + ${#dates.format(comment.updatedAt, 'HH:mm')}"></p>
                                 </div>
 
