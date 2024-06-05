@@ -6,6 +6,8 @@ import com.example.springteamwork.model.User;
 import com.example.springteamwork.service.FavoriteServiceImpl;
 import com.example.springteamwork.service.PostServiceImpl;
 import com.example.springteamwork.service.UserServiceImpl;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -121,7 +123,7 @@ public class UserController {
 
     /*AUTHOR PROFILE*/
     @GetMapping("/userProfile/{id}")
-    public String showAuthorProfile(@PathVariable(value="id") Long id, Model model) {
+    public String showAuthorProfile(@PathVariable(value="id") Long id, Model model, HttpServletRequest request) {
 
         //USER CONTENT WITH 4 POSTS IF AUTHOR
         User author = userService.getUserById(id);
@@ -135,6 +137,21 @@ public class UserController {
 
         List<Favorite> allFavorite = favoriteService.getAllFavorites().stream().filter(favorite -> favorite.getAuthor().getId() == id).limit(5).toList();
         model.addAttribute("allFavorite", allFavorite);
+
+        //CHECK IF AUTHOR ALREADY IN FAVORITES
+        Long userId = 0L;
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("userId")) {
+                    userId = Long.parseLong(cookie.getValue());
+                }
+            }
+        }
+        final Long userIdFinal = userId;
+        boolean isAuthorInFav = allFavorite.stream().anyMatch(fav->fav.getAuthor().getId()==id
+                && fav.getUser().getId()==userIdFinal);
+        model.addAttribute("isAuthorInFav", isAuthorInFav);
 
         return "userprofile";
     }

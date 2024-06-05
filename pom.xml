@@ -102,7 +102,9 @@
             <artifactId>mailjet-client</artifactId>
             <version>5.2.4</version>
         </dependency>
+
     </dependencies>
+
     <build>
         <plugins>
             <plugin>
@@ -119,4 +121,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>
