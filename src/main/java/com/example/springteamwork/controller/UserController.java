@@ -140,11 +140,18 @@ public class UserController {
         model.addAttribute("user", author);
         model.addAttribute("posts", posts);
 
+<<<<<<< HEAD
         //FAVORITES
         int numberOfFavorites = (int) favoriteService.getAllFavorites().stream().filter(favorite -> favorite.getAuthor().getId() == id).count();
         model.addAttribute("numberOfFavorites", numberOfFavorites);
 
         List<Favorite> allFavorite = favoriteService.getAllFavorites().stream().filter(favorite -> favorite.getAuthor().getId() == id).limit(5).toList();
+=======
+        int numberOfLike = (int) favoriteService.getAllFavorites().stream().filter(favorite -> favorite.getUser().getId() == id).count();
+        model.addAttribute("numberOfLike", numberOfLike);
+
+        List<Favorite> allFavorite = favoriteService.getAllFavorites().stream().filter(favorite -> favorite.getUser().getId() == id).limit(5).toList();
+>>>>>>> 8bb92d02996e206e6111eee2c831f5342b775bb2
         model.addAttribute("allFavorite", allFavorite);
 
         return "userprofile";
