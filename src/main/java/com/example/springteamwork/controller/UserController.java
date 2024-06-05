@@ -1,7 +1,9 @@
 package com.example.springteamwork.controller;
 
+import com.example.springteamwork.model.Favorite;
 import com.example.springteamwork.model.Post;
 import com.example.springteamwork.model.User;
+import com.example.springteamwork.service.FavoriteServiceImpl;
 import com.example.springteamwork.service.PostServiceImpl;
 import com.example.springteamwork.service.UserServiceImpl;
 import jakarta.jws.WebParam;
@@ -24,6 +26,9 @@ public class UserController {
     private UserServiceImpl userService;
     @Autowired
     private PostServiceImpl postService;
+
+    @Autowired
+    private FavoriteServiceImpl favoriteService;
 
 
     /*LOGIN FORM*/
@@ -128,10 +133,27 @@ public class UserController {
     /*AUTHOR PROFILE*/
     @GetMapping("/userProfile/{id}")
     public String showAuthorProfile(@PathVariable(value="id") Long id, Model model) {
+
+        //USER CONTENT WITH 4 POSTS IF AUTHOR
         User author = userService.getUserById(id);
         List<Post> posts = postService.getAllPosts().stream().filter(p->p.getAuthor().getId()==author.getId()).limit(4).collect(Collectors.toList());
         model.addAttribute("user", author);
         model.addAttribute("posts", posts);
+
+<<<<<<< HEAD
+        //FAVORITES
+        int numberOfFavorites = (int) favoriteService.getAllFavorites().stream().filter(favorite -> favorite.getAuthor().getId() == id).count();
+        model.addAttribute("numberOfFavorites", numberOfFavorites);
+
+        List<Favorite> allFavorite = favoriteService.getAllFavorites().stream().filter(favorite -> favorite.getAuthor().getId() == id).limit(5).toList();
+=======
+        int numberOfLike = (int) favoriteService.getAllFavorites().stream().filter(favorite -> favorite.getUser().getId() == id).count();
+        model.addAttribute("numberOfLike", numberOfLike);
+
+        List<Favorite> allFavorite = favoriteService.getAllFavorites().stream().filter(favorite -> favorite.getUser().getId() == id).limit(5).toList();
+>>>>>>> 8bb92d02996e206e6111eee2c831f5342b775bb2
+        model.addAttribute("allFavorite", allFavorite);
+
         return "userprofile";
     }
 

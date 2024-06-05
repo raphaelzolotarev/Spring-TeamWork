@@ -16,10 +16,12 @@ public class LikeController {
     @Autowired
     private LikeServiceImpl likeService;
 
+
     @PostMapping("/add")
     public String likePost(@RequestParam Long userId, @RequestParam Long postId, HttpServletRequest request) {
         likeService.likePost(userId, postId);
         return "redirect:" + request.getHeader("referer");
 
     }
+
 }
