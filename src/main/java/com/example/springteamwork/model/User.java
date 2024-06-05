@@ -67,6 +67,9 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Favorite> favorites = new HashSet<>();
 
+    //@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    //private Set<Post> posts = new HashSet<>();
+
     public User(Role role, boolean isOnline, int number_of_visits, String firstName, String lastName, String username, String email, String password, String street, String houseNr, String city, String zip, byte[] image, String token) {
         this.role = role;
         this.isOnline = isOnline;

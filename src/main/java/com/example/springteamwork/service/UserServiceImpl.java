@@ -1,8 +1,7 @@
 package com.example.springteamwork.service;
 import com.example.springteamwork.model.NumberOfVisits;
-import com.example.springteamwork.repository.MailJetRepository;
-import com.example.springteamwork.repository.NumberOfVisitsRepository;
-import com.example.springteamwork.repository.UserRepository;
+import com.example.springteamwork.model.Role;
+import com.example.springteamwork.repository.*;
 import com.example.springteamwork.model.User;
 import com.mailjet.client.MailjetClient;
 import com.mailjet.client.MailjetRequest;
@@ -28,12 +27,16 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final NumberOfVisitsRepository numberOfVisitsRepository;
     private final MailJetRepository mailJetRepository;
+    private final FavoriteRepository favoriteRepository;
+    private final PostRepository postRepository;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, NumberOfVisitsRepository numberOfVisitsRepository, MailJetRepository mailJetRepository) {
+    public UserServiceImpl(UserRepository userRepository, NumberOfVisitsRepository numberOfVisitsRepository, MailJetRepository mailJetRepository, FavoriteRepository favoriteRepository, PostRepository postRepository) {
         this.userRepository = userRepository;
         this.numberOfVisitsRepository = numberOfVisitsRepository;
         this.mailJetRepository = mailJetRepository;
+        this.favoriteRepository = favoriteRepository;
+        this.postRepository = postRepository;
     }
 
 
@@ -192,7 +195,21 @@ public class UserServiceImpl implements UserService {
     /*DELETE USER*/
     @Override
     public void deleteUser(Long id, HttpServletResponse response) {
+
+        //CHECK AUTHOR
+        if(userRepository.getReferenceById(id).getRole()== Role.AUTHOR){
+            //CHECK IF AUTHOR IS IN FAVORITES AND DELETE THEM ALL
+            if(!favoriteRepository.getAllByAuthorId(id).isEmpty()){
+                favoriteRepository.deleteAllByAuthorId(id);
+            }
+            //CHECK IF AUTHOR HAS POSTS AND DELETE THEM ALL
+            if(!postRepository.getAllByAuthorId(id).isEmpty()){
+                postRepository.deleteAllByAuthorId(id);
+            }
+        }
+
         userRepository.deleteById(id);
+
         cookieDeletor(response);
     }
 
