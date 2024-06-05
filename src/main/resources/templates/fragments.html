@@ -179,17 +179,19 @@
 <!-- END OF Sidebar -->
 
 
-
 <!--COPYRIGHT-->
-<div th:fragment="footer" class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
-<span class="lg:justify-start md:justify-start sm:justify-center justify-center  text-sm text-gray-500 sm:text-center dark:text-gray-400 flex items-center">
-    Copyright © 2024 &nbsp;<a href="/" class="hover:font-bold"> Beauty & Cosmetics</a>. All Rights Reserved.
-</span>
-
+<div th:fragment="footer" class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between flex-col md:flex-row">
     <!-- About Us button -->
-    <div class="ml-4">
+    <div class="md:mr-4 mb-4 md:mb-0">
         <a href="/about_us" class="text-sm text-gray-500 font-normal transition-all hover:font-bold">About Us</a>
     </div>
+
+    <!-- Copyright -->
+    <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400 mb-4 md:mb-0">
+        Copyright © 2024 &nbsp;<a href="/" class="hover:font-bold"> Beauty & Cosmetics</a>. All Rights Reserved.
+    </span>
+
+
 
 
 
@@ -289,5 +291,17 @@
         });
     });
 
+    // Config object to be passed to Msal on creation
+    const msalConfig = {
+        auth: {
+            clientId: "Enter_the_Application_Id_Here",
+            authority: "Enter_the_Cloud_Instance_Id_Here/Enter_the_Tenant_Info_Here",
+            redirectUri: "Enter_the_Redirect_Uri_Here",
+        },
+        cache: {
+            cacheLocation: "sessionStorage", // This configures where your cache will be stored
+            storeAuthStateInCookie: false, // Set this to "true" if you are having issues on IE11 or Edge
+        }
+    };
 
 </script>

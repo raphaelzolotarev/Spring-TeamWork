@@ -42,8 +42,6 @@ public class UserController {
         }
     }
 
-
-
     /*LOGOUT*/
     @GetMapping("/logout/{id}")
     public String logout(@PathVariable(value="id") Long id, HttpServletResponse response) {
