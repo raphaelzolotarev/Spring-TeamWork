@@ -2,7 +2,9 @@ package com.example.springteamwork.config;
 
 import com.example.springteamwork.filter.CookieFilter;
 import com.example.springteamwork.model.NumberOfVisits;
+import com.example.springteamwork.repository.FavoriteRepository;
 import com.example.springteamwork.repository.NumberOfVisitsRepository;
+import com.example.springteamwork.service.FavoriteService;
 import com.example.springteamwork.service.NumberOfVisitsService;
 import com.example.springteamwork.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +16,14 @@ import java.util.List;
 @Configuration
 public class FilterConfig {
     private final UserService userService;
+    private final FavoriteService favoriteService;
     private final NumberOfVisitsService numberOfVisitsService;
     private NumberOfVisitsRepository numberOfVisitsRepository;
 
     @Autowired
-    public FilterConfig(UserService userService, NumberOfVisitsService numberOfVisitsService, NumberOfVisitsRepository numberOfVisitsRepository) {
+    public FilterConfig(UserService userService, FavoriteService favoriteService, NumberOfVisitsService numberOfVisitsService, NumberOfVisitsRepository numberOfVisitsRepository) {
         this.userService = userService;
+        this.favoriteService = favoriteService;
         this.numberOfVisitsService = numberOfVisitsService;
         this.numberOfVisitsRepository = numberOfVisitsRepository;
     }
@@ -33,7 +37,7 @@ public class FilterConfig {
         }
 
         FilterRegistrationBean<CookieFilter> registrationBean = new FilterRegistrationBean<>();
-        registrationBean.setFilter(new CookieFilter(userService, numberOfVisitsService));
+        registrationBean.setFilter(new CookieFilter(userService, numberOfVisitsService, favoriteService));
         registrationBean.addUrlPatterns("/*");
         return registrationBean;
     }
