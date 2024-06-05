@@ -16,14 +16,16 @@ public class Favorite {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    private Long user_id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "author_id")
+    private User author;
 
-    @NotNull
-    private Long author_id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    public Favorite(Long user_id, Long author_id) {
-        this.user_id = user_id;
-        this.author_id = author_id;
+    public Favorite(User author, User user) {
+        this.author = author;
+        this.user = user;
     }
 }

@@ -185,12 +185,15 @@ public class PostController {
     /*SHOW ONE POST*/
     @GetMapping("/showPost/{id}")
     public String showOnePost(Model model, @PathVariable(value="id") Long id) {
+        //POST CONTENT
         Post post = postService.getPostById(id);
         model.addAttribute("post", post);
 
+        //COMMENTS
         List<Comment> comments = commentService.getAllCommentsByPostId(id);
         model.addAttribute("comments", comments);
 
+        //lIKES
         int numberOfLike = (int) likeService.getAllLikes().stream().filter(like -> like.getPost().getId() == id).count();
         model.addAttribute("numberOfLike", numberOfLike);
 
