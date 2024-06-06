@@ -155,7 +155,8 @@
                     <li class="mb-4 flex items-center space-x-3">
                         <div class="relative">
                             <img class="w-10 h-10 rounded-full" th:src="'data:image/jpg;base64,' + ${fav.getAuthor().imageBase64}">
-                            <span class="absolute top-0 left-7 w-3.5 h-3.5 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></span>
+                            <span th:if="${fav.getAuthor().isOnline()==true}" class="absolute top-0 left-7 w-3.5 h-3.5 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></span>
+                            <span th:if="${fav.getAuthor().isOnline()==false}" class="absolute top-0 left-7 w-3.5 h-3.5 bg-red-400 border-2 border-white dark:border-gray-800 rounded-full"></span>
                         </div>
                         <div class="flex-1 min-w-0">
                             <p style="display: inline-block" th:text="${fav.getAuthor().username}" class="text-base font-medium text-gray-900 dark:text-white">Charlotte</p>
